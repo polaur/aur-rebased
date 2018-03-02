@@ -2,7 +2,7 @@
 # Maintainer: Piotr Gorski <lucjan.lucjanov@gmail.com>
 
 pkgname=falkon-git
-pkgver=3.0.0.35.ge88f022b
+pkgver=3.0.0.41.gd5b83d8a
 pkgrel=1
 pkgdesc="Cross-platform Qt Web Browser"
 arch=('i686' 'x86_64')
@@ -18,9 +18,8 @@ optdepends=(
   'pyside2-common-git'
   'shiboken2-git'
   )
-source=("git://anongit.kde.org/falkon.git" CMakeLists.txt po.tar.gz)
+source=("git://anongit.kde.org/falkon.git" po.tar.gz)
 sha256sums=('SKIP'
-            '2fa3993443625f32555531e82ba8e503312ee24a35b1d52f5b250f0be74a3b72'
             'f0e3089471d7dd5c26fc484e81196c852cbab02390fb320ff76142655abbccfe')
 
 pkgver() {
@@ -31,7 +30,7 @@ pkgver() {
 prepare(){
   mkdir -p build
   
-  cp CMakeLists.txt $srcdir/falkon/
+  echo 'ecm_install_po_files_as_qm(po)' >> $srcdir/${pkgname%-*}/CMakeLists.txt
   cp -r po $srcdir/falkon/
 }
 
