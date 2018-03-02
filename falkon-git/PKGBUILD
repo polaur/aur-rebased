@@ -1,7 +1,8 @@
 # Maintainer: pavbaranov <pavbaranov at gmail dot com>
+# Maintainer: Piotr Gorski <lucjan.lucjanov@gmail.com>
 
 pkgname=falkon-git
-pkgver=v3.0.0.r35.ge88f022b
+pkgver=3.0.0.35.ge88f022b
 pkgrel=1
 pkgdesc="Cross-platform Qt Web Browser"
 arch=('i686' 'x86_64')
@@ -24,7 +25,7 @@ sha256sums=('SKIP'
 
 pkgver() {
   cd "${pkgname%-*}"
-  git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
+  git describe --long --tags | sed 's/^v//;s/-/./g'
 }
 
 prepare(){
