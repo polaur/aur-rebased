@@ -1,0 +1,49 @@
+# Maintainer: pavbaranov <pavbaranov at gmail dot com>
+
+pkgname=falkon-git
+pkgver=v3.0.0.r35.ge88f022b
+pkgrel=1
+pkgdesc="Cross-platform Qt Web Browser"
+arch=('i686' 'x86_64')
+url="http://www.qupzilla.com"
+license=('GPL')
+depends=('qt5-webengine' 'qt5-x11extras' 'qt5-svg' 'openssl>=1.1.0') # 'python-pyside2-git' : uncomment if you want to enable experimental function for add new plugins)
+makedepends=('git' 'qt5-tools' 'kwallet' 'extra-cmake-modules') # uncomment 'shiboken2-git' 'pyside2-common-git' : if you want to enable experimental function for add new plugins) #libgnome-keyring : uncomment if you want to enable GNOME keyring
+conflicts=('qupzilla' 'qupzilla-qt5' 'qupzilla-qt5-git' 'falkon')
+optdepends=(
+  'bash-completion: bash completion support'
+  'kwallet: kf5 kwallet integration'
+  'libgnome-keyring: gnome keyring integration'
+  'pyside2-common-git'
+  'shiboken2-git'
+  )
+source=("git://anongit.kde.org/falkon.git" CMakeLists.txt po.tar.gz)
+sha256sums=('SKIP'
+            '2fa3993443625f32555531e82ba8e503312ee24a35b1d52f5b250f0be74a3b72'
+            'f0e3089471d7dd5c26fc484e81196c852cbab02390fb320ff76142655abbccfe')
+
+pkgver() {
+  cd "${pkgname%-*}"
+  git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+prepare(){
+  mkdir -p build
+  
+  cp CMakeLists.txt $srcdir/falkon/
+  cp -r po $srcdir/falkon/
+}
+
+build() {
+  cd build
+  cmake ../"${pkgname%-*}" \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DCMAKE_BUILD_TYPE=Release 
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir/" install
+}
