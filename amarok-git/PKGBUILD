@@ -1,0 +1,50 @@
+# Maintainer: pavbaranov <pavbaranov at gmail dot com>
+
+pkgname=amarok-git
+pkgver=2.9.0.147.gf96d0d159d
+pkgrel=1
+#_commit=0b2b243b2b70471c32d282157624379da5214051
+pkgdesc="A media player for KDE, KF5, GIT version"
+arch=('x86_64')
+url="http://amarok.kde.org"
+license=('GPL2' 'LGPL2.1' 'FDL')
+depends=(kdnssd kcmutils knewstuff knotifyconfig ktexteditor threadweaver kirigami2 taglib-extras libmtp libmariadbclient libofa ffmpeg)
+makedepends=(pkgconfig extra-cmake-modules kdoctools kirigami2 qjson libmygpo-qt5-git liblastfm-qt5)
+optdepends=(liblastfm-qt5 qjson libmygpo-qt5-git) # qjson should be 
+rebuild with qt5-base as dependency
+groups=('multimedia')
+source=(git://anongit.kde.org/amarok.git)
+sha1sums=('SKIP')
+
+pkgver() {
+    cd amarok
+    #git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
+	git describe --always | sed 's/^v//;s/-/./g'
+
+    }
+
+prepare() {
+    cd amarok
+    sed -i -e 's|PATH_SUFFIXES lastfm5|PATH_SUFFIXES lastfm|' cmake/modules/FindLibLastFm.cmake
+    }
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../amarok -Wno-dev \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+	-DCMAKE_INSTALL_LIBDIR=/usr/lib \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF 
+    
+  make
+  }
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+  }
