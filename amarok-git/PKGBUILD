@@ -1,24 +1,22 @@
 # Maintainer: pavbaranov <pavbaranov at gmail dot com>
 
+
 pkgname=amarok-git
-pkgver=2.9.0.147.gf96d0d159d
+pkgver=2.9.0.165.g16d4997c37
 pkgrel=1
-#_commit=0b2b243b2b70471c32d282157624379da5214051
 pkgdesc="A media player for KDE, KF5, GIT version"
 arch=('x86_64')
 url="http://amarok.kde.org"
 license=('GPL2' 'LGPL2.1' 'FDL')
 depends=(kdnssd kcmutils knewstuff knotifyconfig ktexteditor threadweaver kirigami2 taglib-extras libmtp libmariadbclient libofa ffmpeg)
-makedepends=(pkgconfig extra-cmake-modules kdoctools kirigami2 qjson libmygpo-qt5-git liblastfm-qt5)
-optdepends=(liblastfm-qt5 qjson libmygpo-qt5-git) # qjson should be 
-rebuild with qt5-base as dependency
+makedepends=(pkgconfig extra-cmake-modules kdoctools kirigami2 liblastfm-qt5 loudmouth) # libmygpo-qt5 - Amarok cannot see it for now (WIP)
+optdepends=(liblastfm-qt5 loudmouth clamz libmtp ifuse libgpod) # Amarok cannot see it for now (WIP)
 groups=('multimedia')
-source=(git://anongit.kde.org/amarok.git)
+source=(git://anongit.kde.org/amarok.git)   
 sha1sums=('SKIP')
 
 pkgver() {
     cd amarok
-    #git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
 	git describe --always | sed 's/^v//;s/-/./g'
 
     }
