@@ -31,7 +31,7 @@ prepare(){
   mkdir -p build
   
   echo 'ecm_install_po_files_as_qm(po)' >> $srcdir/${pkgname%-*}/CMakeLists.txt
-  cp -r po $srcdir/falkon/
+  cp -r po $srcdir/falkon/falkon/
 }
 
 build() {
