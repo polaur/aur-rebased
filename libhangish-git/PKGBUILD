@@ -1,0 +1,38 @@
+# Maintainer: pavbaranov <pavbaranov at gmail dot com>
+# for version in POLAUR
+# Maintainer: David Edmundson
+
+pkgname='libhangish-git'
+pkgver=r43.42fef0f
+pkgrel=1
+pkgdesc="Qt library for Google Talks"
+arch=('x86_64')
+url="https://github.com/tiagosh/libhangish/"
+license=('GPL')
+depends=('protobuf' 'qt5-script')
+makedepends=('cmake' 'git')
+source=("git+https://github.com/tiagosh/libhangish/")
+md5sums=('SKIP')
+
+pkgver() {
+  cd libhangish
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../libhangish \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCMAKE_BUILD_TYPE=Release
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}
+

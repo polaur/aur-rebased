@@ -1,0 +1,38 @@
+# Maintainer: pavbaranov <pavbaranov at gmail dot com>
+# for version in POLAUR
+# Maintainer: David Edmundson
+
+pkgname='telepathy-hanging-git'
+pkgver=r20.2309069
+pkgrel=1
+pkgdesc="Telepathy Connection Manager for Google Talk"
+arch=('x86_64')
+url="https://github.com/tiagosh/telepathy-hanging/"
+license=('GPL')
+depends=('libhangish-git' 'telepathy-qt')
+makedepends=('cmake' 'git')
+source=("git+https://github.com/tiagosh/telepathy-hanging")
+md5sums=('SKIP')
+
+pkgver() {
+  cd telepathy-hanging
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../telepathy-hanging \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCMAKE_BUILD_TYPE=Release
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}
+
