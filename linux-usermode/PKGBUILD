@@ -75,7 +75,7 @@ _package-modules() {
   cd "${srcdir}/${_srcname}"
   #  make ARCH=um INSTALL_MOD_PATH="${pkgdir}/usr" modules_install
   make ARCH=um INSTALL_MOD_PATH="${pkgdir}/usr" _modinst_
-  rm -f $pkgdir/usr/lib/modules/${pkgver}${_kernelname}/{source,build}
+  rm -f $pkgdir/usr/lib/modules/${pkgver}-${pkgrel}${_kernelname}/{source,build}
   sed \
     -e  "s/KERNEL_VERSION=.*/KERNEL_VERSION=$pkgver-$pkgrel${_kernelname}/g" \
     -i "${startdir}/modules.install"
