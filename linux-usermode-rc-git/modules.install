@@ -1,0 +1,11 @@
+KERNEL_VERSION=4.15.14.48.g98a6610fb36e-usermodelinux
+
+post_install() {
+  echo ">>> Updating module dependencies. Please wait ..."
+  depmod ${KERNEL_VERSION}
+}
+
+post_upgrade() {
+  echo ">>> Updating module dependencies. Please wait ..."
+  depmod ${KERNEL_VERSION}
+}

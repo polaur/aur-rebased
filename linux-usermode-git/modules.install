@@ -1,0 +1,11 @@
+KERNEL_VERSION=4.15.14.0.g0ba3b3aac901-usermodelinux
+
+post_install() {
+  echo ">>> Updating module dependencies. Please wait ..."
+  depmod ${KERNEL_VERSION}
+}
+
+post_upgrade() {
+  echo ">>> Updating module dependencies. Please wait ..."
+  depmod ${KERNEL_VERSION}
+}
