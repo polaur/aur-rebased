@@ -23,7 +23,7 @@ source=(
   "https://www.kernel.org/pub/linux/kernel/v4.x/stable-review/patch-${__pkgver}.xz"
   "https://www.kernel.org/pub/linux/kernel/v4.x/stable-review/patch-${__pkgver}.sign"
   'config'
-  '70-linux-usermode-rc.hook'
+  '70-uml.hook'
   '0001-ucontext-fix-incomplete-type-ucontext.patch')
 
 sha256sums=('5a26478906d5005f4f809402e981518d2b8844949199f60c4b6e1f986ca2a769'
@@ -73,6 +73,8 @@ build() {
 }
 
 _package() {
+  conflicts=('linux-usermode')
+  
   cd "${srcdir}/${_srcname}"
   mkdir -p "$pkgdir/usr/bin" "$pkgdir/usr/share/kernel-usermode"
   install -m 644 System.map ${pkgdir}/usr/share/kernel-usermode/System.map
@@ -80,6 +82,8 @@ _package() {
 }
 
 _package-modules() {
+  conflicts=('linux-usermode-modules')
+  
   cd "${srcdir}/${_srcname}"
   #  make ARCH=um INSTALL_MOD_PATH="${pkgdir}/usr" modules_install
   make ARCH=um INSTALL_MOD_PATH="${pkgdir}/usr" _modinst_
@@ -89,9 +93,9 @@ _package-modules() {
         s|%PKGBASE%|${pkgbase}|g
         s|%KERNVER%|${pkgver}-${pkgrel}${_kernelname}|g
   "
-  # install pacman hooks
-  sed "${_subst}" ../70-linux-usermode-rc.hook |
-        install -Dm644 /dev/stdin "${pkgdir}/usr/share/libalpm/hooks/70-linux-usermode-rc.hook.hook"
+  # install pacman hook
+  sed "${_subst}" ../70-uml.hook |
+        install -Dm644 /dev/stdin "${pkgdir}/usr/share/libalpm/hooks/70-uml.hook"
 }
 
 pkgname=("${pkgbase}" "${pkgbase}-modules")
