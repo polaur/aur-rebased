@@ -3,7 +3,7 @@
 
 pkgbase=linux-usermode-rc
 pkgname=('linux-usermode-rc' 'linux-usermode-rc-modules')
-_kernelname=-usermodelinux
+_kernelname=-usermodelinux-rc
 _srcname=linux-4.15
 pkgver=4.15.15
 _pkgver=4.15.14
@@ -23,6 +23,7 @@ source=(
   "https://www.kernel.org/pub/linux/kernel/v4.x/stable-review/patch-${__pkgver}.xz"
   "https://www.kernel.org/pub/linux/kernel/v4.x/stable-review/patch-${__pkgver}.sign"
   'config'
+  '70-linux-usermode.hook'
   '0001-ucontext-fix-incomplete-type-ucontext.patch')
 
 sha256sums=('5a26478906d5005f4f809402e981518d2b8844949199f60c4b6e1f986ca2a769'
@@ -32,6 +33,7 @@ sha256sums=('5a26478906d5005f4f809402e981518d2b8844949199f60c4b6e1f986ca2a769'
             '8fb23a97773182cae336f3c8f1b4499c042187111e12d1c649479cab251b67e2'
             'SKIP'
             '93ac55a0f6dea086900088b138ed34dfe1463d3f5e7c090a7b124010b144aee0'
+            '452b8d4d71e1565ca91b1bebb280693549222ef51c47ba8964e411b2d461699c'
             '9a7e0a9a2c3d4252cee29b4f5f61da00e98bd247cb5ceb22e31a7f782a45bddf')
 
 validpgpkeys=(
@@ -67,7 +69,6 @@ END
 build() {
   cd "${srcdir}/${_srcname}"
   unset LDFLAGS CFLAGS
-
   make ARCH=um vmlinux modules 
 }
 
@@ -79,15 +80,18 @@ _package() {
 }
 
 _package-modules() {
-  install=modules.install
-
   cd "${srcdir}/${_srcname}"
   #  make ARCH=um INSTALL_MOD_PATH="${pkgdir}/usr" modules_install
   make ARCH=um INSTALL_MOD_PATH="${pkgdir}/usr" _modinst_
   rm -f $pkgdir/usr/lib/modules/${pkgver}-${pkgrel}${_kernelname}/{source,build}
-  sed \
-    -e  "s/KERNEL_VERSION=.*/KERNEL_VERSION=$pkgver-$pkgrel${_kernelname}/g" \
-    -i "${startdir}/modules.install"
+  # sed expression for following substitutions
+  local _subst="
+        s|%PKGBASE%|${pkgbase}|g
+        s|%KERNVER%|${pkgver}-${pkgrel}${_kernelname}|g
+  "
+  # install pacman hooks
+  sed "${_subst}" ../70-linux-usermode.hook |
+        install -Dm644 /dev/stdin "${pkgdir}/usr/share/libalpm/hooks/70-linux-usermode.hook.hook"
 }
 
 pkgname=("${pkgbase}" "${pkgbase}-modules")
