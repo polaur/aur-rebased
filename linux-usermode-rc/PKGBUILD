@@ -64,6 +64,9 @@ END
 
   # rewrite configuration
   yes "" | make ARCH=um config >/dev/null
+  
+  # save configuration for later reuse
+  cat .config > "${startdir}/config.last"
 }
 
 build() {
