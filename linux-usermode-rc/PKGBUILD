@@ -8,7 +8,7 @@ _srcname=linux-4.15
 pkgver=4.15.16
 _pkgver=4.15.15
 __pkgver=4.15.16-rc1
-pkgrel=1
+pkgrel=2
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
 license=('GPL2')
@@ -88,13 +88,15 @@ _package-modules() {
   conflicts=('linux-usermode-modules')
   
   cd "${srcdir}/${_srcname}"
+  # get kernel version
+  _kernver="$(make ARCH=um kernelrelease)"
   #  make ARCH=um INSTALL_MOD_PATH="${pkgdir}/usr" modules_install
   make ARCH=um INSTALL_MOD_PATH="${pkgdir}/usr" _modinst_
-  rm -f $pkgdir/usr/lib/modules/${pkgver}-${pkgrel}${_kernelname}/{source,build}
+  rm -f $pkgdir/usr/lib/modules/${_kernver}/{source,build}
   # sed expression for following substitutions
   local _subst="
         s|%PKGBASE%|${pkgbase}|g
-        s|%KERNVER%|${pkgver}-${pkgrel}${_kernelname}|g
+        s|%KERNVER%|${_kernver}|g
   "
   # install pacman hook
   sed "${_subst}" ../70-uml.hook |
