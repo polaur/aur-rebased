@@ -5,10 +5,10 @@ pkgbase=linux-usermode-rc
 pkgname=('linux-usermode-rc' 'linux-usermode-rc-modules')
 _kernelname=-usermodelinux-rc
 _srcname=linux-4.15
-pkgver=4.15.16
-_pkgver=4.15.15
-__pkgver=4.15.16-rc1
-pkgrel=2
+pkgver=4.15.17
+_pkgver=4.15.16
+__pkgver=4.15.17-rc1
+pkgrel=1
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
 license=('GPL2')
@@ -28,9 +28,9 @@ source=(
 
 sha256sums=('5a26478906d5005f4f809402e981518d2b8844949199f60c4b6e1f986ca2a769'
             'SKIP'
-            'd8e7f93e24db5517a1be2030a765431120e07f7cd55e510d0de562c70e45bc00'
+            '7fe0dd8c07051e7c7b75a9e2aef60c577babedc4ad6e37886fb75cbd466b8696'
             'SKIP'
-            'bc0306445eb7ba436ea04f54fa0d3e77f6b95ca01e9c784fae46c3ece3ef666b'
+            '79a4294789958136aaf51f5343f44b4e3a08410a456cd3d34b87ab5e32c8ba2d'
             'SKIP'
             '93ac55a0f6dea086900088b138ed34dfe1463d3f5e7c090a7b124010b144aee0'
             '452b8d4d71e1565ca91b1bebb280693549222ef51c47ba8964e411b2d461699c'
