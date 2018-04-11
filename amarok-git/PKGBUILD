@@ -1,15 +1,16 @@
 # Maintainer: pavbaranov <pavbaranov at gmail dot com>
 
 pkgname=amarok-git
-pkgver=2.9.0.171.g2f18d0ee71
+pkgver=2.9.0.210.g5886d821cb
 pkgrel=1
 pkgdesc="A media player for KDE, KF5, GIT version"
 arch=('x86_64')
 url="http://amarok.kde.org"
 license=('GPL2' 'LGPL2.1' 'FDL')
-depends=(kdnssd kcmutils knewstuff knotifyconfig ktexteditor threadweaver kirigami2 taglib-extras libmtp libmariadbclient libofa ffmpeg)
+depends=(kdnssd kcmutils knewstuff knotifyconfig ktexteditor threadweaver kirigami2 
+taglib-extras libmtp libmariadbclient libofa qt5-webengine)
 makedepends=(pkgconfig extra-cmake-modules kdoctools kirigami2 libmygpo-qt5 liblastfm-qt5 loudmouth)
-optdepends=(liblastfm-qt5 libmygpo-qt5 loudmouth clamz libmtp ifuse libgpod)
+optdepends=(liblastfm-qt5 libmygpo-qt5 loudmouth clamz libmtp) #ifuse libgpod
 groups=('multimedia')
 source=(git://anongit.kde.org/amarok.git)   
 sha1sums=('SKIP')
