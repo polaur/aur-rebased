@@ -2,7 +2,7 @@
 # Contributor: Kamran Mackey <kamranm1200@gmail.com>
 
 pkgname=git-dev-git
-pkgver=2.17.0.484.g0c8726318c
+pkgver=2.17.0.440.g8a3641ab3a
 pkgrel=1
 pkgdesc="A fast distributed version control system"
 arch=('x86_64')
@@ -10,7 +10,7 @@ url='http://git-scm.com/'
 license=('GPL2')
 depends=('curl' 'expat>=2.0' 'perl>=5.14.0' 'perl-error' 'perl-mailtools'
          'openssl' 'pcre2' 'grep' 'shadow')
-makedepends=('python2' 'libgnome-keyring' 'xmlto' 'asciidoc')
+makedepends=('python2' 'libgnome-keyring' 'emacs' 'xmlto' 'asciidoc')
 optdepends=('tk: gitk and git gui'
             'perl-libwww: git svn'
             'perl-term-readkey: git svn'
@@ -66,6 +66,7 @@ build() {
     "${make_options[@]}" \
     all doc
     
+  make -C contrib/emacs "${make_paths[@]}"
   make -C contrib/credential/gnome-keyring
   make -C contrib/credential/libsecret
   make -C contrib/subtree "${make_paths[@]}" all doc
@@ -108,6 +109,8 @@ package() {
   # fancy git prompt
   mkdir -p "$pkgdir"/usr/share/git/
   install -m 0644 ./contrib/completion/git-prompt.sh "$pkgdir"/usr/share/git/git-prompt.sh
+  # emacs
+  make -C contrib/emacs "${make_paths[@]}" DESTDIR="$pkgdir" install
   # gnome credentials helper
   install -m 0755 contrib/credential/gnome-keyring/git-credential-gnome-keyring \
       "$pkgdir"/usr/lib/git-core/git-credential-gnome-keyring
