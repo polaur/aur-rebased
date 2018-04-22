@@ -1,0 +1,50 @@
+# Maintainer: Piotr Gorski <lucjan.lucjanov@gmail.com>
+
+pkgbase=materia-kde-git
+_pkgbase=materia-kde
+pkgname=('materia-kde-git' 'kvantum-theme-materia-git')
+pkgver=20180421.r17.gff58c26
+pkgrel=1
+pkgdesc="Materia theme for KDE Plasma 5"
+arch=('any')
+url="https://github.com/PapirusDevelopmentTeam/${_pkgbase}"
+license=('GPL3')
+options=('!strip')
+source=("${_pkgbase}::git+${url}.git")
+sha256sums=('SKIP')
+
+pkgver() {
+  cd ${_pkgbase}
+  # git describe
+  # git describe --long --tags | sed 's/-/./g'
+  # git show
+  echo "$(git show --format='%cI' -q master | sed 's/T.*//g;s/-//g').r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
+}
+
+package_materia-kde-git() {
+    optdepends=('kvantum-theme-materia: Materia theme for Kvantum Qt style (recommended)' 
+                'papirus-icon-theme: for a more consistent and beautiful experience (recommended)')
+    conflicts=('materia-kde')
+    provides=('materia-kde')
+    replaces=('materia-kde')
+    cd ${_pkgbase}
+    install -d "${pkgdir}"/usr/share
+ 
+    cp -r plasma "${pkgdir}"/usr/share
+    cp -r aurorae "${pkgdir}"/usr/share
+    cp -r color-schemes "${pkgdir}"/usr/share
+    cp -r konsole "${pkgdir}"/usr/share
+    cp -r yakuake "${pkgdir}"/usr/share
+}
+
+package_kvantum-theme-materia-git() {
+    pkgdesc="Materia theme for Kvantum"
+    depends=('kvantum-qt5')
+    provides=('kvantum-theme-materia')
+    conflicts=('kvantum-theme-materia')
+    replaces=('kvantum-theme-materia')
+    cd ${_pkgbase}
+    install -d "${pkgdir}"/usr/share
+
+    cp -r Kvantum "${pkgdir}"/usr/share
+}
