@@ -1,0 +1,51 @@
+# Maintainer: Piotr Gorski <lucjan.lucjanov@gmail.com>
+# Contributor: now-im <now.im.627@gmail.com>
+
+pkgbase=adapta-kde-git
+_pkgbase=adapta-kde
+pkgname=('adapta-kde-git' 'kvantum-theme-adapta-git')
+pkgver=20171105.r106.g3b87c56
+pkgrel=1
+pkgdesc="Adapta theme for KDE Plasma 5"
+arch=('any')
+url="https://github.com/PapirusDevelopmentTeam/${_pkgbase}"
+license=('GPL3')
+options=('!strip')
+source=("${_pkgbase}::git+${url}.git")
+sha256sums=('SKIP')
+
+pkgver() {
+  cd ${_pkgbase}
+  # git describe
+  # git describe --long --tags | sed 's/-/./g'
+  # git show
+  echo "$(git show --format='%cI' -q master | sed 's/T.*//g;s/-//g').r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
+}
+
+package_adapta-kde-git() {
+    optdepends=('kvantum-theme-adapta: Adapta theme for Kvantum Qt style (recommended)' 
+                'papirus-icon-theme: for a more consistent and beautiful experience (recommended)')
+    conflicts=('adapta-kde')
+    provides=('adapta-kde')
+    replaces=('adapta-kde')
+    cd ${_pkgbase}
+    install -d "${pkgdir}"/usr/share
+ 
+    cp -r plasma "${pkgdir}"/usr/share
+    cp -r aurorae "${pkgdir}"/usr/share
+    cp -r color-schemes "${pkgdir}"/usr/share
+    cp -r konsole "${pkgdir}"/usr/share
+    cp -r yakuake "${pkgdir}"/usr/share
+}
+
+package_kvantum-theme-adapta-git() {
+    pkgdesc="Adapta theme for Kvantum"
+    depends=('kvantum-qt5')
+    provides=('kvantum-theme-adapta')
+    conflicts=('kvantum-theme-adapta')
+    replaces=('kvantum-theme-adapta')
+    cd ${_pkgbase}
+    install -d "${pkgdir}"/usr/share
+
+    cp -r Kvantum "${pkgdir}"/usr/share
+}
