@@ -26,7 +26,6 @@ package_materia-kde-git() {
                 'papirus-icon-theme: for a more consistent and beautiful experience (recommended)')
     conflicts=('materia-kde')
     provides=('materia-kde')
-    replaces=('materia-kde')
     cd ${_pkgbase}
     install -d "${pkgdir}"/usr/share
  
@@ -42,7 +41,6 @@ package_kvantum-theme-materia-git() {
     depends=('kvantum-qt5')
     provides=('kvantum-theme-materia')
     conflicts=('kvantum-theme-materia')
-    replaces=('kvantum-theme-materia')
     cd ${_pkgbase}
     install -d "${pkgdir}"/usr/share
 
