@@ -5,7 +5,7 @@ pkgbase=linux-usermode-git
 pkgname=('linux-usermode-git' 'linux-usermode-git-modules')
 _kernelname=-usermodelinux-git
 _srcname=linux-stable
-pkgver=4.16.1.0.g11454943b264
+pkgver=4.16.4.0.gb42b71cd28f2
 pkgrel=1
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
@@ -16,13 +16,11 @@ makedepends=('bc' 'inetutils' 'git')
 source=(
   'git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git#branch=linux-4.16.y'
   'config'
-  '70-uml.hook'
-  '0001-ucontext-fix-incomplete-type-ucontext.patch')
+  '70-uml.hook')
 
 sha256sums=('SKIP'
             '7a0a2c3f46da6f864cf1b1b5f074fe08ead8bb6bb7e0a5615269c3b9e0c2f552'
-            '452b8d4d71e1565ca91b1bebb280693549222ef51c47ba8964e411b2d461699c'
-            '9a7e0a9a2c3d4252cee29b4f5f61da00e98bd247cb5ceb22e31a7f782a45bddf')
+            '452b8d4d71e1565ca91b1bebb280693549222ef51c47ba8964e411b2d461699c')
 
 pkgver() {
   cd "${srcdir}/${_srcname}"
@@ -32,10 +30,6 @@ pkgver() {
 
 prepare() {
   cd "${srcdir}/${_srcname}"
-
-  # workground for glibc 2.26+
-  # https://patchwork.kernel.org/patch/10059117/
-  patch -Np1 -i ../0001-ucontext-fix-incomplete-type-ucontext.patch
 
   cat ../config - >.config <<END
 CONFIG_LOCALVERSION="${_kernelname}"
