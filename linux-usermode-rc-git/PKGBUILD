@@ -5,7 +5,7 @@ pkgbase=linux-usermode-rc-git
 pkgname=('linux-usermode-rc-git' 'linux-usermode-rc-git-modules')
 _kernelname=-usermodelinux-rc-git
 _srcname=linux-stable-rc
-pkgver=4.16.3.197.g5befb1483fc7
+pkgver=4.16.4.27.g9a7eb4ea64f3
 pkgrel=1
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
@@ -23,13 +23,13 @@ sha256sums=('SKIP'
             '452b8d4d71e1565ca91b1bebb280693549222ef51c47ba8964e411b2d461699c')
 
 pkgver() {
-  cd "${srcdir}/${_srcname}"
+  cd ${_srcname}
         
   git describe --long --tags | sed 's/^v//;s/-/./g'
 } 
 
 prepare() {
-  cd "${srcdir}/${_srcname}"
+  cd ${_srcname}
 
   cat ../config - >.config <<END
 CONFIG_LOCALVERSION="${_kernelname}"
@@ -47,7 +47,7 @@ END
 }
 
 build() {
-  cd "${srcdir}/${_srcname}"
+  cd ${_srcname}
   unset LDFLAGS CFLAGS
   make ARCH=um vmlinux modules 
 }
@@ -55,7 +55,7 @@ build() {
 _package() {
   conflicts=('linux-usermode' 'linux-usermode-git' 'linux-usermode-rc')
   
-  cd "${srcdir}/${_srcname}"
+  cd ${_srcname}
   mkdir -p "$pkgdir/usr/bin" "$pkgdir/usr/share/kernel-usermode"
   install -m 644 System.map ${pkgdir}/usr/share/kernel-usermode/System.map
   install -m 755 vmlinux ${pkgdir}/usr/bin/
