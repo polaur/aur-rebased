@@ -40,13 +40,13 @@ validpgpkeys=(
 )
 
 prepare() {
-  cd "${srcdir}/${_srcname}"
+  cd ${_srcname}
 
   # add upstream patch
-  patch -p1 -i "${srcdir}/patch-${_pkgver}"
+  patch -p1 -i ../patch-${_pkgver}
   
   # add stable-review patch
-  patch -p1 -i "${srcdir}/patch-${__pkgver}"
+  patch -p1 -i ../patch-${__pkgver}
 
   cat ../config - >.config <<END
 CONFIG_LOCALVERSION="${_kernelname}"
@@ -64,7 +64,7 @@ END
 }
 
 build() {
-  cd "${srcdir}/${_srcname}"
+  cd ${_srcname}
   unset LDFLAGS CFLAGS
   make ARCH=um vmlinux modules 
 }
@@ -72,7 +72,7 @@ build() {
 _package() {
   conflicts=('linux-usermode' 'linux-usermode-git' 'linux-usermode-rc-git')
   
-  cd "${srcdir}/${_srcname}"
+  cd ${_srcname}
   mkdir -p "$pkgdir/usr/bin" "$pkgdir/usr/share/kernel-usermode"
   install -m 644 System.map ${pkgdir}/usr/share/kernel-usermode/System.map
   install -m 755 vmlinux ${pkgdir}/usr/bin/
@@ -82,7 +82,7 @@ _package-modules() {
   conflicts=('linux-usermode-modules' 'linux-usermode-git-modules'
              'linux-usermode-rc-git-modules')
   
-  cd "${srcdir}/${_srcname}"
+  cd ${_srcname}
   # get kernel version
   _kernver="$(make ARCH=um kernelrelease)"
   #  make ARCH=um INSTALL_MOD_PATH="${pkgdir}/usr" modules_install
