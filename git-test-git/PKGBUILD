@@ -2,7 +2,7 @@
 # Contributor: Kamran Mackey <kamranm1200@gmail.com>
 
 pkgname=git-test-git
-pkgver=2.17.0.527.gc397ac33cc
+pkgver=2.17.0.849.ga147c9d433
 pkgrel=1
 pkgdesc="A fast distributed version control system"
 arch=('x86_64')
@@ -120,7 +120,6 @@ package() {
   make -C contrib/subtree "${make_paths[@]}" DESTDIR="$pkgdir" install install-doc
   # mediawiki installation
   make -C contrib/mw-to-git "${make_paths[@]}" DESTDIR="$pkgdir" install
-  mv "$pkgdir"/Git/Mediawiki.pm "$pkgdir"/usr/share/perl5/vendor_perl/Git/ && rmdir "$pkgdir"/Git # TODO: fix install path!
   # the rest of the contrib stuff
   find contrib/ -name '.gitignore' -delete
   cp -a ./contrib/* $pkgdir/usr/share/git/
