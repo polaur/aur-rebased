@@ -5,7 +5,7 @@ pkgbase=linux-usermode
 pkgname=('linux-usermode' 'linux-usermode-modules')
 _kernelname=-usermodelinux
 _srcname=linux-4.16
-pkgver=4.16.5
+pkgver=4.16.6
 pkgrel=1
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
@@ -23,7 +23,7 @@ source=(
 
 sha256sums=('63f6dc8e3c9f3a0273d5d6f4dca38a2413ca3a5f689329d05b750e4c87bb21b9'
             'SKIP'
-            '8c3bb050d11da6e91d3e169f76ee3ed6937e1ca64264e605ddba8108696ba011'
+            '634d3fd97e5d9d90262db0a9d62ed0a40043eb691d68bd4a545f907079610b56'
             'SKIP'
             '7a0a2c3f46da6f864cf1b1b5f074fe08ead8bb6bb7e0a5615269c3b9e0c2f552'
             '452b8d4d71e1565ca91b1bebb280693549222ef51c47ba8964e411b2d461699c')
