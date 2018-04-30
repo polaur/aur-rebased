@@ -45,7 +45,9 @@ CONFIG_LOCALVERSION_AUTO=n
 END
 
   # set extraversion to pkgrel and empty localversion
-  sed -i "/^EXTRAVERSION =/s/=.*/= -${pkgrel}/" Makefile
+  sed -e "/^EXTRAVERSION =/s/=.*/= -${pkgrel}/" \
+      -e "/^EXTRAVERSION =/aLOCALVERSION =" \
+      -i Makefile
 
   # rewrite configuration
   yes "" | make ARCH=um config >/dev/null

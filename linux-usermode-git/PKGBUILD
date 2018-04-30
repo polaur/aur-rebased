@@ -5,7 +5,7 @@ pkgbase=linux-usermode-git
 pkgname=('linux-usermode-git' 'linux-usermode-git-modules')
 _kernelname=-usermodelinux-git
 _srcname=linux-stable
-pkgver=4.16.4.0.gb42b71cd28f2
+pkgver=4.16.6.0.g22bc2b8a6aa4
 pkgrel=1
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
@@ -37,7 +37,9 @@ CONFIG_LOCALVERSION_AUTO=n
 END
 
   # set extraversion to pkgrel and empty localversion
-  sed -i "/^EXTRAVERSION =/s/=.*/= -${pkgrel}/" Makefile
+  sed -e "/^EXTRAVERSION =/s/=.*/= -${pkgrel}/" \
+      -e "/^EXTRAVERSION =/aLOCALVERSION =" \
+      -i Makefile
 
   # rewrite configuration
   yes "" | make ARCH=um config >/dev/null
