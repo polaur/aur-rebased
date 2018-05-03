@@ -6,8 +6,9 @@ pkgname=('linux-usermode-rc' 'linux-usermode-rc-modules')
 _kernelname=-usermodelinux-rc
 _srcname=linux-4.16
 pkgver=4.16.7
-_pkgver=4.16.6
-__pkgver=4.16.7-rc1
+_stable=4.16.6
+_rcver=rc1
+_stablerc=${pkgver}-${_rcver}
 pkgrel=1
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
@@ -18,10 +19,10 @@ makedepends=('bc' 'inetutils')
 source=(
   "https://www.kernel.org/pub/linux/kernel/v4.x/${_srcname}.tar.xz"
   "https://www.kernel.org/pub/linux/kernel/v4.x/${_srcname}.tar.sign"
-  "https://www.kernel.org/pub/linux/kernel/v4.x/patch-${_pkgver}.xz"
-  "https://www.kernel.org/pub/linux/kernel/v4.x/patch-${_pkgver}.sign"
-  "https://www.kernel.org/pub/linux/kernel/v4.x/stable-review/patch-${__pkgver}.xz"
-  "https://www.kernel.org/pub/linux/kernel/v4.x/stable-review/patch-${__pkgver}.sign"
+  "https://www.kernel.org/pub/linux/kernel/v4.x/patch-${_stable}.xz"
+  "https://www.kernel.org/pub/linux/kernel/v4.x/patch-${_stable}.sign"
+  "https://www.kernel.org/pub/linux/kernel/v4.x/stable-review/patch-${_stablerc}.xz"
+  "https://www.kernel.org/pub/linux/kernel/v4.x/stable-review/patch-${_stablerc}.sign"
   'config'
   '70-uml.hook')
 
@@ -43,10 +44,10 @@ prepare() {
   cd ${_srcname}
 
   # add upstream patch
-  patch -p1 -i ../patch-${_pkgver}
+  patch -p1 -i ../patch-${_stable}
   
   # add stable-review patch
-  patch -p1 -i ../patch-${__pkgver}
+  patch -p1 -i ../patch-${_stablerc}
 
   cat ../config - >.config <<END
 CONFIG_LOCALVERSION="${_kernelname}"
