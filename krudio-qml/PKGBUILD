@@ -1,0 +1,37 @@
+pkgname=krudio-qml-git
+_pkgname=krudio-qml
+pkgver=r7.a212d00
+pkgrel=1
+pkgdesc="Simple Qt5 QML radio player"
+arch=('x86_64')
+url="https://github.com/loast/krudio-qml.git"
+license=('MIT')
+makedepends=('git' 'qt5-multimedia' 'qt5-quickcontrols2')
+depends=('qt5-declarative')
+source=("git+${url}")
+install=$pkgname.install
+md5sums=('SKIP')
+
+pkgver() {
+    cd $_pkgname
+    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+    }
+ 
+build() {
+    # Compiling
+    cd $_pkgname/src
+    qmake PREFIX=/usr
+    make all
+}
+
+package() {
+	cd $_pkgname/src
+	mkdir -p $pkgdir/usr/share/krudio-qml
+	mkdir -p $pkgdir/usr/share/krudio-qml/data
+	mkdir -p $pkgdir/usr/share/licenses/krudio-qml-git
+	install -Dm644 $srcdir/$_pkgname/src/krudio-qml.desktop $pkgdir/usr/share/applications/krudio-qml.desktop
+	install -Dm644 $srcdir/$_pkgname/src/data/* $pkgdir/usr/share/krudio-qml/data/
+	install -Dm755 $srcdir/$_pkgname/src/krudio-qml $pkgdir/usr/bin/krudio-qml
+	install -Dm644 $srcdir/$_pkgname/LICENSE $pkgdir/usr/share/licenses/krudio-qml-git
+#    make INSTALL_ROOT=${pkgdir} install
+	}
