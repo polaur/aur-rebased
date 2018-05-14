@@ -1,0 +1,23 @@
+# Maintainer: pavbaranov <pavbaranov at gmail dot com> only for 1.3 version
+# Maintainer: Alfonso Saaverda "Son Link" <sonlink.dourden@gmail.com>
+
+pkgname=videomorph
+pkgver=1.3
+pkgrel=1
+pkgdesc="Small GUI wrapper for FFMPEG based on PyQt5"
+arch=('i686' 'x86_64')
+url='https://github.com/videomorph-dev/videomorph'
+license=('Apache-2.0')
+depends=('python' 'ffmpeg' 'python-pyqt5')
+source=('https://videomorph.webmisolutions.com/download/videomorph-1.3-src.tar.gz')
+md5sums=('28c0c4caabf5dd62eff8656978177afb')
+
+build() {
+	cd ${pkgname}-${pkgver}
+	python setup.py build
+}
+
+package() {
+	cd ${pkgname}-${pkgver}
+   	python setup.py install --root="$pkgdir/" --optimize=1 --skip-build
+}
