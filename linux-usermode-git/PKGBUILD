@@ -6,14 +6,14 @@ pkgname=('linux-usermode-git' 'linux-usermode-git-modules')
 _major=4.16
 _kernelname=-usermodelinux-git
 _srcname=linux-stable
-pkgver=4.16.8.0.gdec316ea1828
-pkgrel=1
+pkgver=4.16.9.0.g018ab995e277
+pkgrel=2
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
 license=('GPL2')
 url="http://user-mode-linux.sourceforge.net/"
 depends=('coreutils')
-makedepends=('bc' 'inetutils' 'git' 'gcc6')
+makedepends=('bc' 'inetutils' 'git' 'gc54')
 source=(
   "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git#branch=linux-${_major}.y"
   'config'
@@ -52,7 +52,7 @@ END
 build() {
   cd ${_srcname}
   unset LDFLAGS CFLAGS
-  make ARCH=um CC=gcc-6 vmlinux modules 
+  make ARCH=um CC=gcc-5 vmlinux modules 
 }
 
 _package() {
