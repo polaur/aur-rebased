@@ -13,7 +13,7 @@ arch=('x86_64')
 license=('GPL2')
 url="http://user-mode-linux.sourceforge.net/"
 depends=('coreutils')
-makedepends=('bc' 'inetutils' 'git' 'gc54')
+makedepends=('bc' 'inetutils' 'git' 'gcc54')
 source=(
   "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git#branch=linux-${_major}.y"
   'config'
