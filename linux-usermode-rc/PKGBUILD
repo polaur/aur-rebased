@@ -6,7 +6,7 @@ pkgname=('linux-usermode-rc' 'linux-usermode-rc-modules')
 _kernelname=-usermodelinux-rc
 _major=4.16
 _srcname=linux-${_major}
-_minorc=10
+_minorc=11
 _minor=$((_minorc-1))
 _rcver=rc1
 pkgver=${_major}.${_minorc}
@@ -31,9 +31,9 @@ source=(
 
 sha256sums=('63f6dc8e3c9f3a0273d5d6f4dca38a2413ca3a5f689329d05b750e4c87bb21b9'
             'SKIP'
-            '299b45a4f16f763ecf654e6642c020b6e9e461601d056ef44ecb21b54d736cbf'
+            '9fe6093be401fe0ff3f6cb3d428f137119a7befaf86d70f18c7e88871c1852d6'
             'SKIP'
-            '16a5e7f08d590ca6fc8177265086a7a97da3c817c0dce86f1aff89c6f83dbf0c'
+            '6e9d46718a34695a3f85f9cb5195e9f446e666e545c18fdfc6e3001bc947cbcb'
             'SKIP'
             '7a0a2c3f46da6f864cf1b1b5f074fe08ead8bb6bb7e0a5615269c3b9e0c2f552'
             '452b8d4d71e1565ca91b1bebb280693549222ef51c47ba8964e411b2d461699c')
