@@ -8,13 +8,13 @@ _major=4.16
 _srcname=linux-${_major}
 _minor=13
 pkgver=${_major}.${_minor}
-pkgrel=1
+pkgrel=2
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
 license=('GPL2')
 url="http://user-mode-linux.sourceforge.net/"
 depends=('coreutils')
-makedepends=('bc' 'inetutils' 'gcc54')
+makedepends=('bc' 'inetutils' 'gcc7')
 source=(
   "https://www.kernel.org/pub/linux/kernel/v4.x/${_srcname}.tar.xz"
   "https://www.kernel.org/pub/linux/kernel/v4.x/${_srcname}.tar.sign"
@@ -61,7 +61,7 @@ END
 build() {
   cd ${_srcname}
   unset LDFLAGS CFLAGS
-  make ARCH=um CC=gcc-5 vmlinux modules 
+  make ARCH=um CC=gcc-7 vmlinux modules 
 }
 
 _package() {
