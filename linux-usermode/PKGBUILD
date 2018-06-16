@@ -6,7 +6,7 @@ pkgname=('linux-usermode' 'linux-usermode-modules')
 _kernelname=-usermodelinux
 _major=4.17
 _srcname=linux-${_major}
-_minor=1
+_minor=2
 pkgver=${_major}.${_minor}
 pkgrel=1
 pkgdesc="User mode Linux kernel and modules"
@@ -24,7 +24,7 @@ source=("https://www.kernel.org/pub/linux/kernel/v4.x/${_srcname}.tar.xz"
 
 sha256sums=('9faa1dd896eaea961dc6e886697c0b3301277102e5bc976b2758f9a62d3ccd13'
             'SKIP'
-            '31f2f5309d99db632160538d43cf737166ae8b24c1b8091522ca1f9a804c25a1'
+            'a528b102daad9d3072b328f68d4fc7b4eff7641ad301d1a54e5b8f5385efeb0b'
             'SKIP'
             '0bcc2be60fe7e974078d5ff81cba81925f46a982526f38fd5a8081968ed64f02'
             '452b8d4d71e1565ca91b1bebb280693549222ef51c47ba8964e411b2d461699c')
