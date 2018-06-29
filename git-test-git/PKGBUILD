@@ -2,7 +2,7 @@
 # Contributor: Kamran Mackey <kamranm1200@gmail.com>
 
 pkgname=git-test-git
-pkgver=2.17.0.849.ga147c9d433
+pkgver=2.18.0.442.gf3b0eb90f9
 pkgrel=1
 pkgdesc="A fast distributed version control system"
 arch=('x86_64')
@@ -43,13 +43,13 @@ pkgver() {
   git describe --long --tags | sed 's/^v//;s/-/./g'
 }            
 
-make_paths=(
+_make_paths=(
   prefix='/usr'
   gitexecdir='/usr/lib/git-core'
   perllibdir="$(/usr/bin/perl -MConfig -wle 'print $Config{installvendorlib}')"
 )
 
-make_options=(
+_make_options=(
   CFLAGS="$CFLAGS"
   LDFLAGS="$LDFLAGS"
   USE_LIBPCRE2=1
@@ -61,21 +61,24 @@ make_options=(
 build() {
   export PYTHON_PATH='/usr/bin/python2'
   cd "$_gitname"
+  
   make \
-    "${make_paths[@]}" \
-    "${make_options[@]}" \
+    "${_make_paths[@]}" \
+    "${_make_options[@]}" \
     all doc
-    
+
   make -C contrib/credential/gnome-keyring
   make -C contrib/credential/libsecret
-  make -C contrib/subtree "${make_paths[@]}" all doc
-  make -C contrib/mw-to-git "${make_paths[@]}" all
-  make -C contrib/diff-highlight "${make_paths[@]}"
+  make -C contrib/subtree "${_make_paths[@]}" all doc
+  make -C contrib/mw-to-git "${_make_paths[@]}" all
+  make -C contrib/diff-highlight "${_make_paths[@]}"
 }
+
 
 check() {
   export PYTHON_PATH='/usr/bin/python2'
   cd "$_gitname"
+  
   local jobs
   jobs=$(expr "$MAKEFLAGS" : '.*\(-j[0-9]*\).*') || true
   mkdir -p /dev/shm/git-test
@@ -84,8 +87,8 @@ check() {
   # build chroot (i.e.: /usr/bin/nologin)
   SHELL=/bin/sh \
   make \
-    "${make_paths[@]}" \
-    "${make_options[@]}" \
+    "${_make_paths[@]}" \
+    "${_make_options[@]}" \
     NO_SVN_TESTS=y \
     DEFAULT_TEST_TARGET=prove \
     GIT_PROVE_OPTS="$jobs -Q" \
@@ -96,9 +99,10 @@ check() {
 package() {
   export PYTHON_PATH='/usr/bin/python2'
   cd "$_gitname"
+  
   make \
-    "${make_paths[@]}" \
-    "${make_options[@]}" \
+    "${_make_paths[@]}" \
+    "${_make_options[@]}" \
     DESTDIR="$pkgdir" \
     install install-doc
 
@@ -117,9 +121,9 @@ package() {
       "$pkgdir"/usr/lib/git-core/git-credential-libsecret
   make -C contrib/credential/libsecret clean
   # subtree installation
-  make -C contrib/subtree "${make_paths[@]}" DESTDIR="$pkgdir" install install-doc
+  make -C contrib/subtree "${_make_paths[@]}" DESTDIR="$pkgdir" install install-doc
   # mediawiki installation
-  make -C contrib/mw-to-git "${make_paths[@]}" DESTDIR="$pkgdir" install
+  make -C contrib/mw-to-git "${_make_paths[@]}" DESTDIR="$pkgdir" install
   # the rest of the contrib stuff
   find contrib/ -name '.gitignore' -delete
   cp -a ./contrib/* $pkgdir/usr/share/git/
