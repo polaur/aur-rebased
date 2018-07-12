@@ -1,0 +1,67 @@
+# $Id$
+# Maintainer: pavbaranov <pavbaranov at gmail dot com>
+# based on PKGBUILD by:
+# Maintainer: Hans-Nikolai Viessmann <hv15 AT hw.ac.uk>
+# Contributor: Vladimir Protasov <eoranged@ya.ru>
+# Contributor: Eric Bélanger <eric@archlinux.org>
+
+pkgname='moc-pulse-dev'
+pkgver=2.6.${_ver}
+_ver=alpha3
+pkgrel=1
+pkgdesc='An ncurses console audio player with support for pulseaudio'
+arch=('x86_64')
+url="http://moc.daper.net/"
+license=('GPL')
+depends=('libmad' 'libid3tag' 'jack' 'curl' 'libltdl' 'file' 'pulseaudio')
+makedepends=('speex' 'ffmpeg' 'taglib' 'libmpcdec' 'wavpack' 'libmodplug' 'faad2')
+optdepends=('speex: for using the speex plugin'
+	        'ffmpeg: for using the ffmpeg plugin'
+	        'taglib: for using the musepack plugin'
+	        'libmpcdec: for using the musepack plugin'
+            'wavpack: for using the wavpack plugin'
+            'faad2: for using the aac plugin'
+	        'libmodplug: for using the modplug plugin')
+provides=('moc')
+conflicts=('moc' 'moc-pulse' 'moc-svn')
+source=("http://ftp.daper.net/pub/soft/moc/unstable/${pkgname%%-*}-${pkgver%.*}-${_ver}.tar.xz"
+        'pulseaudio.patch'
+        'moc-ffmpeg4.patch')
+sha1sums=('01400a96b6e40346c15ad02c38d494e10721fd63'
+          '5c6385760ba40ee8a330d28d520c44eac2cbbae1'
+          '007a0580ac754e1c318a0d0b6f0d403883797eaf')
+validpgpkeys=('59359B80406D9E73E80599BEF3121E4F2885A7AA')
+
+prepare() {
+  cd "${pkgname%%-*}-${pkgver%.*}-${_ver}"
+  # Fix build with ffmpeg 4 (taken from official release on ArchLinux)
+  patch -p0 -i ../moc-ffmpeg4.patch
+  # Add pulseaudio backend
+  patch -p1 -i ../pulseaudio.patch
+}
+
+build() {
+  #cd "${_pkgname}-${pkgver}"
+  cd "${pkgname%%-*}-${pkgver%.*}-${_ver}"
+
+  msg "Re-creating ./configure script"
+  aclocal
+  automake --add-missing
+  autoreconf
+
+  msg "Begin configuring"
+  ./configure --prefix=/usr --without-rcc \
+    --with-pulse --with-oss --with-alsa --with-jack --with-aac \
+    --with-mp3 --with-musepack --with-vorbis --with-flac \
+    --with-wavpack --with-sndfile --with-modplug --with-ffmpeg \
+    --with-speex --with-samplerate --with-curl  --disable-cache \
+    --disable-debug
+  make
+}
+
+package() {
+  cd "${pkgname%%-*}-${pkgver%.*}-${_ver}"
+  make DESTDIR="${pkgdir}" install
+}
+
+# vim: ts=2 sw=2
