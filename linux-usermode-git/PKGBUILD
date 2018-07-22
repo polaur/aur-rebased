@@ -5,9 +5,9 @@ pkgbase=linux-usermode-git
 pkgname=('linux-usermode-git' 'linux-usermode-git-modules')
 _major=4.17
 _kernelname=-usermodelinux-git
-_srcname=linux-stable
-pkgver=4.17.0.g29dcea88779c
-pkgrel=2
+_srcname=linux
+pkgver=4.17.9.0.g339d95b9a7a4
+pkgrel=1
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
 license=('GPL2')
@@ -15,7 +15,7 @@ url="http://user-mode-linux.sourceforge.net/"
 depends=('coreutils')
 makedepends=('bc' 'inetutils' 'git' 'gcc7')
 source=(
-  "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git#branch=linux-${_major}.y"
+  "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git#branch=linux-${_major}.y"
   'config'
   '70-uml.hook')
 
