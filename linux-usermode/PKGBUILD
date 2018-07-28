@@ -5,9 +5,9 @@ pkgbase=linux-usermode
 pkgname=('linux-usermode' 'linux-usermode-modules')
 _kernelname=-usermodelinux
 _major=4.17
-_srcname=linux-${_major}
-_minor=10
+_minor=11
 pkgver=${_major}.${_minor}
+_srcname=linux-${pkgver}
 pkgrel=1
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
@@ -15,30 +15,22 @@ license=('GPL2')
 url="http://user-mode-linux.sourceforge.net/"
 depends=('coreutils')
 makedepends=('bc' 'inetutils' 'gcc7')
-source=("https://www.kernel.org/pub/linux/kernel/v4.x/${_srcname}.tar.xz"
-        "https://www.kernel.org/pub/linux/kernel/v4.x/${_srcname}.tar.sign"
-        "https://www.kernel.org/pub/linux/kernel/v4.x/patch-${pkgver}.xz"
-        "https://www.kernel.org/pub/linux/kernel/v4.x/patch-${pkgver}.sign"
-  'config'
-  '70-uml.hook')
+source=("https://www.kernel.org/pub/linux/kernel/v4.x/linux-${pkgver}.tar.xz"
+        "https://www.kernel.org/pub/linux/kernel/v4.x/linux-${pkgver}.tar.sign"
+        'config'
+        '70-uml.hook')
 
-sha256sums=('9faa1dd896eaea961dc6e886697c0b3301277102e5bc976b2758f9a62d3ccd13'
-            'SKIP'
-            '41ad005296c7a1b5245a87881f666b3f4d7aa05a6b9409454b2e473d473c4cee'
+sha256sums=('db1e84ed4f213b43d50f3373627b2ffcdb3b65f3430f746a38f801554ef3728c'
             'SKIP'
             '0bcc2be60fe7e974078d5ff81cba81925f46a982526f38fd5a8081968ed64f02'
             '452b8d4d71e1565ca91b1bebb280693549222ef51c47ba8964e411b2d461699c')
 
 validpgpkeys=(
-  'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
 
 prepare() {
   cd ${_srcname}
-
-  # add upstream patch
-  patch -p1 -i ../patch-${pkgver}
   
   cat ../config - >.config <<END
 CONFIG_LOCALVERSION="${_kernelname}"
