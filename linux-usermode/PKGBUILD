@@ -4,8 +4,8 @@
 pkgbase=linux-usermode
 pkgname=('linux-usermode' 'linux-usermode-modules')
 _kernelname=-usermodelinux
-_major=4.17
-_minor=15
+_major=4.18
+_minor=1
 pkgver=${_major}.${_minor}
 _srcname=linux-${pkgver}
 pkgrel=1
@@ -20,14 +20,15 @@ source=("https://www.kernel.org/pub/linux/kernel/v4.x/linux-${pkgver}.tar.xz"
         'config'
         '70-uml.hook')
 
-sha256sums=('e5b85dd46cf12bedb4b5d5a1ab8212aaf164ce45c41d4a4963a58d460384e079'
+sha256sums=('725fadc6e9d5a1ad6d7269bb75b256bccac5372927995ad0408c059d110cfa42'
             'SKIP'
-            '0bcc2be60fe7e974078d5ff81cba81925f46a982526f38fd5a8081968ed64f02'
+            'b2cbcd3a850b9500256de3f14dd97aa77438c3d359ca22c1f44b88f35dc368c7'
             '452b8d4d71e1565ca91b1bebb280693549222ef51c47ba8964e411b2d461699c')
 
 validpgpkeys=(
-  '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
-)
+              'ABAF11C65A2970B130ABE3C479BE3E4300411886' # Linus Torvalds
+              '647F28654894E3BD457199BE38DBBDC86092693E' # Greg Kroah-Hartman
+             )
 
 prepare() {
   cd ${_srcname}
