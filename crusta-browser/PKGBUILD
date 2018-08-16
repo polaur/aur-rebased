@@ -9,7 +9,7 @@ license=('GPL3')
 depends=('qt5-speech' 'qt5-webengine')
 makedepends=('qt5-charts')
 optdepends=('pepper-flash')
-conflicts=("$pkgname%-*")
+conflicts=(crusta-browser crusta-browser-git)
 source=("https://github.com/CrustaBrowser/CrustaBrowser/archive/${pkgver}.tar.gz")
 sha256sums=('5181bc8f3677fa31ebf312744577f679e385ad60e88069eed6f45fe774e1f548')
 
