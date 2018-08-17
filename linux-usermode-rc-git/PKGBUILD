@@ -6,7 +6,7 @@ pkgname=('linux-usermode-rc-git' 'linux-usermode-rc-git-modules')
 _major=4.18
 _kernelname=-usermodelinux-git
 _srcname=linux-stable-rc
-pkgver=4.18.1.0.g529bea374117
+pkgver=4.18.1.23.g4efaf26b6910
 pkgrel=1
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
@@ -69,7 +69,8 @@ _package-modules() {
              'linux-usermode-modules')
   
   cd ${_srcname}
-  # get kernel version
+  # get kernel version, but discard the first result
+  make ARCH=um kernelrelease > /dev/null
   _kernver="$(make ARCH=um kernelrelease)"
   #  make ARCH=um INSTALL_MOD_PATH="${pkgdir}/usr" modules_install
   make ARCH=um INSTALL_MOD_PATH="${pkgdir}/usr" _modinst_

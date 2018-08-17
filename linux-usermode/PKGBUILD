@@ -8,7 +8,7 @@ _major=4.18
 _minor=1
 pkgver=${_major}.${_minor}
 _srcname=linux-${pkgver}
-pkgrel=1
+pkgrel=2
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
 license=('GPL2')
@@ -70,7 +70,8 @@ _package-modules() {
              'linux-usermode-rc-git-modules')
   
   cd ${_srcname}
-  # get kernel version
+  # get kernel version, but discard the first result
+  make ARCH=um kernelrelease > /dev/null
   _kernver="$(make ARCH=um kernelrelease)"
   #  make ARCH=um INSTALL_MOD_PATH="${pkgdir}/usr" modules_install
   make ARCH=um INSTALL_MOD_PATH="${pkgdir}/usr" _modinst_
