@@ -6,7 +6,7 @@ pkgname=('linux-usermode-git' 'linux-usermode-git-modules')
 _major=4.18
 _kernelname=-usermodelinux-git
 _srcname=linux
-pkgver=4.18.1.0.g529bea374117
+pkgver=4.18.5.0.g96158f3a9e70
 pkgrel=2
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
@@ -20,7 +20,7 @@ source=(
   '70-uml.hook')
 
 sha256sums=('SKIP'
-            '7ea1c316df40e6c3044b7c187ede1b0f2122d617c5596ffd93d84199c3f9dae8'
+            '7c51e095cb95e2ab070b7f331e7bc72d1ac127e913be971f9c41cf3595bf1db6'
             '452b8d4d71e1565ca91b1bebb280693549222ef51c47ba8964e411b2d461699c')
 
 pkgver() {
@@ -31,21 +31,17 @@ pkgver() {
 
 prepare() {
   cd ${_srcname}
+  
+  msg2 "Setting version..."
+  scripts/setlocalversion --save-scmversion
+  echo "-$pkgrel" > localversion.10-pkgrel
+  echo "$_kernelname" > localversion.20-pkgname
 
-  cat ../config - >.config <<END
-CONFIG_LOCALVERSION="${_kernelname}"
-CONFIG_LOCALVERSION_AUTO=n
-END
-
-  # set extraversion to pkgrel and empty localversion
-  sed -e "/^EXTRAVERSION =/s/=.*/= -${pkgrel}/" \
-      -e "/^EXTRAVERSION =/aLOCALVERSION =" \
-      -i Makefile
-
-  # rewrite configuration
+  msg2 "Setting config..."
+  cp ../config .config
   yes "" | make ARCH=um config >/dev/null
   
-  # save configuration for later reuse
+  msg2 "Save configuration for later reuse"
   cat .config > "${startdir}/config.last"
 }
 
