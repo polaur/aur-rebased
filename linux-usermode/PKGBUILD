@@ -5,10 +5,10 @@ pkgbase=linux-usermode
 pkgname=('linux-usermode' 'linux-usermode-modules')
 _kernelname=-usermodelinux
 _major=4.18
-_minor=1
+_minor=5
 pkgver=${_major}.${_minor}
 _srcname=linux-${pkgver}
-pkgrel=1
+pkgrel=2
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
 license=('GPL2')
@@ -20,9 +20,9 @@ source=("https://www.kernel.org/pub/linux/kernel/v4.x/linux-${pkgver}.tar.xz"
         'config'
         '70-uml.hook')
 
-sha256sums=('725fadc6e9d5a1ad6d7269bb75b256bccac5372927995ad0408c059d110cfa42'
+sha256sums=('fb090a3680eddf6f10bf895bc3075bd3f830e3d2429ce469982db5a28df647bd'
             'SKIP'
-            'b2cbcd3a850b9500256de3f14dd97aa77438c3d359ca22c1f44b88f35dc368c7'
+            '7c51e095cb95e2ab070b7f331e7bc72d1ac127e913be971f9c41cf3595bf1db6'
             '452b8d4d71e1565ca91b1bebb280693549222ef51c47ba8964e411b2d461699c')
 
 validpgpkeys=(
@@ -33,20 +33,16 @@ validpgpkeys=(
 prepare() {
   cd ${_srcname}
   
-  cat ../config - >.config <<END
-CONFIG_LOCALVERSION="${_kernelname}"
-CONFIG_LOCALVERSION_AUTO=n
-END
+  msg2 "Setting version..."
+  scripts/setlocalversion --save-scmversion
+  echo "-$pkgrel" > localversion.10-pkgrel
+  echo "$_kernelname" > localversion.20-pkgname
 
-  # set extraversion to pkgrel and empty localversion
-  sed -e "/^EXTRAVERSION =/s/=.*/= -${pkgrel}/" \
-      -e "/^EXTRAVERSION =/aLOCALVERSION =" \
-      -i Makefile
-
-  # rewrite configuration
+  msg2 "Setting config..."
+  cp ../config .config
   yes "" | make ARCH=um config >/dev/null
   
-  # save configuration for later reuse
+  msg2 "Save configuration for later reuse"
   cat .config > "${startdir}/config.last"
 }
 
@@ -70,7 +66,8 @@ _package-modules() {
              'linux-usermode-rc-git-modules')
   
   cd ${_srcname}
-  # get kernel version
+  # get kernel version, but discard the first result
+  make ARCH=um kernelrelease > /dev/null
   _kernver="$(make ARCH=um kernelrelease)"
   #  make ARCH=um INSTALL_MOD_PATH="${pkgdir}/usr" modules_install
   make ARCH=um INSTALL_MOD_PATH="${pkgdir}/usr" _modinst_
