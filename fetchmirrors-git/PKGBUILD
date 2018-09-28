@@ -1,0 +1,38 @@
+# Maintainer: Piotr Gorski <lucjan.lucjanov@gmail.com>
+# Contributor: deadhead <deadhead3492@gmail.com>
+
+pkgname=('fetchmirrors-git' 'rankmirrors-git')
+_srcname='fetchmirrors'
+pkgver=20180728.r32.ga79785a
+pkgrel=1
+pkgdesc="Fetch and rank new pacman mirrorlist"
+arch=('any')
+url="https://github.com/deadhead420/${_srcname}"
+license=('GPL')
+depends=('curl' 'pacman-contrib')
+source=("git://github.com/deadhead420/${_srcname}")
+md5sums=('SKIP')
+
+pkgver() {  
+  cd "${_srcname}"
+  echo "$(git show --format='%cI' -q master | sed 's/T.*//g;s/-//g').r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
+}
+
+package_fetchmirrors-git() {
+  pkgdesc="Fetch new pacman mirrorlist"
+  conflicts=('fetchmirrors')
+  provides=('fetchmirrors')
+  
+  cd "${_srcname}"
+  install -Dm755 fetchmirrors.sh $pkgdir/usr/bin/fetchmirrors
+}
+
+package_rankmirrors-git() {
+  pkgdesc="Rank new pacman mirrorlist"
+  conflicts=('rankmirrors')
+  provides=('rankmirrors')
+  
+  cd "${_srcname}"
+  install -Dm755 rankmirrors.sh $pkgdir/usr/bin/rankmirrors
+}
+# vim:set ts=2 sw=2 et:
