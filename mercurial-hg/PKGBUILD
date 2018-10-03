@@ -2,13 +2,13 @@
 # Contributor: Chocobo1 <chocobo1 AT archlinux DOT net>
 
 pkgname=mercurial-hg
-pkgver=4.7.2.25.m1a4c1a3cc3f5
+pkgver=4.7.2.26.m707c3804e607
 pkgrel=1
 pkgdesc="Distributed source control management tool"
 arch=('i686' 'x86_64')
 url="https://www.mercurial-scm.org/"
 license=('GPL2')
-depends=('glibc' 'python2')
+depends=('python2')
 optdepends=('tk: for the hgk GUI')
 makedepends=('mercurial' 'python2-docutils')
 provides=('mercurial')
@@ -18,7 +18,6 @@ source=("hg+https://www.mercurial-scm.org/repo/hg"
         "mercurial.profile")
 sha256sums=('SKIP'
             '87427151713e689cd87dc50d50c048e0e58285815e4eb61962b50583532cbde5')
-
 
 pkgver() {
   cd "hg"
@@ -32,18 +31,11 @@ prepare() {
   sed -i 's/PYTHON=python/PYTHON=python2/' "doc/Makefile"
 }
 
-
 build() {
   cd "hg"
 
   make all
   make -C "contrib/chg"
-}
-
-check() {
-  cd "hg"
-
-  #make tests
 }
 
 package() {
