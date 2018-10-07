@@ -2,7 +2,7 @@
 # Contributor: Kamran Mackey <kamranm1200@gmail.com>
 
 pkgname=git-dev-git
-pkgver=2.18.0.171.g9cd7c0d54a
+pkgver=2.19.1.331.ge82ca0e54c
 pkgrel=1
 pkgdesc="A fast distributed version control system"
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('curl' 'expat>=2.0' 'perl>=5.14.0' 'perl-error' 'perl-mailtools'
 makedepends=('python2' 'libgnome-keyring' 'xmlto' 'asciidoc')
 optdepends=('tk: gitk and git gui'
             'perl-libwww: git svn'
-            'perl-term-readkey: git svn'
+            'perl-term-readkey: git svn and interactive.singlekey setting'
             'perl-mime-tools: git send-email'
             'perl-net-smtp-ssl: git send-email TLS support'
             'perl-authen-sasl: git send-email TLS support'
@@ -23,7 +23,8 @@ optdepends=('tk: gitk and git gui'
             'perl-cgi: gitweb (web interface) support'
             'python2: various helper scripts'
             'subversion: git svn'
-            'gnome-keyring: GNOME keyring credential helper')
+            'gnome-keyring: GNOME keyring credential helper'
+            'libsecret: libsecret credential helper')
 conflicts=('git' 'git-test-git' 'git-main-git' 'git-git')
 provides=('git')
 install=git-git.install
@@ -65,7 +66,7 @@ build() {
   make \
     "${_make_paths[@]}" \
     "${_make_options[@]}" \
-    all doc
+    all man
 
   make -C contrib/credential/gnome-keyring
   make -C contrib/credential/libsecret
@@ -73,7 +74,6 @@ build() {
   make -C contrib/mw-to-git "${_make_paths[@]}" all
   make -C contrib/diff-highlight "${_make_paths[@]}"
 }
-
 
 check() {
   export PYTHON_PATH='/usr/bin/python2'
@@ -104,7 +104,7 @@ package() {
     "${_make_paths[@]}" \
     "${_make_options[@]}" \
     DESTDIR="$pkgdir" \
-    install install-doc
+    install install-man
 
   # bash completion
   mkdir -p "$pkgdir"/usr/share/bash-completion/completions/
@@ -112,7 +112,8 @@ package() {
   # fancy git prompt
   mkdir -p "$pkgdir"/usr/share/git/
   install -m 0644 ./contrib/completion/git-prompt.sh "$pkgdir"/usr/share/git/git-prompt.sh
-  # gnome credentials helper
+  # gnome credentials helper (deprecated, but we will keep it as long there is no extra cost)
+  # https://gitlab.gnome.org/GNOME/libgnome-keyring/commit/6a5adea4aec93
   install -m 0755 contrib/credential/gnome-keyring/git-credential-gnome-keyring \
       "$pkgdir"/usr/lib/git-core/git-credential-gnome-keyring
   make -C contrib/credential/gnome-keyring clean
