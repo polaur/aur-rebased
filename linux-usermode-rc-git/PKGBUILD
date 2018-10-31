@@ -6,8 +6,8 @@ pkgname=('linux-usermode-rc-git' 'linux-usermode-rc-git-modules')
 _major=4.18
 _kernelname=-usermodelinux-git
 _srcname=linux-stable-rc
-pkgver=4.18.5.0.g96158f3a9e70
-pkgrel=2
+pkgver=4.18.16.r0.g6b3252287aa2
+pkgrel=1
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
 license=('GPL2')
@@ -26,7 +26,7 @@ sha256sums=('SKIP'
 pkgver() {
   cd ${_srcname}
         
-  git describe --long --tags | sed 's/^v//;s/-/./g'
+  git describe --long --tags | sed -E 's/^v//;s/([^-]*-g)/r\1/;s/-/./g;s/\.rc/rc/'
 } 
 
 prepare() {
