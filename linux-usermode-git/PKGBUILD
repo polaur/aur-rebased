@@ -6,8 +6,8 @@ pkgname=('linux-usermode-git' 'linux-usermode-git-modules')
 _major=4.19
 _kernelname=-usermodelinux-git
 _srcname=linux
-pkgver=4.19.r0.g84df9525b0c2
-pkgrel=1
+pkgver=4.19.2.r0.g7950eb316adf
+pkgrel=2
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
 license=('GPL2')
@@ -41,6 +41,9 @@ prepare() {
   cp ../config .config
   yes "" | make ARCH=um config >/dev/null
   
+  make ARCH=um kernelrelease > ../version
+  msg2 "Prepared %s version %s" "$pkgbase" "$(<../version)"
+  
   msg2 "Save configuration for later reuse"
   cat .config > "${startdir}/config.last"
 }
@@ -64,17 +67,16 @@ _package-modules() {
   conflicts=('linux-usermode-rc-modules' 'linux-usermode-rc-git-modules'
              'linux-usermode-modules')
   
+  local kernver="$(<version)"
+  
   cd ${_srcname}
-  # get kernel version, but discard the first result
-  make ARCH=um kernelrelease > /dev/null
-  _kernver="$(make ARCH=um kernelrelease)"
   #  make ARCH=um INSTALL_MOD_PATH="${pkgdir}/usr" modules_install
   make ARCH=um INSTALL_MOD_PATH="${pkgdir}/usr" _modinst_
-  rm -f $pkgdir/usr/lib/modules/${_kernver}/{source,build}
+  rm -f $pkgdir/usr/lib/modules/${kernver}/{source,build}
   # sed expression for following substitutions
   local _subst="
         s|%PKGBASE%|${pkgbase}|g
-        s|%KERNVER%|${_kernver}|g
+        s|%KERNVER%|${kernver}|g
   "
   # install pacman hook
   sed "${_subst}" ../70-uml.hook |
