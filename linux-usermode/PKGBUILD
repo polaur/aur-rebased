@@ -8,7 +8,7 @@ _major=4.19
 _minor=2
 pkgver=${_major}.${_minor}
 _srcname=linux-${pkgver}
-pkgrel=2
+pkgrel=3
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
 license=('GPL2')
@@ -34,6 +34,7 @@ prepare() {
   cd ${_srcname}
   
   msg2 "Setting version..."
+  sed -e "/^EXTRAVERSION =/s/=.*/=/" -i Makefile
   scripts/setlocalversion --save-scmversion
   echo "-$pkgrel" > localversion.10-pkgrel
   echo "$_kernelname" > localversion.20-pkgname
