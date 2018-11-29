@@ -1,0 +1,69 @@
+# $Id: PKGBUILD 274760 2016-08-28 01:55:59Z heftig $
+# Maintainer: Jan de Groot <jgc@archlinux.org>
+# Maintainer: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
+# Contributor: Tom Gundersen <teg@jklm.no>
+# Contributor: Link Dupont <link@subpop.net>
+
+pkgname=dbus-x11
+_pkgname=dbus
+pkgver=1.12.10
+pkgrel=1
+pkgdesc="Freedesktop.org message bus system"
+url="https://wiki.freedesktop.org/www/Software/dbus/"
+arch=(x86_64)
+license=(GPL custom)
+provides=('libdbus' "dbus=$pkgver")
+conflicts=('libdbus' 'dbus')
+#replaces=(libdbus)
+depends=(libsystemd expat libx11 audit)
+makedepends=(systemd xmlto docbook-xsl python yelp-tools doxygen git autoconf-archive graphviz)
+_commit=f98e784bb6f18b4c28feca6a6e9d12b7bf021a00  # tags/dbus-1.12.10^0
+source=("git+https://anongit.freedesktop.org/git/dbus/dbus#commit=$_commit")
+sha256sums=('SKIP')
+validpgpkeys=('DA98F25C0871C49A59EAFF2C4DE8FF2A63C7CC90'  # Simon McVittie <simon.mcvittie@collabora.co.uk>
+              '3C8672A0F49637FE064AC30F52A43A1E4B77B059') # Simon McVittie <simon.mcvittie@collabora.co.uk>
+
+prepare() {
+  cd $_pkgname
+  # Reduce docs size
+  printf '%s\n' >>Doxyfile.in \
+    HAVE_DOT=yes DOT_IMAGE_FORMAT=svg INTERACTIVE_SVG=yes
+  NOCONFIGURE=1 ./autogen.sh
+}
+
+build() {
+  cd $_pkgname
+  ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
+      --libexecdir=/usr/lib/dbus-1.0 --with-dbus-user=dbus \
+      --with-system-pid-file=/run/dbus/pid \
+      --with-system-socket=/run/dbus/system_bus_socket \
+      --with-console-auth-dir=/run/console/ \
+      --enable-inotify --disable-static \
+      --disable-verbose-mode --disable-asserts \
+      --with-systemdsystemunitdir=/usr/lib/systemd/system \
+      --enable-systemd --enable-user-session \
+      --enable-x11-autolaunch
+  make
+}
+
+check() {
+  cd $_pkgname
+  make check
+}
+
+package() {
+  cd $_pkgname
+
+  make DESTDIR="$pkgdir" install
+
+  rm -r "$pkgdir/var/run"
+
+  install -Dt "$pkgdir/usr/share/licenses/$pkgbase" -m644 COPYING
+
+  # We have a pre-assigned uid (81)
+  echo 'u dbus 81 "System Message Bus"' |
+    install -Dm644 /dev/stdin "$pkgdir/usr/lib/sysusers.d/dbus.conf"
+
+  # Split docs
+  rm -r "$pkgdir/usr/share/doc"
+}
