@@ -1,0 +1,25 @@
+# Maintainer: pavbaranov <pavbaranov at gmail dot com>
+# for 1.4.8 version based on original PKGBUILD by:
+# Maintainer: Andrew Stubbs <andrew.stubbs@gmail.com>
+pkgname=etcher-cli
+pkgver=1.4.8
+pkgrel=1
+pkgdesc="Burn images to SD cards & USB drives, safe & easy"
+arch=('x86_64')
+url="http://www.etcher.io/"
+license=('apache')
+depends=('gcc-libs')
+optdepends=()
+source=("https://github.com/balena-io/etcher/releases/download/v${pkgver}/balena-etcher-cli-${pkgver}-linux-x64.tar.gz")
+options=("!strip")
+
+
+package() {
+    cd "$pkgdir"
+    mkdir opt
+    mv "$srcdir/balena-etcher-cli-${pkgver}-linux-x64-dist" opt/etcher-cli
+
+    mkdir -p usr/bin
+    ln -s /opt/etcher-cli/balena-etcher usr/bin/etcher
+}
+md5sums=('746a1fc98c28623f9972a04488ad9c34')
