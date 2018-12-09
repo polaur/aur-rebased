@@ -2,7 +2,7 @@
 # Contributor: Kamran Mackey <kamranm1200@gmail.com>
 
 pkgname=git-test-git
-pkgver=2.19.1.909.gd52c49d701
+pkgver=2.20.0.241.gdfcf84ebfa
 pkgrel=1
 pkgdesc="A fast distributed version control system"
 arch=('x86_64')
@@ -70,31 +70,31 @@ build() {
 
   make -C contrib/credential/gnome-keyring
   make -C contrib/credential/libsecret
-  make -C contrib/subtree "${_make_paths[@]}" all doc
+  make -C contrib/subtree "${_make_paths[@]}" all man
   make -C contrib/mw-to-git "${_make_paths[@]}" all
   make -C contrib/diff-highlight "${_make_paths[@]}"
 }
 
-check() {
-  export PYTHON_PATH='/usr/bin/python2'
-  cd "$_gitname"
+#check() {
+#  export PYTHON_PATH='/usr/bin/python2'
+#  cd "$_gitname"
   
-  local jobs
-  jobs=$(expr "$MAKEFLAGS" : '.*\(-j[0-9]*\).*') || true
-  mkdir -p /dev/shm/git-test
-  # explicitly specify SHELL to avoid a test failure in t/t9903-bash-prompt.sh
-  # which is caused by 'git rebase' trying to use builduser's SHELL inside the
-  # build chroot (i.e.: /usr/bin/nologin)
-  SHELL=/bin/sh \
-  make \
-    "${_make_paths[@]}" \
-    "${_make_options[@]}" \
-    NO_SVN_TESTS=y \
-    DEFAULT_TEST_TARGET=prove \
-    GIT_PROVE_OPTS="$jobs -Q" \
-    GIT_TEST_OPTS="--root=/dev/shm/git-test" \
-    test
-}
+#  local jobs
+#  jobs=$(expr "$MAKEFLAGS" : '.*\(-j[0-9]*\).*') || true
+#  mkdir -p /dev/shm/git-test
+#  # explicitly specify SHELL to avoid a test failure in t/t9903-bash-prompt.sh
+#  # which is caused by 'git rebase' trying to use builduser's SHELL inside the
+#  # build chroot (i.e.: /usr/bin/nologin)
+#  SHELL=/bin/sh \
+#  make \
+#    "${_make_paths[@]}" \
+#    "${_make_options[@]}" \
+#    NO_SVN_TESTS=y \
+#    DEFAULT_TEST_TARGET=prove \
+#    GIT_PROVE_OPTS="$jobs -Q" \
+#    GIT_TEST_OPTS="--root=/dev/shm/git-test" \
+#    test
+#}
 
 package() {
   export PYTHON_PATH='/usr/bin/python2'
@@ -122,7 +122,7 @@ package() {
       "$pkgdir"/usr/lib/git-core/git-credential-libsecret
   make -C contrib/credential/libsecret clean
   # subtree installation
-  make -C contrib/subtree "${_make_paths[@]}" DESTDIR="$pkgdir" install install-doc
+  make -C contrib/subtree "${_make_paths[@]}" DESTDIR="$pkgdir" install install-man
   # mediawiki installation
   make -C contrib/mw-to-git "${_make_paths[@]}" DESTDIR="$pkgdir" install
   # the rest of the contrib stuff
