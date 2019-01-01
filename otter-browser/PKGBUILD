@@ -1,0 +1,39 @@
+# Maintainer: pavbaranov <pavbaranov at gmail dot com>
+# with some changes according to original PKGBUILD in AUR, but based on it
+# by:
+# Maintainer: Steffen Weber <-boenki-gmx-de->
+
+pkgname=otter-browser
+pkgver=1.0.01
+pkgrel=1
+pkgdesc="Browser aiming to recreate classic Opera (12.x) UI using Qt5."
+arch=('x86_64')
+url="https://$pkgname.org"
+license=('GPL3')
+depends=(qt5-multimedia qt5-webkit qt5-svg hunspell desktop-file-utils qt5-webengine qt5-xmlpatterns)
+makedepends=(cmake qt5-tools)
+source=($pkgname-$pkgver.tar.gz::https://github.com/OtterBrowser/$pkgname/archive/v$pkgver.tar.gz)
+md5sums=('99601d0b230956dc542a04f0df912626')
+
+prepare() {
+    mkdir -p build
+    }
+    
+build() {
+  cd $pkgname-$pkgver
+  lrelease resources/translations/*.ts
+  cd $srcdir/build 
+  cmake -DCMAKE_INSTALL_PREFIX="/usr" \
+        -DENABLE_QTWEBENGINE=ON \
+        -DENABLE_QTWEBKIT=ON \
+        -DENABLE_SPELLCHECK=ON \
+        -DENABLE_DBUS=ON \
+        ../$pkgname-$pkgver
+    
+  make -j5
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}
