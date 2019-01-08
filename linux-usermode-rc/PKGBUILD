@@ -7,13 +7,13 @@ _kernelname=-usermodelinux-rc
 _major=4.20
 _minor=0
 _minorc=$((_minor+1))
-_rcver=rc1
+_rcver=rc2
 pkgver=${_major}.${_minorc}
 #_stable=${_major}.${_minor}
 _stable=${_major}
 _stablerc=${pkgver}-${_rcver}
 _srcname=linux-${_stable}
-pkgrel=1
+pkgrel=2
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
 license=('GPL2')
@@ -29,7 +29,7 @@ source=("https://www.kernel.org/pub/linux/kernel/v4.x/linux-${_stable}.tar.xz"
 
 sha256sums=('ad0823183522e743972382df0aa08fb5ae3077f662b125f1e599b0b2aaa12438'
             'SKIP'
-            '2897e0ad09f35fed3f6760c9673bef676caaa4d8d5f9b6d301c13b5aac4fa09f'
+            '7aaaa646d489d34279d2fcd98b1adaa5a70a8578a7b0121bd54599e473188d1e'
             'SKIP'
             'd93c7fa92c06f4d9729b915f790dc6a0ab8a9be9349007a6309a2da67d356812'
             '452b8d4d71e1565ca91b1bebb280693549222ef51c47ba8964e411b2d461699c')
