@@ -6,7 +6,7 @@
 pkgbase=linux-firmware-git
 _pkgbase=linux-firmware
 pkgname=(linux-firmware-git amd-ucode-git)
-pkgver=20180825.r1184.gfea76a0
+pkgver=20190118.r1292.ga8b75ca
 pkgrel=1
 pkgdesc="Firmware files for Linux"
 makedepends=('git')
@@ -30,6 +30,8 @@ prepare() {
 build() {
   mkdir -p kernel/x86/microcode
   cat ${_pkgbase}/amd-ucode/microcode_amd*.bin > kernel/x86/microcode/AuthenticAMD.bin
+  # Make the .bin reproducible 
+  [ ! -z $SOURCE_DATE_EPOCH ] && touch -d @$SOURCE_DATE_EPOCH kernel/x86/microcode/AuthenticAMD.bin
   echo kernel/x86/microcode/AuthenticAMD.bin | bsdcpio -o -H newc -R 0:0 > amd-ucode.img
 }
 
