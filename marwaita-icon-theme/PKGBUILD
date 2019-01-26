@@ -1,0 +1,30 @@
+# Maintaner: pavbaranov <pavbaranov at gmail dot com>
+
+pkgbase=marwaita-icon-theme
+pkgname=(marwaita-icon marwaita-icon-dark marwaita-icon-light)
+pkgver=1.1
+pkgrel=1
+pkgdesc="Marwaita icons for ArchLinux"
+arch=('any')
+url='https://store.kde.org/p/1270110/'
+license=('unknown')
+source=("Marwaita Icons.tar.xz")
+md5sums=('69f201668246f14c848cd94141effa96')
+
+package_marwaita-icon() {
+    cd ${srcdir}
+    install -dm 755 ${pkgdir}/usr/share/icons
+    cp -avr "Marwaita"* ${pkgdir}/usr/share/icons/
+    }
+
+package_marwaita-icon-dark() {
+    cd ${srcdir}
+    install -dm 755 ${pkgdir}/usr/share/icons
+    cp -avr "Marwaita-Dark" ${pkgdir}/usr/share/icons/
+    }
+    
+package_marwaita-icon-light() {
+    cd ${srcdir}
+    install -dm 755 ${pkgdir}/usr/share/icons
+    cp -avr "Marwaita-Light" ${pkgdir}/usr/share/icons/
+    }
