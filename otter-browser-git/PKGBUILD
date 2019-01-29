@@ -45,7 +45,7 @@ build() {
 }
 
 package() {
-	cd build/
+	cd otter-browser/build/
 	make DESTDIR=${pkgdir} install
 }
 
