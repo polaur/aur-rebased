@@ -29,7 +29,7 @@ build() {
         -DENABLE_QTWEBKIT=ON \
         -DENABLE_SPELLCHECK=ON \
         ../${pkgname%-*}-$pkgver
-    make -j5
+    make 
 }
 
 package() {
