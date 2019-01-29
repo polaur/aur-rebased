@@ -4,7 +4,7 @@
 #Contributor: Christian Hesse <mail@eworm.de>
 
 pkgname=otter-browser-git
-pkgver=0.9.99.r149.g6d9a7f72b
+pkgver=0.9.99.1.r434.g32a437c96
 pkgrel=1
 pkgdesc='Browser aiming to recreate the best aspects of the classic Opera (12.x) UI using Qt5 - git checkout'
 arch=('x86_64' 'i686' 'arm' 'armv6h' 'armv7h' 'aarch64')
@@ -30,15 +30,15 @@ pkgver() {
 }
 
 prepare() {
-    mkdir -p $srcdir/otter-browser/build
+    mkdir -p otter-browser/build
     }
     
 build() {
 	cd otter-browser/build/
 
 	cmake -DCMAKE_INSTALL_PREFIX="/usr" \
-          -DCMAKE_QTWEBENGINE=ON \
-          -DCMAKE_QTWEBKIT=ON \
+          -DENABLE_QTWEBENGINE=ON \
+          -DENABLE_QTWEBKIT=ON \
           -DENABLE_SPELLCHECK=ON \
           ../
 	make
