@@ -1,0 +1,51 @@
+#Maintainer: pavbaranov <pavbaranov at gmail dot com>
+# Maintaners and Contributors PKGBUILD in AUR:
+#Maintainer: m4sk1n <m4sk1n@vivaldi.net>
+#Contributor: Christian Hesse <mail@eworm.de>
+
+pkgname=otter-browser-git
+pkgver=0.9.99.r149.g6d9a7f72b
+pkgrel=1
+pkgdesc='Browser aiming to recreate the best aspects of the classic Opera (12.x) UI using Qt5 - git checkout'
+arch=('x86_64' 'i686' 'arm' 'armv6h' 'armv7h' 'aarch64')
+url='http://otter-browser.org/'
+license=('GPL3')
+provides=('otter-browser')
+conflicts=('otter-browser' 'otter-browser-weekly')
+depends=( 'qt5-webkit' 'qt5-multimedia>=5.4' 'qt5-xmlpatterns>=5.4')
+makedepends=('cmake' 'git' 'qt5-declarative>=5.4' 'qt5-webengine' 'hunspell')
+optdepends=('hunspell: for spell checking'
+            'qt5-webengine: for experimental backend using the Chromium browser project')
+source=('git://github.com/OtterBrowser/otter-browser.git')
+sha256sums=('SKIP')
+
+pkgver() {
+	cd otter-browser/
+
+	if GITTAG="$(git describe --abbrev=0 --tags 2>/dev/null)"; then
+		echo "$(sed -e "s/^${pkgname%%-git}//" -e 's/^[-_/a-zA-Z]\+//' -e 's/[-_+]/./g' <<< ${GITTAG}).r$(git rev-list --count ${GITTAG}..).g$(git log -1 --format="%h")"
+	else
+		echo "0.r$(git rev-list --count master).g$(git log -1 --format="%h")"
+	fi
+}
+
+prepare() {
+    mkdir -p $srcdir/otter-browser/build
+    }
+    
+build() {
+	cd otter-browser/build/
+
+	cmake -DCMAKE_INSTALL_PREFIX="/usr" \
+          -DCMAKE_QTWEBENGINE=ON \
+          -DCMAKE_QTWEBKIT=ON \
+          -DENABLE_SPELLCHECK=ON \
+          ../
+	make
+}
+
+package() {
+	cd build/
+	make DESTDIR=${pkgdir} install
+}
+
