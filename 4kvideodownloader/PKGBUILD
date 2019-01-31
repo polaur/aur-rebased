@@ -11,8 +11,7 @@ url="http://www.4kdownload.com/products/product-videodownloader"
 license=('custom:eula')
 depends=('qt5-script' 'portaudio' 'openssl-1.0' 'qt5-declarative' 'lame')
 makedepends=('chrpath')
-conflicts=(4kvideodownloader)
-provides=(4kvideodownloader)
+conflicts=(ffmpeg2.8)
 source=("${pkgname}_${pkgver}_amd64.tar.bz2"::"https://dl.4kdownload.com/app/${pkgname}_${pkgver%.*}_amd64.tar.bz2"
         "${pkgname}.desktop"
         "${pkgname}.png")
