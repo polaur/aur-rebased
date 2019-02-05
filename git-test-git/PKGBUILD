@@ -2,13 +2,13 @@
 # Contributor: Kamran Mackey <kamranm1200@gmail.com>
 
 pkgname=git-test-git
-pkgver=2.20.0.241.gdfcf84ebfa
+pkgver=2.20.1.829.g008f37fabc
 pkgrel=1
 pkgdesc="A fast distributed version control system"
 arch=('x86_64')
 url='http://git-scm.com/'
 license=('GPL2')
-depends=('curl' 'expat>=2.0' 'perl>=5.14.0' 'perl-error' 'perl-mailtools'
+depends=('curl' 'expat' 'perl' 'perl-error' 'perl-mailtools'
          'openssl' 'pcre2' 'grep' 'shadow')
 makedepends=('python2' 'libgnome-keyring' 'xmlto' 'asciidoc')
 optdepends=('tk: gitk and git gui'
