@@ -12,7 +12,7 @@ pkgver=${_major}.${_minorc}
 _stable=${_major}.${_minor}
 _stablerc=${pkgver}-${_rcver}
 _srcname=linux-${_stable}
-pkgrel=1
+pkgrel=2
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
 license=('GPL2')
@@ -30,7 +30,7 @@ sha256sums=('4185ee55d71cff605ba900051f56af53555962c0a44037d6c30bc2a0ddd5df25'
             'SKIP'
             'd057b048f67523f002fee082904023cfac99d15d7e74289dc8122c104e3ddcc4'
             'SKIP'
-            'd93c7fa92c06f4d9729b915f790dc6a0ab8a9be9349007a6309a2da67d356812'
+            '6c2342ee18331b84f40f64ef64cbb97cf7123b458bf824c28d2cdf4943524941'
             '452b8d4d71e1565ca91b1bebb280693549222ef51c47ba8964e411b2d461699c')
 
 validpgpkeys=(
