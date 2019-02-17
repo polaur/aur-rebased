@@ -2,7 +2,7 @@
 # Contributor: Chocobo1 <chocobo1 AT archlinux DOT net>
 
 pkgname=mercurial-hg
-pkgver=4.7.2.26.m707c3804e607
+pkgver=4.9.r178.m140b542b0e59
 pkgrel=1
 pkgdesc="Distributed source control management tool"
 arch=('i686' 'x86_64')
@@ -22,7 +22,7 @@ sha256sums=('SKIP'
 pkgver() {
   cd "hg"
 
-  hg log -r . -T "{latesttag}{sub('^-0-.*', '', '-{latesttagdistance}-m{node|short}')}" | sed 's/-/./g'
+  hg log -r . -T "{latesttag}{sub('^-0-.*', '', '-{latesttagdistance}-m{node|short}')}" | sed 's/\([^-]*-m\)/r\1/;s/-/./g'
 }
             
 prepare() {
