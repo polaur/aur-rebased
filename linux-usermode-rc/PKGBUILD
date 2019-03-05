@@ -12,13 +12,13 @@ pkgver=${_major}.${_minorc}
 _stable=${_major}.${_minor}
 _stablerc=${pkgver}-${_rcver}
 _srcname=linux-${_stable}
-pkgrel=1
+pkgrel=2
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
 license=('GPL2')
 url="http://user-mode-linux.sourceforge.net/"
 depends=('coreutils')
-makedepends=('bc' 'inetutils' 'gcc7')
+makedepends=('bc' 'inetutils')
 source=("https://www.kernel.org/pub/linux/kernel/v4.x/linux-${_stable}.tar.xz"
         "https://www.kernel.org/pub/linux/kernel/v4.x/linux-${_stable}.tar.sign"
         "https://www.kernel.org/pub/linux/kernel/v4.x/stable-review/patch-${_stablerc}.xz"
@@ -64,7 +64,7 @@ prepare() {
 build() {
   cd ${_srcname}
   unset LDFLAGS CFLAGS
-  make ARCH=um CC=gcc-7 vmlinux modules 
+  make ARCH=um vmlinux modules 
 }
 
 _package() {
