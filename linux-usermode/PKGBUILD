@@ -4,8 +4,8 @@
 pkgbase=linux-usermode
 pkgname=('linux-usermode' 'linux-usermode-modules')
 _kernelname=-usermodelinux
-_major=4.20
-_minor=15
+_major=5.0
+_minor=1
 pkgver=${_major}.${_minor}
 _srcname=linux-${pkgver}
 pkgrel=1
@@ -15,14 +15,14 @@ license=('GPL2')
 url="http://user-mode-linux.sourceforge.net/"
 depends=('coreutils')
 makedepends=('bc' 'inetutils')
-source=("https://www.kernel.org/pub/linux/kernel/v4.x/linux-${pkgver}.tar.xz"
-        "https://www.kernel.org/pub/linux/kernel/v4.x/linux-${pkgver}.tar.sign"
+source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${pkgver}.tar.xz"
+        "https://www.kernel.org/pub/linux/kernel/v5.x/linux-${pkgver}.tar.sign"
         'config'
         '70-uml.hook')
 
-sha256sums=('d93b1b216e909e4ea8441a41a070f839f55ac9cf5f7effb16e1b04e7f5688407'
+sha256sums=('3466214779db5bad716eb1c0a16747b5683009011ba3030bf942bba9640c333e'
             'SKIP'
-            '6c2342ee18331b84f40f64ef64cbb97cf7123b458bf824c28d2cdf4943524941'
+            'd1360fffe9b03f662860db14252a37f0d670ff4ee85be710d31aeb73cdc0b115'
             '452b8d4d71e1565ca91b1bebb280693549222ef51c47ba8964e411b2d461699c')
 
 validpgpkeys=(
@@ -53,7 +53,7 @@ prepare() {
 build() {
   cd ${_srcname}
   unset LDFLAGS CFLAGS
-  make ARCH=um vmlinux modules 
+  make ARCH=um vmlinux modules
 }
 
 _package() {
