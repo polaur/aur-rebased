@@ -2,15 +2,15 @@
 # Contributor: Chocobo1 <chocobo1 AT archlinux DOT net>
 
 pkgname=mercurial-hg
-pkgver=4.9.r178.m140b542b0e59
-pkgrel=2
+pkgver=4.9.1.r114.m509a0477b3a6
+pkgrel=1
 pkgdesc="Distributed source control management tool"
 arch=('i686' 'x86_64')
 url="https://www.mercurial-scm.org/"
 license=('GPL2')
-depends=('python2')
+depends=('python')
 optdepends=('tk: for the hgk GUI')
-makedepends=('mercurial' 'python2-docutils')
+makedepends=('mercurial' 'python-docutils')
 provides=('mercurial')
 conflicts=('mercurial')
 backup=('etc/mercurial/hgrc')
@@ -25,12 +25,6 @@ pkgver() {
   hg log -r . -T "{latesttag}{sub('^-0-.*', '', '-{latesttagdistance}-m{node|short}')}" | sed 's/\([^-]*-m\)/r\1/;s/-/./g'
 }
             
-prepare() {
-  cd "hg"
-
-  sed -i 's/PYTHON=python/PYTHON=python2/' "doc/Makefile"
-}
-
 build() {
   cd "hg"
 
@@ -41,7 +35,7 @@ build() {
 package() {
   cd "hg"
 
-  python2 setup.py install --root="$pkgdir" --optimize=1
+  python setup.py install --root="$pkgdir" --optimize=1
 
   install -d "$pkgdir/usr/share/man/"{man1,man5}
   install -m644 doc/hg.1 "$pkgdir/usr/share/man/man1"
