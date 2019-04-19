@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/um 5.0.0 Kernel Configuration
+# Linux/um 5.0.8 Kernel Configuration
 #
 
 #
@@ -573,6 +573,7 @@ CONFIG_DUMMY=m
 # CONFIG_MACVLAN is not set
 # CONFIG_VXLAN is not set
 # CONFIG_GENEVE is not set
+# CONFIG_GTP is not set
 # CONFIG_MACSEC is not set
 # CONFIG_NETCONSOLE is not set
 CONFIG_TUN=m
@@ -671,12 +672,12 @@ CONFIG_LEGACY_PTYS=y
 CONFIG_LEGACY_PTY_COUNT=32
 # CONFIG_N_GSM is not set
 # CONFIG_TRACE_SINK is not set
+CONFIG_LDISC_AUTOLOAD=y
 CONFIG_DEVMEM=y
 # CONFIG_DEVKMEM is not set
 # CONFIG_SERIAL_DEV_BUS is not set
 # CONFIG_HW_RANDOM is not set
 CONFIG_UML_RANDOM=y
-# CONFIG_R3964 is not set
 # CONFIG_RAW_DRIVER is not set
 
 #
