@@ -2,10 +2,10 @@
 # Contributor: Chocobo1 <chocobo1 AT archlinux DOT net>
 
 pkgname=mercurial-hg
-pkgver=4.9.1.r114.m509a0477b3a6
+pkgver=4.9.1.r185.m84bd6ae2d1f6
 pkgrel=1
 pkgdesc="Distributed source control management tool"
-arch=('i686' 'x86_64')
+arch=('x86_64')
 url="https://www.mercurial-scm.org/"
 license=('GPL2')
 depends=('python')
