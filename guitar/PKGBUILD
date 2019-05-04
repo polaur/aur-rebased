@@ -2,13 +2,13 @@
 
 pkgname=guitar
 pkgver=0.9.4
-pkgrel=2
+pkgrel=3
 pkgdesc="Git GUI Client"
 arch=('x86_64')
 url="https://github.com/soramimi/Guitar/"
 license=('GPL')
 depends=('qt5-svg')
-optdepends=('git::')
+optdepends=('git: for full functionality')
 source=("https://github.com/soramimi/Guitar/archive/v0.9.4.tar.gz")
 sha512sums=('a1e543273646da7da6be5d448b67dc80f7ec3b4adb7f96eb1a504c06259dc9f835c0336f7826474bd2ab7105ca15c023cf0b3fe5fd242c8d145a73896d9b5350')
          
@@ -29,7 +29,7 @@ build() {
 package() {
     cd $srcdir
     
-    install -Dm644 build/Guitar $pkgdir/usr/bin/guitar
+    install -Dm755 build/Guitar $pkgdir/usr/bin/guitar
     install -vDm644 Guitar-$pkgver/LinuxDesktop/Guitar.desktop $pkgdir/usr/share/applications/$pkgname.desktop
     install -vDm644 Guitar-$pkgver/LinuxDesktop/Guitar.svg $pkgdir/usr/share/icons/$pkgname.svg
 }
