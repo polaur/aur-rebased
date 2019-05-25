@@ -4,7 +4,7 @@
 
 pkgbase=4kyoutubetomp3-ffmpeg2.8
 pkgname=(4kyoutubetomp3 4k-ffmpeg)
-pkgver=3.6.1.2194
+pkgver=3.6.2.2214
 pkgrel=1
 pkgdesc="Extract audio from YouTube, Vimeo, Facebook and other online video hosting services with prebuilded ffmpeg2.8 in package"
 arch=('x86_64')
@@ -13,7 +13,7 @@ makedepends=('chrpath')
 source=("${pkgname}_${pkgver}_amd64.tar.bz2"::"https://dl.4kdownload.com/app/${pkgname}_${pkgver%.*}_amd64.tar.bz2"
         "${pkgname}.desktop"
         "${pkgname}.png")
-sha256sums=('a8b277e79f039d26a74524acc0e56e6a3f970cd893f19b3949e11930864d9a6e'
+sha256sums=('160f8fbd6abceaaada6885090d3a3f8556df6311b4de06d8f7fc9a176d5f323e'
             '386dfa4085efcd9403c4387c7be4dd0f9762c726555b5ebd0126dcd225bcf828'
             'b25f830bb1fe559ea9f0b35cc9eb8ab75e2e40d09b8755f937451f5ddeeec2fd')
 
