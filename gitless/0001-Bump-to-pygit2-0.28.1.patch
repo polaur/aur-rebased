@@ -1,0 +1,67 @@
+From 35d2e811023a11ccf328f446b0a3f637cd96fd39 Mon Sep 17 00:00:00 2001
+From: Piotr Gorski <lucjan.lucjanov@gmail.com>
+Date: Mon, 27 May 2019 23:36:47 +0200
+Subject: [PATCH] Bump to pygit2 0.28.1
+
+Signed-off-by: Piotr Gorski <lucjan.lucjanov@gmail.com>
+---
+ .travis.sh          | 2 +-
+ requirements.txt    | 2 +-
+ setup.py            | 2 +-
+ snap/snapcraft.yaml | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/.travis.sh b/.travis.sh
+index 9d0f2e7..199ccab 100755
+--- a/.travis.sh
++++ b/.travis.sh
+@@ -2,7 +2,7 @@
+ 
+ cd ~
+ 
+-git clone --depth=1 -b maint/v0.27 https://github.com/libgit2/libgit2.git
++git clone --depth=1 -b maint/v0.28 https://github.com/libgit2/libgit2.git
+ cd libgit2/
+ 
+ mkdir build && cd build
+diff --git a/requirements.txt b/requirements.txt
+index 32282b7..d2fe9b4 100644
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1,6 +1,6 @@
+ # make sure to update setup.py
+ 
+-pygit2==0.27.4  # requires libgit2 0.27
++pygit2>=0.28.1  # requires libgit2 0.28.1 or newer
+ clint==0.5.1
+ sh==1.12.14;sys_platform!='win32'
+ pbs==0.110;sys_platform=='win32'
+diff --git a/setup.py b/setup.py
+index a648bb2..b591aab 100755
+--- a/setup.py
++++ b/setup.py
+@@ -68,7 +68,7 @@ setup(
+     packages=['gitless', 'gitless.cli'],
+     install_requires=[
+       # make sure it matches requirements.txt
+-      'pygit2==0.27.4', # requires libgit2 0.27
++      'pygit2>=0.28.1', # requires libgit2 0.28.1 or newer
+       'clint>=0.3.6',
+       'sh>=1.11' if sys.platform != 'win32' else 'pbs>=0.11'
+     ],
+diff --git a/snap/snapcraft.yaml b/snap/snapcraft.yaml
+index cd37741..4c37cf1 100644
+--- a/snap/snapcraft.yaml
++++ b/snap/snapcraft.yaml
+@@ -28,7 +28,7 @@ parts:
+   libgit2:
+     plugin: cmake
+     # https://www.pygit2.org/install.html#version-numbers
+-    source: https://github.com/libgit2/libgit2/archive/v0.27.8.tar.gz
++    source: https://github.com/libgit2/libgit2/archive/v0.28.2.tar.gz
+     build-packages:
+       - libssl-dev
+ 
+-- 
+2.22.0.rc1
+
