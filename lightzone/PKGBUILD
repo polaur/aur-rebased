@@ -1,0 +1,30 @@
+# Maintainer: pavbaranov <pavbaranov at gmail dot com>
+# for version 4.1.9 based on works by:
+# Maintainer: <trash@ps3zone.org>
+# Contributer: Rikles <style.boubou@gmail.com>
+# Contributer: N30N <archlinux@alunamation.com>
+
+pkgname="lightzone"
+pkgver=4.1.9
+pkgrel=1
+pkgdesc="A professional photo browser and editor, like Aperture or Lightroom"
+url="http://lightzoneproject.org/"
+license=("BSD")
+arch=("x86_64")
+depends=("lcms2" "hicolor-icon-theme" "desktop-file-utils" "libjpeg6-turbo" "libx11")
+optdepends=("javahelp2")
+
+  source=("${pkgname}-${pkgver}.deb::http://download.opensuse.org/repositories/home:/ktgw0316:/LightZone/Debian_9.0/amd64/${pkgname}_${pkgver}-0obs1_amd64.deb")
+md5sums=('f4b570bbcd75106cf13ef29673aea9f4')
+
+build() {
+  cd "${srcdir}"
+  tar -xf data.tar.xz
+}
+
+package() {
+  cd "${srcdir}"
+
+# Install
+  cp -dr --no-preserve=ownership ./usr "${pkgdir}"/
+}
