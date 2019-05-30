@@ -6,8 +6,8 @@ pkgname=('linux-usermode-git' 'linux-usermode-git-modules')
 _major=5.1
 _kernelname=-usermodelinux-git
 _srcname=linux
-pkgver=5.1.r0.ge93c9c99a629
-pkgrel=1
+pkgver=5.1.5.r0.g835365932f0d
+pkgrel=2
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
 license=('GPL2')
@@ -17,11 +17,13 @@ makedepends=('bc' 'inetutils' 'git')
 source=(
   "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git#branch=linux-${_major}.y"
   'config'
-  '70-uml.hook')
+  '70-uml.hook'
+  '001-hide_the_int3_emulate_call_jmp_functions_from_uml.patch')
 
 sha256sums=('SKIP'
             'e332b59fbcb2c8e38f54613b26e220fb62c03d547f7d9fdb6f8a883d4d768227'
-            '452b8d4d71e1565ca91b1bebb280693549222ef51c47ba8964e411b2d461699c')
+            '452b8d4d71e1565ca91b1bebb280693549222ef51c47ba8964e411b2d461699c'
+            'f292341bdbc90f27ea6775bf3c709d92fbf8842c7cf7603c71807f06ad1e69a9')
 
 pkgver() {
   cd ${_srcname}
@@ -32,6 +34,9 @@ pkgver() {
 prepare() {
   cd ${_srcname}
 
+  # https://lkml.org/lkml/2019/5/14/966
+  patch -Np1 -i "${srcdir}"/001-hide_the_int3_emulate_call_jmp_functions_from_uml.patch
+  
   msg2 "Setting version..."
   sed -e "/^EXTRAVERSION =/s/=.*/=/" -i Makefile
   scripts/setlocalversion --save-scmversion
