@@ -24,7 +24,7 @@ prepare() {
 }
 
 package_4kvideodownloader() {
-pkgver=4.7.1.2712
+pkgver=4.7.2.2732
 pkgrel=1
 pkgdesc="Quickly download videos from YouTube in high-quality"
 license=('custom:eula')
