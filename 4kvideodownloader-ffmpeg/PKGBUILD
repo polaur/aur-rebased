@@ -5,7 +5,7 @@
 pkgbase=4kvideodownloader-ffmpeg
 pkgname=(4kvideodownloader 4k-ffmpeg)
 pkgver=4.7.2.2732
-pkgrel=2
+pkgrel=3
 pkgdesc="Bunch of applications from 4kdownload.com with prebuilded ffmpeg2.8 in package"
 url="https://www.4kdownload.com/products/product-videodownloader"
 arch=('x86_64')
@@ -24,7 +24,7 @@ prepare() {
 }
 
 package_4kvideodownloader() {
-pkgver=4.7.2.2732
+pkgver=${pkgver}
 pkgrel=1
 pkgdesc="Quickly download videos from YouTube in high-quality"
 license=('custom:eula')
