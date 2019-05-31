@@ -5,7 +5,7 @@
 pkgbase=4kvideodownloader-ffmpeg
 pkgname=(4kvideodownloader 4k-ffmpeg)
 pkgver=4.7.2.2732
-pkgrel=3
+pkgrel=4
 pkgdesc="Bunch of applications from 4kdownload.com with prebuilded ffmpeg2.8 in package"
 url="https://www.4kdownload.com/products/product-videodownloader"
 arch=('x86_64')
@@ -27,7 +27,7 @@ package_4kvideodownloader() {
 pkgver=${pkgver}
 pkgrel=1
 pkgdesc="Quickly download videos from YouTube in high-quality"
-license=('custom:eula')
+license=('custom:eula') # see: https://www.4kdownload.com/agreement/videodownloader
 arch=('x86_64')
 depends=('qt5-script' 'portaudio' 'openssl-1.0' 'qt5-declarative')
 optdepends=('ffmpeg2.8: if you do not install 4k-ffmpeg it is neccessary to run this application'
@@ -61,6 +61,7 @@ package_4k-ffmpeg() {
 pkgdesc="Prebuilded FFmpeg2.8 version for use with applications from 4kdownload"
 pkgver=2.8
 depends=('lame')
+#url with sources=(https://ffmpeg.org/)
 conflicts=(ffmpeg2.8)
 provides=(ffmpeg2.8)
 license=(GPL3)
