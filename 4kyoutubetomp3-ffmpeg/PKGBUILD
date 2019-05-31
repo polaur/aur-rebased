@@ -5,7 +5,7 @@
 pkgbase=4kyoutubetomp3-ffmpeg2.8
 pkgname=(4kyoutubetomp3 4k-ffmpeg)
 pkgver=3.6.2.2214
-pkgrel=1
+pkgrel=3
 pkgdesc="Extract audio from YouTube, Vimeo, Facebook and other online video hosting services with prebuilded ffmpeg2.8 in package"
 arch=('x86_64')
 url="http://www.4kdownload.com/products/product-youtubetomp3"
@@ -24,8 +24,9 @@ prepare() {
 }
 
 package_4kyoutubetomp3() {
+pkgver=$pkgver
 pkgdesc="Extract audio from YouTube, Vimeo, Facebook and other online video hosting services."
-license=('custom:eula')
+license=('custom:eula') #see: https://www.4kdownload.com/agreement/youtubetomp3
 depends=('qt5-script' 'portaudio' 'qt5-declarative' 'openssl-1.0')
 optdepends=('ffmpeg2.8: if you do not install 4k-ffmpeg it is neccessary to run this application'
 '4k-ffmpeg: for run this program if you have not got ffmpeg2.8 already installed')

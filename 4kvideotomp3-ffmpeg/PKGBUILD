@@ -6,7 +6,7 @@
 pkgbase=4kvideotomp3-ffmpeg2.8
 pkgname=(4kvideotomp3 4k-ffmpeg)
 pkgver=2.6.1.913
-pkgrel=1
+pkgrel=2
 pkgdesc="Extract audio in high-quality MP3 from any video with prebuilded ffmpeg2.8 in package"
 arch=('x86_64')
 url="http://www.4kdownload.com/products/product-videotomp3"
@@ -19,11 +19,12 @@ sha256sums=('8ad5ebe96913dba30fa7662a8e156f0fb8e5d9ff3d4f8b2024aea63e611bf926'
             '3aa5efcf8111c63fde7397f491d2b85ff47d50fd531f7792842d94016b814a4c')
 
 package_4kvideotomp3() {
+pkgver=$pkgver
 pkgdesc="Extract audio in high-quality MP3 from any video"
 depends=('qt5-script' 'qt5-quickcontrols' 'portaudio')
 optdepends=('ffmpeg2.8: if you do not install 4k-ffmpeg it is neccessary to run this application'
 '4k-ffmpeg: for run this program if you have not got ffmpeg2.8 already installed')
-license=('custom:eula')
+license=('custom:eula') #see: https://www.4kdownload.com/agreement/freeware
 conflicts=(4kvideotomp3)
 provides=(4kvideotomp3)
 

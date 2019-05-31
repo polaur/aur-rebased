@@ -5,7 +5,7 @@
 pkgbase=4kslideshowmaker-ffmpeg2.8
 pkgname=(4kslideshowmaker 4k-ffmpeg)
 pkgver=1.7.1.978
-pkgrel=1
+pkgrel=2
 pkgdesc="A straightforward and easy-to-use app to create slideshows from music and photos, with Instagram support with prebuilded ffmpeg2.8 in package"
 arch=('x86_64')
 url="http://www.4kdownload.com/products/product-slideshowmaker"
@@ -17,8 +17,9 @@ sha256sums=('449aa7c621ae18759d766542fad98771e63c9670f015adab34c7a40e2f1402d3'
             '8e14e4f39f5b794b56dfe7246723e62b59ab9d664330065847cc90654aee3468')
 
 package_4kslideshowmaker() {
+pkgver=$pkgver
 pkgdesc="A straightforward and easy-to-use app to create slideshows from music and photos, with Instagram support with."
-license=('custom:eula')
+license=('custom:eula') #see: https://www.4kdownload.com/agreement/freeware
 depends=('qt5-script' 'qt5-quickcontrols' 'libexif' 'portaudio' 'libjpeg9')
 optdepends=('ffmpeg2.8: if you do not install 4k-ffmpeg it is neccessary to run this application'
 '4k-ffmpeg: for run this program if you have not got ffmpeg2.8 already installed')
