@@ -4,7 +4,7 @@
 
 pkgbase=4kvideodownloader-ffmpeg
 pkgname=(4kvideodownloader 4k-ffmpeg)
-pkgver=4.7.2.2732
+pkgver=4.7.3.2742
 pkgrel=4
 pkgdesc="Bunch of applications from 4kdownload.com with prebuilded ffmpeg2.8 in package"
 url="https://www.4kdownload.com/products/product-videodownloader"
@@ -13,7 +13,7 @@ makedepends=('chrpath')
 source=("${pkgname}_${pkgver}_amd64.tar.bz2"::"https://dl.4kdownload.com/app/${pkgname}_${pkgver%.*}_amd64.tar.bz2"
         "${pkgname}.desktop"
         "${pkgname}.png")
-sha256sums=('b9d82e58625581163ae617e1c51e308d0a7882f8322978fc500131c85fd883c5'
+sha256sums=('4fb0a060c807dba87e203b6a44e6468979390a83aaabaef023afa99f6d1a1f48'
             '6ab39088bde330267b43f87878f6bd47a215c732e17d417a99fc23ac4c568952'
             '56b851ef96aade0612f236b8763ccaf2def8acdd49f37bbefdd79e1d5f6e68be')
 
