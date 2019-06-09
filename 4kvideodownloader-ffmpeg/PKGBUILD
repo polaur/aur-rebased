@@ -5,7 +5,7 @@
 pkgbase=4kvideodownloader-ffmpeg
 pkgname=(4kvideodownloader 4k-ffmpeg)
 pkgver=4.7.3.2742
-pkgrel=4
+pkgrel=1
 pkgdesc="Bunch of applications from 4kdownload.com with prebuilded ffmpeg2.8 in package"
 url="https://www.4kdownload.com/products/product-videodownloader"
 arch=('x86_64')
