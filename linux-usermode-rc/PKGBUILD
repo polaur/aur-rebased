@@ -5,7 +5,7 @@ pkgbase=linux-usermode-rc
 pkgname=('linux-usermode-rc' 'linux-usermode-rc-modules')
 _kernelname=-usermodelinux-rc
 _major=5.1
-_minor=15
+_minor=16
 _minorc=$((_minor+1))
 _rcver=rc1
 pkgver=${_major}.${_minorc}
@@ -26,9 +26,9 @@ source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_stable}.tar.xz"
         'config'
         '70-uml.hook')
 
-sha256sums=('e8a128702680cea9f37c44bbeb456ea1c2ef1ae1eba0e05dcfc11d7d6cdc1399'
+sha256sums=('8a3e55be3e788700836db6f75875b4d3b824a581d1eacfc2fcd29ed4e727ba3e'
             'SKIP'
-            '12048268fa821535b9ea2aed8dd31c96134298935a2ed4ed1f483d4cc43bfd59'
+            '065547bf8697db118ced780013f49fc529420a09a22f33481485077a7d3c7c6e'
             'SKIP'
             '59e3b4a49650c701ef7e0f8682116086f9900943b15b4747dd5ecbe907930b81'
             '452b8d4d71e1565ca91b1bebb280693549222ef51c47ba8964e411b2d461699c')
