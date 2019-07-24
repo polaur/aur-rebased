@@ -1,0 +1,47 @@
+# Maintainer: Piotr Gorski <lucjan.lucjanov@gmail.com>
+# Contributor: Josh Ellithorpe <quest at mac dot com>
+
+pkgname=s-git
+_pkgname=s
+pkgver=0.5.14.r4.gbce10d1
+pkgrel=1
+pkgdesc="Web search from the terminal. Supports over 50 providers including google, github, and stackoverflow."
+arch=('i686' 'x86_64')
+url="http://github.com/zquestz/s"
+license=('MIT')
+makedepends=('go' 'git')
+options=('!strip' '!emptydirs')
+provides=("s=${pkgver}")
+conflict=("s")
+source=("git://github.com/zquestz/${_pkgname}")
+sha256sums=('SKIP')
+
+pkgver() {
+ cd "$_pkgname"
+ git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+build() {
+  mkdir -p "${srcdir}/go/src/github.com/zquestz"
+  export GOPATH="${srcdir}/go"
+  export GOBIN="$GOPATH/bin"
+
+  mv "$_pkgname" "$GOPATH/src/github.com/zquestz/s"
+  cd "$GOPATH/src/github.com/zquestz/s"
+
+  go get -u github.com/FiloSottile/gvt
+  $GOBIN/gvt restore
+
+  go build .
+}
+
+package() {
+  cd "${srcdir}/go/src/github.com/zquestz/s"
+
+  install -Dm 775 "s" \
+    "${pkgdir}/usr/bin/$_pkgname"
+  install -Dm 644 "LICENSE" \
+    "${pkgdir}/usr/share/licenses/$_pkgname/LICENSE"
+  install -Dm 644 "autocomplete/s-completion.bash" \
+    "${pkgdir}/usr/share/bash-completion/completions/s"
+}
