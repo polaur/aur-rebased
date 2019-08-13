@@ -1,0 +1,93 @@
+# Maintainer: Piotr Gorski <lucjan.lucjanov@gmail.com>
+# Contributor: Tom Gundersen <teg@jklm.no>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+# Contributor: Link Dupont <link@subpop.net>
+
+pkgbase=dbus-stable-git
+pkgname=('dbus-stable-git' 'dbus-docs-stable-git')
+pkgver=1.12.16.r1.geab5d4a4
+pkgrel=1
+pkgdesc="Freedesktop.org message bus system"
+url="http://www.freedesktop.org/Software/dbus"
+arch=(i686 x86_64)
+license=('GPL' 'custom')
+depends=('systemd-libs' 'expat' 'audit')
+makedepends=('systemd' 'xmlto' 'docbook-xsl' 'python' 'yelp-tools' 'doxygen' 'git' 'autoconf-archive' 'graphviz')
+source=(git://anongit.freedesktop.org/dbus/dbus#branch=dbus-1.12
+        dbus-reload.hook)
+md5sums=('SKIP'
+         '4b37a5e6cf21e9cbc7f3dc0abeb2c0b0')
+
+pkgver() {
+  cd dbus
+  git describe --long | sed 's/^dbus-//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+prepare() {
+  cd dbus
+
+  # Reduce docs size
+  printf '%s\n' >>Doxyfile.in \
+    HAVE_DOT=yes DOT_IMAGE_FORMAT=svg INTERACTIVE_SVG=yes
+
+  NOCONFIGURE=1 ./autogen.sh
+}
+
+build() {
+  cd dbus
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --libexecdir=/usr/lib/dbus-1.0 \
+    runstatedir=/run \
+    --with-console-auth-dir=/run/console/ \
+    --with-dbus-user=dbus \
+    --with-system-pid-file=/run/dbus/pid \
+    --with-system-socket=/run/dbus/system_bus_socket \
+    --with-systemdsystemunitdir=/usr/lib/systemd/system \
+    --enable-inotify \
+    --enable-systemd \
+    --enable-user-session \
+    --disable-static \
+    --disable-verbose-mode \
+    --disable-asserts \
+    --disable-checks \
+    --without-x
+  make
+}
+
+check() {
+  cd dbus
+  make check
+}
+
+package_dbus-stable-git() {
+  provides=('libdbus' 'dbus')
+  conflicts=('libdbus' 'dbus')
+
+  DESTDIR="$pkgdir" make -C dbus install
+
+  rm -r "$pkgdir/var/run"
+
+  install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 dbus/COPYING
+
+  install -Dt "$pkgdir/usr/share/libalpm/hooks" -m644 *.hook
+
+  # We have a pre-assigned uid (81)
+  echo 'u dbus 81 "System Message Bus"' |
+    install -Dm644 /dev/stdin "$pkgdir/usr/lib/sysusers.d/dbus.conf"
+
+  # Split docs
+  mv "$pkgdir/usr/share/doc" "$srcdir"
+}
+
+package_dbus-docs-stable-git() {
+  pkgdesc+=" (documentation)"
+  provides=('dbus-docs')
+  conflicts=('dbus-docs')
+
+  install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 dbus/COPYING
+
+  mv doc "$pkgdir/usr/share"
+}
