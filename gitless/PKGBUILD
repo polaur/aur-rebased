@@ -3,15 +3,22 @@
 
 pkgname=gitless
 pkgver=0.8.8
-pkgrel=1
+pkgrel=2
 pkgdesc="A scientifically proven easier-to-use git interface"
 arch=("any")
 url="http://gitless.com/"
 license=("GPL")
 depends=('python' 'git' 'python-sh' 'python-clint' 'python-pygit2>=0.28.1' 'python-setuptools')
-source=("https://github.com/sdg-mit/gitless/archive/v$pkgver.tar.gz")
-sha256sums=('470aab13d51baec2ab54d7ceb6d12b9a2937f72d840516affa0cb34a6360523c')
+source=("https://github.com/sdg-mit/gitless/archive/v$pkgver.tar.gz"
+        '0001-Bump-libgit2.patch')
+sha256sums=('470aab13d51baec2ab54d7ceb6d12b9a2937f72d840516affa0cb34a6360523c'
+            '904a4c2bcbdce26632699e7bcc229c8540b7671c4d179161f84a9d49a186ed43')
 
+prepare() {
+  cd ${srcdir}/${pkgname}-${pkgver}
+  patch -p1 -i ../0001-Bump-libgit2.patch
+}
+            
 build() {
   cd ${srcdir}/${pkgname}-${pkgver}
   python setup.py build
