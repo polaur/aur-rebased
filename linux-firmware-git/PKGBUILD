@@ -6,7 +6,7 @@
 pkgbase=linux-firmware-git
 _pkgbase=linux-firmware
 pkgname=(linux-firmware-git amd-ucode-git)
-pkgver=20190118.r1292.ga8b75ca
+pkgver=20190815.r1436.g07b925b
 pkgrel=1
 pkgdesc="Firmware files for Linux"
 makedepends=('git')
@@ -64,8 +64,7 @@ package_linux-firmware-git() {
   cd "${srcdir}/${_pkgbase}"
 
   make DESTDIR="${pkgdir}" FIRMWAREDIR=/usr/lib/firmware install
-  rm "${pkgdir}/usr/lib/firmware/"{Makefile,README,configure,GPL-3}
-
+  
   install -d "${pkgdir}/usr/share/licenses/${_pkgbase}"
   install -Dm644 LICEN* WHENCE "${pkgdir}/usr/share/licenses/linux-firmware/"
 
