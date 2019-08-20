@@ -1,10 +1,11 @@
+#Maintainer: Piotr Gorski <lucjan.lucjanov@gmail.com>
 #Maintainer: pavbaranov <pavbaranov at gmail dot com>
 # Maintaners and Contributors PKGBUILD in AUR:
 #Maintainer: m4sk1n <m4sk1n@vivaldi.net>
 #Contributor: Christian Hesse <mail@eworm.de>
 
 pkgname=otter-browser-git
-pkgver=0.9.99.1.r434.g32a437c96
+pkgver=1.0.81.r8009.g23c955d89
 pkgrel=1
 pkgdesc='Browser aiming to recreate the best aspects of the classic Opera (12.x) UI using Qt5 - git checkout'
 arch=('x86_64' 'i686' 'arm' 'armv6h' 'armv7h' 'aarch64')
@@ -22,11 +23,11 @@ sha256sums=('SKIP')
 pkgver() {
 	cd otter-browser/
 
-	if GITTAG="$(git describe --abbrev=0 --tags 2>/dev/null)"; then
-		echo "$(sed -e "s/^${pkgname%%-git}//" -e 's/^[-_/a-zA-Z]\+//' -e 's/[-_+]/./g' <<< ${GITTAG}).r$(git rev-list --count ${GITTAG}..).g$(git log -1 --format="%h")"
-	else
-		echo "0.r$(git rev-list --count master).g$(git log -1 --format="%h")"
-	fi
+	# git tags
+        # git describe --long --tags | sed 's/^v//;s/-/./g'
+        # cmakelist version
+        _ver="$(cat CMakeLists.txt | grep -m3 -e MAJOR_VERSION -e MINOR_VERSION -e PATCH_VERSION | grep -o "[[:digit:]]*" | paste -sd'.')"
+        printf "${_ver}.r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
 }
 
 prepare() {
