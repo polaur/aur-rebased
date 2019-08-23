@@ -24,7 +24,7 @@ _lucjanpath="https://gitlab.com/sirlucjan/kernel-patches/raw/master/${_major}"
 _patchset='stable-review'
 source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_stable}.tar.xz"
         "https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_stable}.tar.sign"
-        "${_lucjanpath}/${_patchset}/linux-${_stablerc}.patch"
+        "${_lucjanpath}/${_patchset}/patch-${_stablerc}"
         'config'
         '70-uml.hook')
 
@@ -43,7 +43,7 @@ prepare() {
   cd ${_srcname}
 
   msg2 "Add stable-review patch"
-  patch -p1 -i ../linux-${_stablerc}.patch
+  patch -p1 -i ../patch-${_stablerc}
 
   msg2 "Setting version..."
   sed -e "/^EXTRAVERSION =/s/=.*/=/" -i Makefile
