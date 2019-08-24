@@ -21,7 +21,7 @@ depends=('coreutils')
 makedepends=('bc' 'inetutils')
 source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_stable}.tar.xz"
         "https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_stable}.tar.sign"
-        "patch-${_stablerc}::https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git/patch/?id=linux-${_major}.y&id2=v${_major}.${_minor}"
+        "patch-${_stablerc}.diff::https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git/patch/?id=linux-${_major}.y&id2=v${_major}.${_minor}"
         'config'
         '70-uml.hook')
 
@@ -40,7 +40,7 @@ prepare() {
   cd ${_srcname}
 
   msg2 "Add stable-review patch"
-  patch -p1 -i ../patch-${_stablerc}
+  patch -p1 -i ../patch-${_stablerc}.diff
 
   msg2 "Setting version..."
   sed -e "/^EXTRAVERSION =/s/=.*/=/" -i Makefile
