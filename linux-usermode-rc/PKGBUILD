@@ -5,7 +5,7 @@ pkgbase=linux-usermode-rc
 pkgname=('linux-usermode-rc' 'linux-usermode-rc-modules')
 _kernelname=-usermodelinux-rc
 _major=5.2
-_minor=8
+_minor=9
 _minorc=$((_minor+1))
 _rcver=rc1
 pkgver=${_major}.${_minorc}
@@ -26,9 +26,9 @@ source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_stable}.tar.xz"
         'config'
         '70-uml.hook')
 
-sha256sums=('a127cd06cc01468e5564c5242827610b679827d7b40c2a2e4d82c629dd0f6937'
+sha256sums=('b6f02a4b306ca5cd314d72615bfc2650166969613135da202630e6c4e1b5d4e6'
             'SKIP'
-            '50f42ac40e5c37910a2c06acc2db7a706343e4745a0af6e1fb4e5db453a90a69'
+            'e68dc414db6ff0f543e587906759506c554d3d4e3331e5faba3a774e3756da13'
             'SKIP'
             'a5ad6d1bad174fa407e891c2128746125b2bc0c921be5459ce90fe1949ef617c'
             '452b8d4d71e1565ca91b1bebb280693549222ef51c47ba8964e411b2d461699c')
@@ -42,7 +42,7 @@ prepare() {
   cd ${_srcname}
 
   msg2 "Add stable-review patch"
-  patch -p1 -i ../patch-${_stablerc}
+  patch -p1 -i ../patch-${_stablerc}.diff
 
   msg2 "Setting version..."
   sed -e "/^EXTRAVERSION =/s/=.*/=/" -i Makefile
