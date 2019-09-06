@@ -6,7 +6,7 @@ pkgname=('linux-usermode-rc-git' 'linux-usermode-rc-git-modules')
 _major=5.2
 _kernelname=-usermodelinux-git
 _srcname=linux-stable-rc
-pkgver=5.2.r0.g0ecfebd2b524
+pkgver=5.2.12.r0.g140839fe4e71
 pkgrel=1
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
@@ -38,6 +38,15 @@ prepare() {
   echo "-$pkgrel" > localversion.10-pkgrel
   echo "$_kernelname" > localversion.20-pkgname
 
+  local src
+  for src in "${source[@]}"; do
+    src="${src%%::*}"
+    src="${src##*/}"
+    [[ $src = *.patch ]] || continue
+    msg2 "Applying patch $src..."
+    patch -Np1 < "../$src"
+  done
+  
   msg2 "Setting config..."
   cp ../config .config
   yes "" | make ARCH=um config >/dev/null
