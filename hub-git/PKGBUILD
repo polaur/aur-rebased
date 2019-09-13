@@ -2,11 +2,11 @@
 # Contributor: Jonne Haß <me@jhass.eu>
 
 pkgname=hub-git
-pkgver=2.9.0.r0.g28ebb7ce
+pkgver=2.12.4.r2.g7496b3da
 pkgrel=1
 pkgdesc="cli interface for Github"
 url="https://hub.github.com"
-arch=('x86_64' 'i686')
+arch=('x86_64')
 license=('MIT')
 conflicts=('hub')
 provides=('hub')
