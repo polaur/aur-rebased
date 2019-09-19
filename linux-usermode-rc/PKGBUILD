@@ -4,13 +4,15 @@
 pkgbase=linux-usermode-rc
 pkgname=('linux-usermode-rc' 'linux-usermode-rc-modules')
 _kernelname=-usermodelinux-rc
-_major=5.2
-_minor=15
-_minorc=$((_minor+1))
-_rcver=rc1
-pkgver=${_major}.${_minorc}
-_stable=${_major}.${_minor}
-_stablerc=${pkgver}-${_rcver}
+_major=5.3
+#_minor=0
+#_minorc=$((_minor+1))
+#_rcver=rc1
+pkgver=${_major}
+_stable=${_major}
+#pkgver=${_major}.${_minorc}
+#_stable=${_major}.${_minor}
+#_stablerc=${pkgver}-${_rcver}
 _srcname=linux-${_stable}
 pkgrel=1
 pkgdesc="User mode Linux kernel and modules"
@@ -21,16 +23,14 @@ depends=('coreutils')
 makedepends=('bc' 'inetutils')
 source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_stable}.tar.xz"
         "https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_stable}.tar.sign"
-        "https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-${_stablerc}.xz"
-        "https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-${_stablerc}.sign"
+        #"https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-${_stablerc}.xz"
+        #"https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-${_stablerc}.sign"
         'config'
         '70-uml.hook')
 
-sha256sums=('eb561009da8106b463b1e1a16ab0f75cdef564784f49177148f5f92c32380c4a'
+sha256sums=('78f3c397513cf4ff0f96aa7d09a921d003e08fa97c09e0bb71d88211b40567b2'
             'SKIP'
-            'bb70915bc653ed1e356ae0732408c75a7543eba2c91f1222870567aaad0f63e2'
-            'SKIP'
-            'a5ad6d1bad174fa407e891c2128746125b2bc0c921be5459ce90fe1949ef617c'
+            '616ce4015a3d56c49bc5f839eed4c021483b08f730b36c9a7172724bed2cbdce'
             '452b8d4d71e1565ca91b1bebb280693549222ef51c47ba8964e411b2d461699c')
 
 validpgpkeys=(
@@ -41,8 +41,8 @@ validpgpkeys=(
 prepare() {
   cd ${_srcname}
 
-  msg2 "Add stable-review patch"
-  patch -p1 -i ../patch-${_stablerc}
+  #msg2 "Add stable-review patch"
+  #patch -p1 -i ../patch-${_stablerc}
 
   msg2 "Setting version..."
   sed -e "/^EXTRAVERSION =/s/=.*/=/" -i Makefile
