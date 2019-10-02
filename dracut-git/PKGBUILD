@@ -1,0 +1,67 @@
+# Maintainer: Piotr Gorski <lucjan.lucjanov@gmail.com>
+# Contributor: Jon Nordby <jononor@gmail.com>
+# Contributor: Pablo Lezaeta <prflr88@gmail.com_
+
+pkgname=dracut-git
+_pkgname=dracut
+pkgver=049.122.g920048ff
+pkgrel=1
+pkgdesc="An event driven initramfs infrastructure"
+arch=('x86_64')
+url="https://dracut.wiki.kernel.org"
+license=('GPL')
+depends=('bash' 'coreutils' 'cpio' 'filesystem' 'findutils' 'grep' 'gzip'
+         'kmod' 'pkgconf' 'procps-ng' 'sed' 'systemd' 'util-linux' 'xz')
+makedepends=('asciidoc' 'bash-completion' 'git')
+provides=('initramfs' 'dracut')
+conflicts=('dracut')
+backup=('etc/dracut.conf')
+source=("git+https://github.com/dracutdevs/dracut")
+sha512sums=('SKIP')
+
+_backports=(
+)
+
+_reverts=(
+)
+
+pkgver() {   
+  cd "$srcdir/${_pkgname}"
+  git describe --long | sed 's/^v//;s/-/./g'
+}
+
+prepare() {
+  cd "$srcdir/${_pkgname}"
+
+  local _c
+  
+  for _c in "${_backports[@]}"; do
+    git log --oneline -1 "${_c}"  
+    git cherry-pick -n "${_c}"
+  done
+
+  for _c in "${_reverts[@]}"; do
+    git log --oneline -1 "${_c}"
+    git revert -n "${_c}"
+  done
+}
+
+build() {
+  local prefix=/usr sysconfdir=/etc
+  
+  cd "$srcdir/${_pkgname}"
+
+  ./configure \
+    --sysconfdir=${sysconfdir} \
+    --prefix=${prefix} \
+    --libdir=${prefix}/lib \
+    --systemdsystemunitdir=${prefix}/lib/systemd/system \
+    --bashcompletiondir=$(pkg-config --variable=completionsdir bash-completion)
+  make
+}
+
+package() {
+  cd "$srcdir/${_pkgname}"
+
+  DESTDIR="$pkgdir" make install
+}
