@@ -5,8 +5,9 @@ pkgbase=linux-usermode-rc
 pkgname=('linux-usermode-rc' 'linux-usermode-rc-modules')
 _kernelname=-usermodelinux-rc
 _major=5.3
-_minor=1
-_minorc=$((_minor+1))
+_minor=2
+#_minorc=$((_minor+1))
+_minorc=$((_minor+2))
 _rcver=rc1
 pkgver=${_major}.${_minorc}
 _stable=${_major}.${_minor}
@@ -26,9 +27,9 @@ source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_stable}.tar.xz"
         'config'
         '70-uml.hook')
 
-sha256sums=('9890b5a909d316211d045a95f5f0680e39749f2319cb26d7cd067efaa692f858'
+sha256sums=('361f9c953bb5ca7dbc922c3f698170523667f6a2f43961ffb88fa47b6b10fc6b'
             'SKIP'
-            'ac9f70ee67b2071e71a16187f47461c0b0ec6ef5afd701748d091143194b049d'
+            '111aa9362c24bf6fe95e538373d306bdd7372a6afc7d4857ac7b1b14c354dac4'
             'SKIP'
             '616ce4015a3d56c49bc5f839eed4c021483b08f730b36c9a7172724bed2cbdce'
             '452b8d4d71e1565ca91b1bebb280693549222ef51c47ba8964e411b2d461699c')
@@ -41,6 +42,9 @@ validpgpkeys=(
 prepare() {
   cd ${_srcname}
 
+  msg2 "Fix SUBLEVEL"
+  sed -i -e "s|SUBLEVEL = 2|SUBLEVEL = 3|g" Makefile
+  
   msg2 "Add stable-review patch"
   patch -p1 -i ../patch-${_stablerc}
 
