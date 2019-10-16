@@ -6,8 +6,8 @@ pkgname=('linux-usermode-rc-git' 'linux-usermode-rc-git-modules')
 _major=5.3
 _kernelname=-usermodelinux-git
 _srcname=linux-stable-rc
-pkgver=5.3.5.r149.ge863f125e178
-pkgrel=2
+pkgver=5.3.6.r111.gd8fee438c028
+pkgrel=1
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
 license=('GPL2')
@@ -16,10 +16,12 @@ depends=('coreutils')
 makedepends=('bc' 'inetutils' 'git')
 source=(
   "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git#branch=linux-${_major}.y"
+  '0001-Revert-io_uring-only-flush-workqueues-on-fileset-rem.patch'
   'config'
   '70-uml.hook')
 
 sha256sums=('SKIP'
+            '9bd8836677e73b299b65015865ce1caa9c95e641903294893b284f18d097769d'
             '616ce4015a3d56c49bc5f839eed4c021483b08f730b36c9a7172724bed2cbdce'
             '452b8d4d71e1565ca91b1bebb280693549222ef51c47ba8964e411b2d461699c')
 
