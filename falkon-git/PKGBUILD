@@ -4,7 +4,7 @@ pkgname=falkon-git
 pkgver=3.0.0.188.g62334cf8
 pkgrel=1
 pkgdesc="Cross-platform Qt Web Browser"
-arch=('i686' 'x86_64')
+arch=('x86_64')
 url="http://www.qupzilla.com"
 license=('GPL')
 depends=('qt5-webengine' 'openssl>=1.1.0' 'kio') # 'python-pyside2-git' : uncomment if you want to enable experimental function for add new plugins)
