@@ -41,7 +41,7 @@ validpgpkeys=(
 prepare() {
   cd ${_srcname}
 
-  msg2 "Add stable-review patch"
+  msg2 "Add stable-review patch..."
   patch -p1 -i ../patch-${_stablerc}
 
   msg2 "Setting version..."
