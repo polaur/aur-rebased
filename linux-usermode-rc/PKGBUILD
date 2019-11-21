@@ -30,7 +30,7 @@ source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_stable}.tar.xz"
 
 sha256sums=('6e7156946d1d72e24786d09a47511e44c3abe5d4da757f4f68f2da482880aeb7'
             'SKIP'
-            'ec34b0fbc9a942b07a378ad1522c4d2d379e2198a85be39ca331decfaa1454ce'
+            'bd6c92a619865448bcb5fc29dcb52407858edce4d5b222c29ee88d7e4a8979b9'
             '616ce4015a3d56c49bc5f839eed4c021483b08f730b36c9a7172724bed2cbdce'
             '452b8d4d71e1565ca91b1bebb280693549222ef51c47ba8964e411b2d461699c')
 
