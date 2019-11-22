@@ -5,7 +5,7 @@ pkgbase=linux-usermode-rc
 pkgname=('linux-usermode-rc' 'linux-usermode-rc-modules')
 _kernelname=-usermodelinux-rc
 _major=5.3
-_minor=11
+_minor=12
 _minorc=$((_minor+1))
 _rcver=rc1
 pkgver=${_major}.${_minorc}
@@ -21,16 +21,17 @@ depends=('coreutils')
 makedepends=('bc' 'inetutils')
 source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_stable}.tar.xz"
         "https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_stable}.tar.sign"
-        # "https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-${_stablerc}.xz"
-        # "https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-${_stablerc}.sign"
+        "https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-${_stablerc}.xz"
+        "https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-${_stablerc}.sign"
         # https://lkml.org/lkml/2019/8/23/712
-        "patch-${_stablerc}.diff::https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git/patch/?id=linux-${_major}.y&id2=v${_major}.${_minor}"
+        # "patch-${_stablerc}.diff::https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git/patch/?id=linux-${_major}.y&id2=v${_major}.${_minor}"
         'config'
         '70-uml.hook')
 
-sha256sums=('6e7156946d1d72e24786d09a47511e44c3abe5d4da757f4f68f2da482880aeb7'
+sha256sums=('53bff6f89dca19f928043fb0d3434bfb4b6abbb1bf18b907cb731188bdac97a0'
             'SKIP'
-            'bd6c92a619865448bcb5fc29dcb52407858edce4d5b222c29ee88d7e4a8979b9'
+            '3eb53cb8a22ab909c7aeb4d7c23673c07ca6fe0d68f9780265a69922a3f107bb'
+            'SKIP'
             '616ce4015a3d56c49bc5f839eed4c021483b08f730b36c9a7172724bed2cbdce'
             '452b8d4d71e1565ca91b1bebb280693549222ef51c47ba8964e411b2d461699c')
 
@@ -43,8 +44,8 @@ prepare() {
   cd ${_srcname}
 
   msg2 "Add stable-review patch..."
-  # patch -p1 -i ../patch-${_stablerc}
-  patch -p1 -i ../patch-${_stablerc}.diff
+  patch -p1 -i ../patch-${_stablerc}
+  # patch -p1 -i ../patch-${_stablerc}.diff
 
   msg2 "Setting version..."
   sed -e "/^EXTRAVERSION =/s/=.*/=/" -i Makefile
