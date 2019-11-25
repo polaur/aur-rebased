@@ -2,7 +2,7 @@
 # Contributor: Chocobo1 <chocobo1 AT archlinux DOT net>
 
 pkgname=mercurial-hg
-pkgver=5.2.r223.mf37da59a36d9
+pkgver=5.2.r282.m640bae94f2f3
 pkgrel=1
 pkgdesc="Distributed source control management tool"
 arch=('x86_64')
@@ -37,6 +37,9 @@ package() {
 
   python setup.py install --root="$pkgdir" --optimize=1
 
+  install -d "$pkgdir/usr/share/man/"{man1,man5}
+  install -m644 doc/hg.1 "$pkgdir/usr/share/man/man1"
+  install -m644 doc/{hgrc.5,hgignore.5} "$pkgdir/usr/share/man/man5"
   install -m644 -D contrib/zsh_completion "$pkgdir/usr/share/zsh/site-functions/_hg"
   install -m644 -D contrib/bash_completion "$pkgdir/usr/share/bash-completion/completions/hg"
 
