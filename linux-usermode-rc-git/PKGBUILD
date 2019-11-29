@@ -6,7 +6,7 @@ pkgname=('linux-usermode-rc-git' 'linux-usermode-rc-git-modules')
 _major=5.4
 _kernelname=-usermodelinux-git
 _srcname=linux-stable-rc
-pkgver=5.4.r0.g219d54332a09
+pkgver=5.4.1.r0.g79438f37a69a
 pkgrel=1
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
@@ -15,7 +15,7 @@ url="http://user-mode-linux.sourceforge.net/"
 depends=('coreutils')
 makedepends=('bc' 'inetutils' 'git')
 source=(
-  "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git#branch=linux-${_major}.y"
+  "git://git.kernel.org/pub/scm/linux/kernel/git/stable/${_srcname}.git#branch=linux-${_major}.y"
   'config'
   '70-uml.hook')
 
