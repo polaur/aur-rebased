@@ -77,7 +77,7 @@ prepare() {
 build() {
   cd ${_srcname}
   unset LDFLAGS CFLAGS
-  make ARCH=um vmlinux modules 
+  make ARCH=um vmlinux modules
 }
 
 _package() {
