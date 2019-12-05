@@ -18,13 +18,13 @@ source=("git+https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firm
 md5sums=('SKIP')
 
 pkgver() {
-  cd "${srcdir}/${_pkgbase}"
+  cd "${_pkgbase}"
   
   echo "$(git show --format='%cI' -q master | sed 's/T.*//g;s/-//g').r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
 }
 
 prepare() {
-  cd "${srcdir}/${_pkgbase}"
+  cd "${_pkgbase}"
 }
 
 build() {
@@ -68,7 +68,7 @@ package_linux-firmware-git() {
             'rt2x00-rt71w-fw')
   provides=("linux-firmware")
 
-  cd "${srcdir}/${_pkgbase}"
+  cd "${_pkgbase}"
 
   make DESTDIR="${pkgdir}" FIRMWAREDIR=/usr/lib/firmware install
 
@@ -85,5 +85,5 @@ package_amd-ucode-git() {
   conflicts=("amd-ucode")
 
   install -Dt "${pkgdir}/boot" -m644 amd-ucode.img
-  install -Dm644 ${_pkgbase}/LICENSE.amd-ucode "${pkgdir}/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 ${_pkgbase}/LICENSE.amd-ucode "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
