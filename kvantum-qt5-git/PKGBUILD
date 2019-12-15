@@ -1,0 +1,36 @@
+# Maintainer: Piotr Gorski <lucjan.lucjanov@gmail.com>
+# Contributor: Bruno Pagani <archange@archlinux.org>
+
+pkgname=kvantum-qt5-git
+_gitname=Kvantum
+pkgver=0.13.0.r5.gf7fb0ca
+pkgrel=1
+pkgdesc="SVG-based theme engine for Qt5 (including config tool and extra themes)"
+arch=('x86_64')
+url="https://github.com/tsujan/Kvantum"
+license=('GPL3')
+groups=('qt')
+depends=('qt5-base' 'qt5-svg' 'qt5-x11extras' 'libx11' 'libxext' 'hicolor-icon-theme' 'kwindowsystem')
+makedepends=('cmake' 'qt5-tools' 'git')
+conflicts=('kvantum-qt5')
+provides=('kvantum-qt5')
+source=("git+${url}.git")
+md5sums=('SKIP')
+
+pkgver() {
+   cd ${_gitname}
+
+   git describe --long --tags | sed 's/^V//;s/\([^-]*-g\)/r\1/;s/-/./g'
+
+}
+
+build() {
+   cmake -B build -S ${_gitname}/${_gitname} -DCMAKE_INSTALL_PREFIX=/usr
+   make -C build
+}
+
+package() {
+   make -C build DESTDIR="${pkgdir}" install
+   # KDE4 is long dead
+   rm -r "${pkgdir}"/usr/share/kde4   
+}
