@@ -1,6 +1,6 @@
-From 215839e0dc20658f7389986ce1c6cb3bd37179b7 Mon Sep 17 00:00:00 2001
+From aa05576fbb6fed18ed5c702d8546273fd26edb5e Mon Sep 17 00:00:00 2001
 From: Piotr Gorski <lucjan.lucjanov@gmail.com>
-Date: Fri, 20 Dec 2019 22:20:13 +0100
+Date: Fri, 20 Dec 2019 22:52:16 +0100
 Subject: [PATCH] Bump to pygit 1.0.0
 
 Signed-off-by: Piotr Gorski <lucjan.lucjanov@gmail.com>
@@ -11,14 +11,14 @@ Signed-off-by: Piotr Gorski <lucjan.lucjanov@gmail.com>
  3 files changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/requirements.txt b/requirements.txt
-index 05f190a..4ef192d 100644
+index 05f190a..6a25e26 100644
 --- a/requirements.txt
 +++ b/requirements.txt
 @@ -1,6 +1,6 @@
  # make sure to update setup.py
  
 -pygit2==0.28.2  # requires libgit2 0.28
-+pygit2==1.0.0  # requires libgit2 0.28.4
++pygit2>=1.0.0  # requires libgit2 0.28.4
  clint==0.5.1
  sh==1.12.14;sys_platform!='win32'
  pbs==0.110;sys_platform=='win32'
