@@ -6,7 +6,7 @@
 pkgbase=linux-firmware-git
 _pkgbase=linux-firmware
 pkgname=(linux-firmware-git amd-ucode-git)
-pkgver=20191118.r1515.ge8a0f4c
+pkgver=20191220.r1535.g6871bff
 pkgrel=2
 pkgdesc="Firmware files for Linux"
 makedepends=('git')
@@ -14,8 +14,10 @@ arch=('any')
 url="http://git.kernel.org/?p=linux/kernel/git/firmware/linux-firmware.git;a=summary"
 license=('GPL2' 'GPL3' 'custom')
 options=(!strip)
-source=("git+https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git")
-md5sums=('SKIP')
+source=("git+https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git"
+        '0001-Update-iwlwifi-firmware.patch')
+md5sums=('SKIP'
+         '570b6a2a923d4b5f3542d37b6120ae5f')
 
 pkgver() {
   cd "${_pkgbase}"
@@ -25,6 +27,9 @@ pkgver() {
 
 prepare() {
   cd "${_pkgbase}"
+  
+  # https://bugs.archlinux.org/task/64703
+  git apply -3 ../0001-Update-iwlwifi-firmware.patch
 }
 
 build() {
