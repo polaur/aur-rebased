@@ -1,0 +1,35 @@
+# Maintainer: Piotr Gorski <lucjan.lucjanov@gmail.com>
+# Contributor: Eli Schwartz <eschwartz@archlinux.org>
+# Contributor: Joris Steyn <jorissteyn@gmail.com>
+# Contributor: Curtis McEnroe <programble@gmail.com>
+
+pkgname=git-extras-git
+_pkgname=git-extras
+pkgver=5.2.0.r1399.g6438dee
+pkgrel=1
+pkgdesc="GIT utilities -- repo summary, repl, changelog population, author commit percentages and more"
+arch=('any')
+url="https://github.com/tj/git-extras"
+license=('MIT')
+depends=('git')
+conflicts=('git-extras')
+provides=('git-extras')
+source=('git://github.com/tj/git-extras')
+md5sums=('SKIP')
+
+pkgver() {
+    cd $_pkgname
+    
+    # git describe
+    # git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
+    
+    # other
+    _ver="$(cat bin/$_pkgname | grep -m3 VERSION | grep -o "[[:digit:]]*" | paste -sd'.')"
+    echo "${_ver}.r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
+}
+
+package() {
+    cd $_pkgname
+    make DESTDIR="${pkgdir}" PREFIX=/usr SYSCONFDIR=/etc install
+    install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/$pkgname/LICENSE"
+}
