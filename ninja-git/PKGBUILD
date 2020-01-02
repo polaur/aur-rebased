@@ -1,0 +1,55 @@
+# Maintainer: Piotr Górski <lucjan.lucjanov@gmail.com>
+# Contributor: Ivan Shapovalov <intelfx100@gmail.com>
+# Contributor: Mika Fischer <mika.fischer@zoopnet.de>
+# Contributor: Gergely Imreh <imrehgATgmailDOTcom>
+
+pkgname=ninja-git
+pkgver=1.9.0.r2558.g0c84b0eb
+pkgrel=1
+pkgdesc='Small build system with a focus on speed'
+arch=('x86_64')
+url='https://ninja-build.org/'
+license=(Apache)
+depends=('gcc-libs')
+makedepends=('python' 're2c' 'emacs-nox' 'git')
+provides=('ninja')
+conflicts=('ninja')
+
+source=('git+https://github.com/ninja-build/ninja.git')
+md5sums=('SKIP')
+
+pkgver() {
+	cd ninja
+
+	_ver="$(cat src/version.cc | grep -m1 'kNinjaVersion' | cut -d '"' -f2 | tr - . | sed 's/.git//;s/-/./g' )"
+        echo "${_ver}.r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
+}
+
+build() {
+	cd ninja
+
+	python configure.py --bootstrap
+        emacs -Q --batch -f batch-byte-compile misc/ninja-mode.el
+}
+
+#check() {
+#        cd ninja
+#  
+#        python ./configure.py
+#        ./ninja ninja_test
+#}
+
+package() {
+	cd ninja
+
+	install -m755 -D ninja "$pkgdir/usr/bin/ninja"
+        install -m644 -D doc/manual.asciidoc "$pkgdir/usr/share/doc/ninja/manual.asciidoc"
+        install -Dm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+
+        install -m644 -D misc/ninja-mode.el "$pkgdir/usr/share/emacs/site-lisp/ninja-mode.el"
+        install -m644 -D misc/ninja-mode.elc "$pkgdir/usr/share/emacs/site-lisp/ninja-mode.elc"
+        install -m644 -D misc/ninja.vim "$pkgdir/usr/share/vim/vimfiles/syntax/ninja.vim"
+
+        install -m644 -D misc/bash-completion "$pkgdir/usr/share/bash-completion/completions/ninja"
+        install -m644 -D misc/zsh-completion "$pkgdir/usr/share/zsh/site-functions/_ninja"
+}
