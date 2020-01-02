@@ -5,7 +5,7 @@
 
 pkgname=git-extras-git
 _pkgname=git-extras
-pkgver=5.2.0.r1399.g6438dee
+pkgver=5.2.0.dev.r1399.g6438dee
 pkgrel=1
 pkgdesc="GIT utilities -- repo summary, repl, changelog population, author commit percentages and more"
 arch=('any')
@@ -24,7 +24,7 @@ pkgver() {
     # git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
     
     # other
-    _ver="$(cat bin/$_pkgname | grep -m3 VERSION | grep -o "[[:digit:]]*" | paste -sd'.')"
+    _ver="$(cat bin/$_pkgname | grep -m1 VERSION | cut -d '"' -f2 | sed 's/-/./g')"
     echo "${_ver}.r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
 }
 
