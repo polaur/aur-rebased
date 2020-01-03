@@ -1,0 +1,82 @@
+# Maintainer: Piotr Górski <lucjan.lucjanov@gmail.com>
+# Contributor: Christian Hesse <mail@eworm.de>
+
+pkgname=openvpn-git
+_pkgname=openvpn
+pkgver=2.5.r2482.geebce22b
+pkgrel=2
+pkgdesc='An easy-to-use, robust and highly configurable VPN (Virtual Private Network) - git checkout'
+arch=('x86_64')
+url='http://openvpn.net/index.php/open-source.html'
+depends=('openssl' 'lzo' 'iproute2' 'systemd-libs' 'pkcs11-helper')
+optdepends=('easy-rsa: easy CA and certificate handling'
+            'pam: authenticate via PAM')
+makedepends=('git' 'systemd')
+conflicts=('openvpn' 'openvpn-dev')
+provides=('openvpn' 'openvpn-dev')
+license=('custom')
+source=('git://github.com/OpenVPN/openvpn.git')
+sha256sums=('SKIP')
+
+pkgver() {
+  cd "${srcdir}"/${_pkgname}
+
+  _ver="$(cat version.m4 | grep -m2 -e PRODUCT_VERSION_MAJOR -e PRODUCT_VERSION_MINOR | grep -o "[[:digit:]]*" | paste -sd'.')"
+  echo "${_ver}.r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+  cd "${srcdir}"/${_pkgname}
+
+  autoreconf --force --install
+}
+
+build() {
+  mkdir "${srcdir}"/build
+  cd "${srcdir}"/build
+
+  CONFIG_SHELL=/bin/bash "${srcdir}"/${_pkgname}/configure \
+    CONFIG_SHELL=/bin/bash \
+    --prefix=/usr \
+    --sbindir=/usr/bin \
+    --enable-iproute2 \
+    --enable-pkcs11 \
+    --enable-plugins \
+    --enable-systemd \
+    --enable-x509-alt-username
+  make
+}
+
+check() {
+  cd "${srcdir}"/build
+
+  make check
+}
+
+package() {
+  cd "${srcdir}"/build
+
+  # Install openvpn
+  make DESTDIR="${pkgdir}" install
+
+  # Create empty configuration directories
+  install -d -m0750 -g 90 "${pkgdir}"/etc/openvpn/{client,server}
+
+  # Install license
+  install -d -m0755 "${pkgdir}"/usr/share/licenses/openvpn/
+  ln -sf /usr/share/doc/openvpn/{COPYING,COPYRIGHT.GPL} "${pkgdir}"/usr/share/licenses/openvpn/
+
+  cd "${srcdir}"/${_pkgname}
+
+  # Install examples
+  install -d -m0755 "${pkgdir}"/usr/share/openvpn
+  cp -r sample/sample-config-files "${pkgdir}"/usr/share/openvpn/examples
+
+  # Install contrib
+  for FILE in $(find contrib -type f); do
+    case "$(file --brief --mime-type "${FILE}")" in
+      "text/x-shellscript") install -D -m0755 "${FILE}" "${pkgdir}/usr/share/openvpn/${FILE}" ;;
+      *) install -D -m0644 "${FILE}" "${pkgdir}/usr/share/openvpn/${FILE}" ;;
+    esac
+  done
+}
