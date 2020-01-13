@@ -1,0 +1,176 @@
+.
+├── 4kslideshowmaker-ffmpeg
+│   ├── 4kslideshowmaker.desktop
+│   ├── 4kslideshowmaker.png
+│   └── PKGBUILD
+├── 4kvideotomp3-ffmpeg
+│   ├── 4kvideotomp3.desktop
+│   ├── 4kvideotomp3.png
+│   └── PKGBUILD
+├── adapta-kde-git
+│   └── PKGBUILD
+├── amarok-git
+│   └── PKGBUILD
+├── antimicro-git
+│   └── PKGBUILD
+├── bat-polaur-git
+│   └── PKGBUILD
+├── cpio-git
+│   └── PKGBUILD
+├── dbus-git
+│   ├── dbus-reload.hook
+│   └── PKGBUILD
+├── dbus-stable-git
+│   ├── dbus-reload.hook
+│   └── PKGBUILD
+├── dbus-x11
+│   └── PKGBUILD
+├── dracut-git
+│   └── PKGBUILD
+├── dvb-firmware
+│   ├── LICENSE
+│   └── PKGBUILD
+├── ecrire-git
+│   └── PKGBUILD
+├── etcher-cli
+│   └── PKGBUILD
+├── falkon-git
+│   ├── PKGBUILD
+│   └── po.tar.gz
+├── fetchmirrors-git
+│   └── PKGBUILD
+├── Files
+├── ghostwriter
+│   └── PKGBUILD
+├── gimagereader-qt5
+│   └── PKGBUILD
+├── git-dev-git
+│   ├── git-daemon@.service
+│   ├── git-daemon.socket
+│   ├── git-git.install
+│   ├── git-sysusers.conf
+│   └── PKGBUILD
+├── git-extras-git
+│   └── PKGBUILD
+├── git-git
+│   ├── 0001-git-p4-python.patch
+│   ├── git-daemon@.service
+│   ├── git-daemon.socket
+│   ├── git-git.install
+│   ├── git-sysusers.conf
+│   └── PKGBUILD
+├── gitless
+│   ├── 0001-Bump-to-pygit-1.0.0.patch
+│   └── PKGBUILD
+├── git-test-git
+│   ├── git-daemon@.service
+│   ├── git-daemon.socket
+│   ├── git-git.install
+│   ├── git-sysusers.conf
+│   └── PKGBUILD
+├── grub-git
+│   ├── 0003-10_linux-detect-archlinux-initramfs.patch
+│   ├── 0004-add-GRUB_COLOR_variables.patch
+│   ├── grub.default
+│   ├── grub.install
+│   └── PKGBUILD
+├── guitar
+│   └── PKGBUILD
+├── hstr-git
+│   └── PKGBUILD
+├── hub-git
+│   └── PKGBUILD
+├── k4dirstat
+│   └── PKGBUILD
+├── krudio-qml
+│   └── PKGBUILD
+├── krusader-stable-git
+│   └── PKGBUILD
+├── kvantum-qt5-git
+│   └── PKGBUILD
+├── libgit2-git
+│   └── PKGBUILD
+├── libhangish-git
+│   └── PKGBUILD
+├── lightzone
+│   └── PKGBUILD
+├── linux-firmware-git
+│   ├── 0001-Update-iwlwifi-firmware.patch
+│   └── PKGBUILD
+├── linux-usermode
+│   ├── 70-uml.hook
+│   ├── config
+│   └── PKGBUILD
+├── linux-usermode-git
+│   ├── 70-uml.hook
+│   ├── config
+│   └── PKGBUILD
+├── linux-usermode-rc
+│   ├── 70-uml.hook
+│   ├── config
+│   └── PKGBUILD
+├── linux-usermode-rc-git
+│   ├── 70-uml.hook
+│   ├── config
+│   └── PKGBUILD
+├── marwaita-icon-theme
+│   ├── Marwaita Icons.tar.xz
+│   └── PKGBUILD
+├── materia-kde-git
+│   └── PKGBUILD
+├── mercurial-hg
+│   ├── mercurial.profile
+│   └── PKGBUILD
+├── meson-git
+│   ├── 0001-Fix-CUDA-test-without-devices.patch
+│   ├── arch-meson
+│   ├── PKGBUILD
+│   └── skip-test.diff
+├── mkinitcpio-git
+│   └── PKGBUILD
+├── moc-pulse-dev
+│   ├── moc-ffmpeg4.patch
+│   ├── PKGBUILD
+│   └── pulseaudio.patch
+├── ninja-git
+│   └── PKGBUILD
+├── openvpn-git
+│   └── PKGBUILD
+├── otter-browser
+│   └── PKGBUILD
+├── otter-browser-git
+│   └── PKGBUILD
+├── pkgbuild-introspection-lucjan-git
+│   └── PKGBUILD
+├── poppler-lcd
+│   └── PKGBUILD
+├── psi-git
+│   └── PKGBUILD
+├── qpxtool
+│   ├── libpng15.patch
+│   └── PKGBUILD
+├── qstopmotion-qt5
+│   └── PKGBUILD
+├── qtox-git
+│   └── PKGBUILD
+├── qtrans
+│   └── PKGBUILD
+├── README.md
+├── s-git
+│   └── PKGBUILD
+├── telepathy-hanging-git
+│   └── PKGBUILD
+├── toxcore-git
+│   ├── PKGBUILD
+│   ├── toxcore.conf
+│   └── toxcore.install
+├── ttf-liberation-sans-narrow
+│   ├── 30-0-liberation-sans-narrow.conf
+│   ├── PKGBUILD
+│   └── ttf.install
+├── videomorph
+│   └── PKGBUILD
+└── wps-office-mui
+    └── PKGBUILD
+
+62 directories, 111 files
