@@ -7,7 +7,7 @@ _major=5.4
 _kernelname=-usermodelinux-git
 _srcname=linux-stable-rc
 pkgver=5.4.13.r0.gba1987403207
-pkgrel=2
+pkgrel=3
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
 license=('GPL2')
@@ -20,7 +20,7 @@ source=(
   '70-uml.hook')
 
 sha256sums=('SKIP'
-            'e5a61795b1222eb06bffc96252535a7d13c3c6c995aea731d86bbad6298c38fd'
+            '1a87c3033ced46239dd559f221469c9e341b64de8b0e14c2a160b45c50e66119'
             '452b8d4d71e1565ca91b1bebb280693549222ef51c47ba8964e411b2d461699c')
 
 pkgver() {
