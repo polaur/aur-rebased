@@ -6,8 +6,8 @@ pkgname=('linux-usermode-git' 'linux-usermode-git-modules')
 _major=5.4
 _kernelname=-usermodelinux-git
 _srcname=linux
-pkgver=5.4.1.r0.g79438f37a69a
-pkgrel=1
+pkgver=5.4.13.r0.gba1987403207
+pkgrel=2
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
 license=('GPL2')
@@ -32,7 +32,7 @@ pkgver() {
 prepare() {
   cd ${_srcname}
 
-  msg2 "Setting version..."
+  echo "Setting version..."
   sed -e "/^EXTRAVERSION =/s/=.*/=/" -i Makefile
   scripts/setlocalversion --save-scmversion
   echo "-$pkgrel" > localversion.10-pkgrel
@@ -43,18 +43,18 @@ prepare() {
     src="${src%%::*}"
     src="${src##*/}"
     [[ $src = *.patch ]] || continue
-    msg2 "Applying patch $src..."
+    echo "Applying patch $src..."
     patch -Np1 < "../$src"
   done
   
-  msg2 "Setting config..."
+  echo "Setting config..."
   cp ../config .config
   yes "" | make ARCH=um config >/dev/null
 
   make ARCH=um kernelrelease > version
-  msg2 "Prepared %s version %s" "$pkgbase" "$(<version)"
+  echo "Prepared %s version %s" "$pkgbase" "$(<version)"
 
-  msg2 "Save configuration for later reuse"
+  echo "Save configuration for later reuse"
   cat .config > "${startdir}/config.last"
 }
 
