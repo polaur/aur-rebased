@@ -2,7 +2,7 @@
 # Contributor: Hyacinthe Cartiaux <hyacinthe.cartiaux@free.fr>
 
 pkgname=psi-git
-pkgver=1.4.916.gec85e137
+pkgver=1.4.934.g977558fa
 pkgrel=1
 pkgdesc="A XMPP client with webengine support. GIT version."
 arch=('x86_64')
@@ -21,15 +21,12 @@ md5sums=('SKIP'
          'SKIP')
 
 pkgver() {
-   
-   cd $srcdir/psi
-   
-   git describe --tags | sed 's/^v//;s/-/./g'
+  cd psi
+  git describe --long --tags | sed 's/^v//;s/-/./g'
 }
-
+            
 prepare() {
-
-  cd $srcdir/psi
+  cd psi
 
   # makepkg doesn't support --recursive
   # so setup git modules manually
@@ -41,14 +38,11 @@ prepare() {
 }
 
 build() {
-
   cd $srcdir/psi
-  
   mkdir -p build
   cd build
-  cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DCHAT_TYPE=WEBENGINE ..
+  cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DPSI_PLUS=OFF -DCHAT_TYPE=WEBENGINE ..
   make
-
 }
 
 package() {
