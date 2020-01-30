@@ -4,13 +4,15 @@
 pkgbase=linux-usermode-rc
 pkgname=('linux-usermode-rc' 'linux-usermode-rc-modules')
 _kernelname=-usermodelinux-rc
-_major=5.4
-_minor=15
-_minorc=$((_minor+1))
-_rcver=rc1
-pkgver=${_major}.${_minorc}
-_stable=${_major}.${_minor}
-_stablerc=${pkgver}-${_rcver}
+_major=5.5
+#_minor=0
+#_minorc=$((_minor+1))
+#_rcver=rc1
+#pkgver=${_major}.${_minorc}
+#_stable=${_major}.${_minor}
+#_stablerc=${pkgver}-${_rcver}
+pkgver=${_major}
+_stable=${_major}
 _srcname=linux-${_stable}
 pkgrel=1
 pkgdesc="User mode Linux kernel and modules"
@@ -21,18 +23,16 @@ depends=('coreutils')
 makedepends=('bc' 'inetutils')
 source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_stable}.tar.xz"
         "https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_stable}.tar.sign"
-        "https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-${_stablerc}.xz"
-        "https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-${_stablerc}.sign"
+        #"https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-${_stablerc}.xz"
+        #"https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-${_stablerc}.sign"
         # https://lkml.org/lkml/2019/8/23/712
         # "patch-${_stablerc}.diff::https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git/patch/?id=linux-${_major}.y&id2=v${_major}.${_minor}"
         'config'
         '70-uml.hook')
 
-sha256sums=('6407222f850f685b346011bd696a3216d5df0f37e0184099100d2724396d94b1'
+sha256sums=('a6fbd4ee903c128367892c2393ee0d9657b6ed3ea90016d4dc6f1f6da20b2330'
             'SKIP'
-            'aeb314153c13f4b2b4a00a43ac1c511ef7b9af2ec0010eedbe28e69d26c9e5af'
-            'SKIP'
-            '1a87c3033ced46239dd559f221469c9e341b64de8b0e14c2a160b45c50e66119'
+            '51fa0cca6e35f0cad4ed2ec402d44e79a5357ef6df247512b14093d962f537e2'
             '452b8d4d71e1565ca91b1bebb280693549222ef51c47ba8964e411b2d461699c')
 
 validpgpkeys=(
@@ -44,7 +44,7 @@ prepare() {
   cd ${_srcname}
 
   echo "Add stable-review patch..."
-  patch -p1 -i ../patch-${_stablerc}
+  # patch -p1 -i ../patch-${_stablerc}
   # patch -p1 -i ../patch-${_stablerc}.diff
 
   echo "Setting version..."
