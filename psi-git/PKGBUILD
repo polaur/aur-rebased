@@ -24,7 +24,7 @@ pkgver() {
   cd psi
   git describe --long --tags | sed 's/^v//;s/-/./g'
 }
-            
+
 prepare() {
   cd psi
 
