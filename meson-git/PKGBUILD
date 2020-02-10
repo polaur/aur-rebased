@@ -2,7 +2,7 @@
 # Contributor: nontlikeuname
 
 pkgname=meson-git
-pkgver=0.53.999.r8569.gcb262ab48
+pkgver=0.53.999.r8757.g93b9a3ed2
 pkgrel=1
 pkgdesc="SCons-like build system that use python as a front-end language and Ninja as a building backend"
 arch=(any)
@@ -20,21 +20,16 @@ provides=('meson')
 conflicts=('meson')
 source=('git+https://github.com/mesonbuild/meson'
         'arch-meson'
-        'skip-test.diff'
-        '0001-Fix-CUDA-test-without-devices.patch')
+        'skip-test.diff')
 md5sums=('SKIP'
          'b85d62ecca0729f0c5168f759a2ff37d'
-         '28b5b8cac7121217b38e0eb84541e574'
-         '31125a9c324208279b8f8986b24b0ae8')
+         '28b5b8cac7121217b38e0eb84541e574')
 
 prepare() {
         cd meson
         
         # Our containers do not allow sanitizers to run
         patch -Np1 -i ../skip-test.diff
-        
-        # Fix CUDA test without devices
-        patch -Np1 -i ../0001-Fix-CUDA-test-without-devices.patch
 }
 
 pkgver() {
