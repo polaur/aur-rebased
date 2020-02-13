@@ -1,0 +1,35 @@
+# Maintainer: pavbaranov <pavbaranov at gmail dot com>
+
+pkgname=jreen-qt5
+pkgver=1.3.0
+pkgrel=1
+pkgdesc='Free and Opensource Jabber library, written in C++ using cross-platform framework Qt.'
+arch=('x86_64')
+url='http://qutim.org/jreen'
+license=('GPL2')
+depends=('gsasl' 'speex' 'qt5-base')
+makedepends=('cmake')
+provides=('jreen')
+conflicts=('jreen-git')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/euroelessar/${pkgname%-*}/archive/v${pkgver}.tar.gz")
+md5sums=('344d1d0b9b76ce64744c6d915ed125fa')
+
+prepare() {
+    mkdir -p build
+    }
+    
+build() {
+  cd build
+
+  cmake ../${pkgname%-*}-${pkgver}\
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+        -DCMAKE_BUILD_TYPE=Release 
+
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR=${pkgdir} install
+}
