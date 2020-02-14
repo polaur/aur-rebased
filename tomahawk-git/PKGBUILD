@@ -1,0 +1,44 @@
+# Maintainer: pavbaranov <pavbaranov at gmail dot com>
+# alternative version to AUR's PKGBUILD by:
+#Kuba Serafinowski <zizzfizzix(at)gmail(dot)com>
+# https://github.com/zizzfizzix/pkgbuilds
+# Maintainer:  Solomon Choina <shlomochoina(at)gmail(dot)com>
+# with some changes and with pure Qt5 dependencies
+
+pkgname=tomahawk-git
+pkgver=0.8.0rc1.1345.g27e8a665c
+pkgrel=1
+epoch=1
+pkgdesc='A Music Player App written in C++/Qt - development version'
+arch=('x86_64')
+url='http://tomahawk-player.org/'
+license=('GPL3')
+depends=('qt5-svg' 'qt5-tools' 'qt5-xmlpatterns' 'qt5-x11extras' 'qca'
+         'taglib' 'lucene++' 'libechonest-qt5' 'jreen-qt5' 'quazip' 'attica'
+         'qt5-webkit' 'liblastfm-qt5' 'qtkeychain' 'vlc' 'boost') # jreen-qt5 and jreen-qt5-git are available in polaur/aur-rebased
+makedepends=('git' 'cmake' 'extra-cmake-modules' 'sparsehash')
+optdepends=('telepathy-qt: integration with Telepathy')
+provides=('tomahawk')
+conflicts=('tomahawk' 'tomahawk-qt5')
+source=("${pkgname}::git://github.com/tomahawk-player/tomahawk.git")
+sha256sums=('SKIP')
+
+pkgver() {
+  cd "${srcdir}/${pkgname}"
+  git describe --always --tags | sed 's|-|.|g'
+}
+
+build() {
+  cd "${srcdir}/${pkgname}"
+
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_INSTALL_LIBDIR=lib \
+        -DCMAKE_INSTALL_LIBEXECDIR=lib/tomahawk \
+        -DCMAKE_BUILD_TYPE=Release
+  make
+}
+
+package() {
+  cd "${srcdir}/${pkgname}"
+  make DESTDIR="${pkgdir}" install
+}
