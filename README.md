@@ -10,6 +10,13 @@ git clone https://github.com/polaur/aur-rebased.git
 
 ```
 
+or
+
+```
+git clone https://github.com/polaur/aur-rebased.git
+
+```
+
 # Install:
 
 
