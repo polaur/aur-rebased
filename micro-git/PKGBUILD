@@ -1,0 +1,31 @@
+# Maintainer: Damian N. <nycko123 at gmail>
+pkgname=micro-git
+pkgver=2.0.2.r2.gb12886b0
+pkgrel=1
+pkgdesc="A modern and intuitive terminal-based text editor"
+arch=('x86_64')
+url="https://github.com/zyedidia/micro"
+license=('MIT')
+makedepends=('go' 'git')
+optdepends=('xclip: Required for copying/pasting text')
+conflicts=('micro-git' 'micro-bin' 'micro-nightly-bin' 'micro')
+provides=('micro')
+
+source_x86_64=("git+https://github.com/zyedidia/micro")
+
+sha256sums_x86_64=('SKIP')
+
+pkgver() {
+	cd "${pkgname%-*}"
+	git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | cut -b 2-
+}
+
+build() {
+	cd "${pkgname%-*}"
+	make build
+}
+
+package(){
+ install -Dm755 "${srcdir}/${pkgname%-*}/${pkgname%-*}" "${pkgdir}/usr/bin/${pkgname%-*}"
+ install -Dm644 "${srcdir}/${pkgname%-*}/LICENSE" "${pkgdir}/usr/share/licenses/${pkgname%-*}/LICENSE"
+}
