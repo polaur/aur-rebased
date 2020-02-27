@@ -1,0 +1,85 @@
+# Maintainer: Piotr Gorski <lucjan.lucjanov@gmail.com>
+# Contributor: Allan McRae <allan@archlinux.org>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+
+pkgbase=gdb-git
+# gdb-common is a package that contains files common for all cross compiled versions
+# of gdb (for arm/avr/...)
+pkgname=(gdb-git gdb-common-git)
+_pkgname=binutils-gdb
+pkgver=9.1.r100629.736990c4427
+pkgrel=1
+pkgdesc='The GNU Debugger'
+arch=(x86_64)
+url='http://www.gnu.org/software/gdb/'
+license=(GPL3)
+makedepends=(texinfo python guile2.0 ncurses expat xz mpfr source-highlight git)
+source=(git://sourceware.org/git/binutils-gdb.git)
+sha1sums=('SKIP')
+
+pkgver() {
+  cd ${srcdir}/${_pkgname}
+  # There are locations in source with versions, but they don't seem to be updated as often as the ChangeLog.  i.e. In GDB 7.10.1, the *only* mention of that version is in ChangeLog.
+  echo $(cat gdb/ChangeLog | grep GDB | grep -i released | head -n 1 | sed "s| released\.$||" | sed "s|.*GDB ||").r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)
+}
+
+prepare() {
+  cd ${srcdir}/${_pkgname}
+
+  # hack! - libiberty configure tests for header files using "$CPP $CPPFLAGS"
+  sed -i "/ac_cpp=/s/\$CPPFLAGS/\$CPPFLAGS -O2/" libiberty/configure
+}
+
+build() {
+  cd ${srcdir}/${_pkgname}
+  
+  mkdir -p build && cd build
+  ../configure \
+    --prefix=/usr \
+    --disable-nls \
+    --enable-source-highlight \
+    --enable-tui \
+    --with-system-readline \
+    --with-python=/usr/bin/python \
+    --with-guile=guile-2.0 \
+    --with-system-gdbinit=/etc/gdb/gdbinit
+  make
+}
+
+package_gdb-common-git() {
+  depends=(python guile2.0)
+  provides=(gdb-common)
+  conflicts=(gdb-common)
+
+  cd ${srcdir}/${_pkgname}/build
+  make DESTDIR="$pkgdir" install
+
+  # resolve conflicts with binutils
+  rm "$pkgdir"/usr/include/{ansidecl,bfd,bfdlink,dis-asm,plugin-api,symcat,ctf,ctf-api,bfd_stdint,diagnostics}.h
+  rm "$pkgdir"/usr/share/info/bfd.info
+  rm "$pkgdir"/usr/lib/{libbfd,libopcodes,libctf,libctf-nobfd}.a
+
+  rm -r "$pkgdir"/usr/{bin,include,lib,share/info,share/man}
+}
+
+package_gdb-git() {
+  depends=(ncurses expat xz mpfr source-highlight gdb-git-common=$pkgver)
+  backup=(etc/gdb/gdbinit)
+  provides=(gdb)
+  conflicts=(gdb)
+
+  cd ${srcdir}/${_pkgname}/build
+  make DESTDIR="$pkgdir" install
+
+  # resolve conflicts with binutils
+  rm "$pkgdir"/usr/include/{ansidecl,bfd,bfdlink,dis-asm,plugin-api,symcat,ctf,ctf-api,bfd_stdint,diagnostics}.h
+  rm "$pkgdir"/usr/share/info/bfd.info
+  rm "$pkgdir"/usr/lib/{libbfd,libopcodes,libctf,libctf-nobfd}.a
+
+  # install "custom" system gdbinit
+  install -dm 755 "$pkgdir/etc/gdb"
+  touch "$pkgdir/etc/gdb/gdbinit"
+
+  # comes from gdb-common
+  rm -r "$pkgdir/usr/share/gdb/"
+}
