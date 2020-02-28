@@ -4,14 +4,14 @@
 # Contributor: Thomas Bächler <thomas@archlinux.org> ([core] package)
 
 pkgname=mkinitcpio-git
-pkgver=26.r0.g9ae6b1f
-pkgrel=1
+pkgver=27.r0.g7f81f51
+pkgrel=3
 pkgdesc='Modular initramfs image creation utility - git checkout'
 arch=('any')
 url='http://www.archlinux.org/'
 license=('GPL')
 depends=('awk' 'mkinitcpio-busybox>=1.19.4-2' 'kmod' 'util-linux>=2.23' 'libarchive'
-         'coreutils' 'bash' 'findutils' 'grep' 'filesystem>=2011.10-1' 'gzip' 'systemd')
+         'coreutils' 'bash' 'findutils' 'diffutils' 'grep' 'filesystem>=2011.10-1' 'gzip' 'systemd')
 makedepends=('asciidoc' 'git')         
 optdepends=('xz: Use lzma or xz compression for the initramfs image'
             'bzip2: Use bzip2 compression for the initramfs image'
@@ -20,8 +20,12 @@ optdepends=('xz: Use lzma or xz compression for the initramfs image'
 provides=('mkinitcpio' 'initramfs')
 conflicts=('mkinitcpio')
 backup=('etc/mkinitcpio.conf')
-source=('git://projects.archlinux.org/mkinitcpio.git')
-sha256sums=('SKIP')
+source=('git://projects.archlinux.org/mkinitcpio.git'
+        '0001-mkinitcpio-remove-preset-pacsave.patch'
+        '0002-mkinitcpio-fix-builtin.patch')
+sha256sums=('SKIP'
+            '845569fa760f70c868ecb3dc8ae9667287970526dddaf403fdafcb716e8b3d51'
+            'd097f3df15ba9fefd3771f9f784e1c31c8d5ff1d9d6885a46fc6b5188e419796')
 
 pkgver() {
 	cd mkinitcpio/
@@ -33,9 +37,18 @@ pkgver() {
 	fi
 }
 
-package() {
-	cd mkinitcpio/
+prepare() {
+         cd mkinitcpio/
+         # Apply 0001-mkinitcpio-remove-preset-pacsave.patch
+         patch -Np1 < $srcdir/0001-mkinitcpio-remove-preset-pacsave.patch
+         
+         # Apply 0002-mkinitcpio-fix-builtin.patch
+         patch -Np1 < $srcdir/0002-mkinitcpio-fix-builtin.patch
+}
 
-	make DESTDIR="${pkgdir}" install
+package() {
+	 cd mkinitcpio/
+
+	 make DESTDIR="${pkgdir}" install
 }
 
