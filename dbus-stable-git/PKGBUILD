@@ -5,8 +5,8 @@
 
 pkgbase=dbus-stable-git
 pkgname=('dbus-stable-git' 'dbus-docs-stable-git')
-pkgver=1.12.16.r1.geab5d4a4
-pkgrel=2
+pkgver=1.12.16.r5.gd251fe78
+pkgrel=1
 pkgdesc="Freedesktop.org message bus system"
 url="http://www.freedesktop.org/Software/dbus"
 arch=(x86_64)
@@ -16,7 +16,7 @@ makedepends=('systemd' 'xmlto' 'docbook-xsl' 'python' 'yelp-tools' 'doxygen' 'gi
 source=(git://anongit.freedesktop.org/dbus/dbus#branch=dbus-1.12
         dbus-reload.hook)
 md5sums=('SKIP'
-         '4b37a5e6cf21e9cbc7f3dc0abeb2c0b0')
+         'c3b3957a7d236ccebf84862aa6226d58')
 
 pkgver() {
   cd dbus
