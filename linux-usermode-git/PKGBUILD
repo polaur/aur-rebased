@@ -6,7 +6,7 @@ pkgname=('linux-usermode-git' 'linux-usermode-git-modules')
 _major=5.5
 _kernelname=-usermodelinux-git
 _srcname=linux
-pkgver=5.5.2.r0.g567f0ad8b0b7
+pkgver=5.5.7.r0.g449718782a46
 pkgrel=2
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
@@ -21,7 +21,7 @@ source=(
 
 sha256sums=('SKIP'
             '51fa0cca6e35f0cad4ed2ec402d44e79a5357ef6df247512b14093d962f537e2'
-            '452b8d4d71e1565ca91b1bebb280693549222ef51c47ba8964e411b2d461699c')
+            '05ea4e00d1e99bf8140a21c94e3c42acf17b9debad9c6f5decbe1dd1fe04332c')
 
 pkgver() {
   cd ${_srcname}
