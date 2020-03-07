@@ -4,8 +4,8 @@
 # so now in 3.1.0alpha1)
 
 pkgname=calligra-git
-pkgver=3.1.0.r609.g0a8623af8b8
-pkgrel=2
+pkgver=3.1.0.r626.g9b683a5054e
+pkgrel=1
 arch=('x86_64')
 license=('FDL1.2' 'GPL2' 'LGPL')
 url='http://www.calligra-suite.org/'
@@ -57,7 +57,7 @@ build() {
       -DCMAKE_INSTALL_LIBDIR=lib \
       -DRELEASE_BUILD=true \
       -DBUILD_TESTING=OFF  -Wno-dev \
-      -DPRODUCTSET="WORDS SHEETS FLOW STAGE"
+      -DPRODUCTSET="WORDS SHEETS STAGE KARBON"
   make 
 }
 
