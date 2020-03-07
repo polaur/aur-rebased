@@ -26,10 +26,10 @@ optdepends=('libwpg: Corel WordPerfect Graphics image importer'
             'qt5-webengine: for Calligra Gemini')
 source=('calligra::git+git://anongit.kde.org/calligra')
 sha256sums=('SKIP')
-conflicts=(calligra calligra-devtools-git calligra-extras-git calligra-filters-git calligra-libs-git calligra-plugins-git calligra-sheets-git calligra-stage-git calligra-words-git calligra-meta calligra-flow-git calligra-braindump-git calligra-gemin-git calligra-handbook-git)
-replaces=(calligra calligra-devtools calligra-extras calligra-filters calligra-libs calligra-plugins calligra-sheets calligra-stage calligra-words calligra-l10n calligra-meta)
+conflicts=(calligra calligra-devtools-git calligra-extras-git calligra-filters-git calligra-libs-git calligra-plugins-git calligra-sheets-git calligra-stage-git calligra-words-git calligra-meta calligra-flow-git calligra-braindump-git calligra-gemin-git calligra-handbook-git calligra-git)
+replaces=(calligra calligra-devtools calligra-extras calligra-filters calligra-libs calligra-plugins calligra-sheets calligra-stage calligra-words calligra-l10n calligra-meta calligra-git)
 
-provides=('calligra')
+#provides=('calligra')
 
 pkgver() {
   cd calligra
