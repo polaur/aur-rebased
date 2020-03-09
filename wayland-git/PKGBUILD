@@ -1,0 +1,51 @@
+# Maintainer: Piotr Górski <lucjan.lucjanov@gmail.com>
+# Contributor: Joel Teichroeb <joel@teichroeb.net>
+# Contributor: Scimmia
+
+pkgbase=wayland-git
+pkgname=(wayland-git wayland-git-docs)
+pkgver=1.18.0.1.gc57157e
+pkgrel=1
+pkgdesc='A computer display server protocol.'
+arch=(x86_64)
+url='http://wayland.freedesktop.org'
+license=('MIT')
+depends=('glibc' 'libffi' 'expat' 'libxml2')
+makedepends=('meson' 'ninja' 'libxslt' 'doxygen' 'xmlto' 'graphviz' 'docbook-xsl' 'git')
+source=(git://anongit.freedesktop.org/wayland/wayland)
+sha1sums=('SKIP')
+
+pkgver() {
+  cd wayland
+
+  git describe --long --tags | sed 's/^v//;s/-/./g'
+}
+
+
+build() {
+  meson build wayland --buildtype=release --prefix=/usr
+  ninja -C build
+}
+
+check() {
+  ninja -C build test
+}
+
+package_wayland-git() {
+  conflicts=('wayland')
+  provides=('wayland')
+  DESTDIR="$pkgdir" ninja -C build install
+  mkdir -p docs/share
+  mv "$pkgdir"/usr/share/{doc,man} docs/share
+  install -Dm 644 wayland/COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+}
+
+package_wayland-git-docs() {
+  pkgdesc+=" (documentation)"
+  depends=()
+  conflicts=('wayland-docs')
+  provides=('wayland-docs')
+
+  mv docs "$pkgdir/usr"
+  install -Dm 644 wayland/COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+}
