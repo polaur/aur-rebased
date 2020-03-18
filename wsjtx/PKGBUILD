@@ -1,0 +1,34 @@
+# Maintainer: pavbaranov <pavbaranov at gmail dot com>
+# only for POLAUR package mady based on PKGBUILD by:
+# Maintainer: Thomas Gatzweiler <thomas.gatzweiler@gmail.com>
+# and with build solution: https://aur.archlinux.org/packages/wsjtx#comment-727636
+
+pkgname=wsjtx
+pkgver=2.1.2
+pkgrel=1.1
+pkgdesc="Software for Amateur Radio Weak-Signal Communication (JT9 and JT65)"
+arch=('i686' 'x86_64')
+url="http://physics.princeton.edu/pulsar/k1jt/wsjtx.html"
+license=('GPL-3')
+makedepends=(cmake asciidoc asciidoctor)
+depends=(qt5-base qt5-multimedia qt5-serialport qt5-tools libusb libusb-compat gcc-fortran libpulse libpng fftw)
+source=(http://physics.princeton.edu/pulsar/K1JT/$pkgname-$pkgver.tgz
+wsjtx.patch)
+sha1sums=('a4b4b533b0e19ecaf2a08997737838c2ca5e95ca'
+          '291ff093036178be460e573bed8676eb62cc84d8')
+
+prepare() {
+    cp $srcdir/../wsjtx.patch $srcdir/wsjtx-2.1.2/wsjtx.patch
+    }
+    
+build() {
+    mkdir -p $srcdir/build
+    cd $srcdir/build
+    cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release $srcdir/$pkgname-$pkgver
+    make || return 1
+}
+
+package() {
+    cd "${srcdir}/build"
+    make DESTDIR="${pkgdir}" install
+}
