@@ -1,0 +1,39 @@
+From d842a10cdb8104908de52e04ebbb73363db4c7f0 Mon Sep 17 00:00:00 2001
+From: Piotr Gorski <lucjan.lucjanov@gmail.com>
+Date: Thu, 19 Mar 2020 16:44:20 +0100
+Subject: [PATCH] Update requirements
+
+Signed-off-by: Piotr Gorski <lucjan.lucjanov@gmail.com>
+---
+ requirements.txt | 2 +-
+ setup.py         | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/requirements.txt b/requirements.txt
+index 4146764..5cc8bfd 100644
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1,6 +1,6 @@
+ # make sure to update setup.py
+ 
+-pygit2==1.1.1  # requires libgit2 0.99 or 1.0
++pygit2>=1.1.1  # requires libgit2 0.99 or 1.0
+ clint==0.5.1
+ sh==1.12.14;sys_platform!='win32'
+ pbs==0.110;sys_platform=='win32'
+diff --git a/setup.py b/setup.py
+index 12448c8..c3c2c92 100755
+--- a/setup.py
++++ b/setup.py
+@@ -68,7 +68,7 @@ setup(
+     packages=['gitless', 'gitless.cli'],
+     install_requires=[
+       # make sure it matches requirements.txt
+-      'pygit2==1.1.1', # requires libgit2 0.99 or 1.0
++      'pygit2>=1.1.1', # requires libgit2 0.99 or 1.0
+       'clint>=0.3.6',
+       'sh>=1.11' if sys.platform != 'win32' else 'pbs>=0.11'
+     ],
+-- 
+2.26.0.rc2.dirty
+
