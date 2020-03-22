@@ -1,0 +1,23 @@
+pkgbase = adapta-kde-git
+	pkgdesc = Adapta theme for KDE Plasma 5
+	pkgver = 20180421.r149.g849a1c1
+	pkgrel = 1
+	url = https://github.com/PapirusDevelopmentTeam/adapta-kde
+	arch = any
+	license = GPL3
+	options = !strip
+	source = adapta-kde::git+https://github.com/PapirusDevelopmentTeam/adapta-kde.git
+	sha256sums = SKIP
+
+pkgname = adapta-kde-git
+	optdepends = kvantum-theme-adapta: Adapta theme for Kvantum Qt style (recommended)
+	optdepends = papirus-icon-theme: for a more consistent and beautiful experience (recommended)
+	provides = adapta-kde
+	conflicts = adapta-kde
+
+pkgname = kvantum-theme-adapta-git
+	pkgdesc = Adapta theme for Kvantum
+	depends = kvantum-qt5
+	provides = kvantum-theme-adapta
+	conflicts = kvantum-theme-adapta
+

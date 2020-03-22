@@ -1,0 +1,29 @@
+pkgbase = falkon-git
+	pkgdesc = Cross-platform Qt Web Browser
+	pkgver = 3.0.0.188.g62334cf8
+	pkgrel = 1
+	url = http://www.qupzilla.com
+	arch = x86_64
+	license = GPL
+	makedepends = git
+	makedepends = qt5-tools
+	makedepends = kwallet
+	makedepends = extra-cmake-modules
+	depends = qt5-webengine
+	depends = openssl>=1.1.0
+	depends = kio
+	optdepends = bash-completion: bash completion support
+	optdepends = kwallet: kf5 kwallet integration
+	optdepends = pyside2-common-git
+	optdepends = shiboken2-git
+	conflicts = qupzilla
+	conflicts = qupzilla-qt5
+	conflicts = qupzilla-qt5-git
+	conflicts = falkon
+	source = git://anongit.kde.org/falkon.git
+	source = po.tar.gz
+	sha256sums = SKIP
+	sha256sums = d0d626024d03f63eaa0d58cc78070d6627cda421d75b98f9fe026d9af35030b4
+
+pkgname = falkon-git
+

@@ -1,0 +1,18 @@
+pkgbase = ecrire-git
+	pkgdesc = Simple text editor based on EFL
+	pkgver = 0.1.0.131.a298085
+	pkgrel = 1
+	url = http://www.enlightenment.org
+	arch = x86_64
+	license = GPL3
+	makedepends = git
+	makedepends = cmake
+	depends = efl
+	depends = desktop-file-utils
+	provides = ecrire=0.1.0.131.a298085
+	conflicts = ecrire
+	source = git+https://git.enlightenment.org/apps/ecrire.git
+	sha256sums = SKIP
+
+pkgname = ecrire-git
+

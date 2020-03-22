@@ -1,0 +1,14 @@
+pkgbase = etcher-cli
+	pkgdesc = Burn images to SD cards & USB drives, safe & easy
+	pkgver = 1.4.8
+	pkgrel = 1
+	url = http://www.etcher.io/
+	arch = x86_64
+	license = apache
+	depends = gcc-libs
+	options = !strip
+	source = https://github.com/balena-io/etcher/releases/download/v1.4.8/balena-etcher-cli-1.4.8-linux-x64.tar.gz
+	md5sums = 746a1fc98c28623f9972a04488ad9c34
+
+pkgname = etcher-cli
+
