@@ -10,7 +10,7 @@ arch=('x86_64')
 depends=('qwt' 'qt5-multimedia' 'libgphoto2' 'v4l-utils') #'gstreamer' 'ffmpeg' 
 makedepends=('cmake')
 replace=($pkgname%-*)
-provides=($pkgname%-*)
+provides=(qstopmotion)
 source=("$pkgname-$pkgver.tar.gz::https://sourceforge.net/projects/qstopmotion/files/Version_2_4_0/qstopmotion-2.4.0-Source.tar.gz/download")
 sha256sums=('22672e858673260e985bffb2bdbc03fa9880cc01c63cab6966e3a59cadc17e5d')
 
