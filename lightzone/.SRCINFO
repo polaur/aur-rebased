@@ -1,0 +1,18 @@
+pkgbase = lightzone
+	pkgdesc = A professional photo browser and editor, like Aperture or Lightroom
+	pkgver = 4.1.9
+	pkgrel = 1
+	url = http://lightzoneproject.org/
+	arch = x86_64
+	license = BSD
+	depends = lcms2
+	depends = hicolor-icon-theme
+	depends = desktop-file-utils
+	depends = libjpeg6-turbo
+	depends = libx11
+	optdepends = javahelp2
+	source = lightzone-4.1.9.deb::http://download.opensuse.org/repositories/home:/ktgw0316:/LightZone/Debian_9.0/amd64/lightzone_4.1.9-0obs1_amd64.deb
+	md5sums = f4b570bbcd75106cf13ef29673aea9f4
+
+pkgname = lightzone
+

@@ -1,0 +1,17 @@
+pkgbase = s-git
+	pkgdesc = Web search from the terminal. Supports over 50 providers including google, github, and stackoverflow.
+	pkgver = 0.5.14.r4.gbce10d1
+	pkgrel = 1
+	url = http://github.com/zquestz/s
+	arch = x86_64
+	license = MIT
+	makedepends = go
+	makedepends = git
+	provides = s=0.5.14.r4.gbce10d1
+	options = !strip
+	options = !emptydirs
+	source = git://github.com/zquestz/s
+	sha256sums = SKIP
+
+pkgname = s-git
+

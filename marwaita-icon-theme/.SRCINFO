@@ -1,0 +1,16 @@
+pkgbase = marwaita-icon-theme
+	pkgdesc = Marwaita icons for ArchLinux
+	pkgver = 1.1
+	pkgrel = 1
+	url = https://store.kde.org/p/1270110/
+	arch = any
+	license = unknown
+	source = Marwaita Icons.tar.xz
+	md5sums = 69f201668246f14c848cd94141effa96
+
+pkgname = marwaita-icon
+
+pkgname = marwaita-icon-dark
+
+pkgname = marwaita-icon-light
+

@@ -1,0 +1,28 @@
+pkgbase = wsjtx
+	pkgdesc = Software for Amateur Radio Weak-Signal Communication (JT9 and JT65)
+	pkgver = 2.1.2
+	pkgrel = 1.1
+	url = http://physics.princeton.edu/pulsar/k1jt/wsjtx.html
+	arch = i686
+	arch = x86_64
+	license = GPL-3
+	makedepends = cmake
+	makedepends = asciidoc
+	makedepends = asciidoctor
+	depends = qt5-base
+	depends = qt5-multimedia
+	depends = qt5-serialport
+	depends = qt5-tools
+	depends = libusb
+	depends = libusb-compat
+	depends = gcc-fortran
+	depends = libpulse
+	depends = libpng
+	depends = fftw
+	source = http://physics.princeton.edu/pulsar/K1JT/wsjtx-2.1.2.tgz
+	source = wsjtx.patch
+	sha1sums = a4b4b533b0e19ecaf2a08997737838c2ca5e95ca
+	sha1sums = 291ff093036178be460e573bed8676eb62cc84d8
+
+pkgname = wsjtx
+

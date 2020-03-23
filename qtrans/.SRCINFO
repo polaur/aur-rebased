@@ -1,0 +1,16 @@
+pkgbase = qtrans
+	pkgdesc = Word translator (offline dictionary frontend)
+	pkgver = 0.3.2.6
+	pkgrel = 1
+	url = https://www.opendesktop.org/s/Apps/p/1127419/
+	arch = x86_64
+	license = GPL
+	makedepends = git
+	depends = qt5-webkit
+	depends = kxmlgui
+	depends = hicolor-icon-theme
+	source = https://liquidtelecom.dl.sourceforge.net/project/qtrans0/kf5/0.3.2.6/qtrans-0.3.2.6.tar.gz
+	sha256sums = 1f07792866f794c868aee4c2f75608a09303b9c630f547ad0c32c565bacf5c61
+
+pkgname = qtrans
+

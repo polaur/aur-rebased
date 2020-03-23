@@ -1,0 +1,24 @@
+pkgbase = krename-git
+	pkgdesc = A very powerful batch file renamer for KDE. (GIT Version)
+	pkgver = 5.0.60.r530.b185fab
+	pkgrel = 1
+	url = http://www.krename.net
+	arch = x86_64
+	license = GPL
+	makedepends = extra-cmake-modules
+	makedepends = git
+	depends = kio
+	depends = kjs
+	depends = exiv2
+	depends = podofo
+	depends = taglib
+	depends = hicolor-icon-theme
+	provides = krename
+	provides = krename-frameworks-git
+	conflicts = krename
+	conflicts = krename-frameworks-git
+	source = git://anongit.kde.org/krename.git
+	sha1sums = SKIP
+
+pkgname = krename-git
+

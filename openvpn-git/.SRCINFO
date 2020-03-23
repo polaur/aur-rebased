@@ -1,0 +1,25 @@
+pkgbase = openvpn-git
+	pkgdesc = An easy-to-use, robust and highly configurable VPN (Virtual Private Network) - git checkout
+	pkgver = 2.5.r2482.geebce22b
+	pkgrel = 2
+	url = http://openvpn.net/index.php/open-source.html
+	arch = x86_64
+	license = custom
+	makedepends = git
+	makedepends = systemd
+	depends = openssl
+	depends = lzo
+	depends = iproute2
+	depends = systemd-libs
+	depends = pkcs11-helper
+	optdepends = easy-rsa: easy CA and certificate handling
+	optdepends = pam: authenticate via PAM
+	provides = openvpn
+	provides = openvpn-dev
+	conflicts = openvpn
+	conflicts = openvpn-dev
+	source = git://github.com/OpenVPN/openvpn.git
+	sha256sums = SKIP
+
+pkgname = openvpn-git
+

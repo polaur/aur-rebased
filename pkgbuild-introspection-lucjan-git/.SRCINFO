@@ -1,0 +1,19 @@
+pkgbase = pkgbuild-introspection-lucjan-git
+	pkgdesc = Tools for generating .SRCINFO files and PKGBUILD data extraction (mkaurball)
+	pkgver = 9.r1.gabaf713
+	pkgrel = 1
+	url = https://github.com/falconindy/pkgbuild-introspection
+	arch = any
+	license = MIT
+	makedepends = git
+	depends = bash
+	depends = pacman
+	provides = pkgbuild-introspection
+	provides = pkgbuild-introspection-git
+	conflicts = pkgbuild-reflection-git
+	conflicts = pkgbuild-introspection
+	source = git://github.com/sirlucjan/pkgbuild-introspection.git
+	md5sums = SKIP
+
+pkgname = pkgbuild-introspection-lucjan-git
+

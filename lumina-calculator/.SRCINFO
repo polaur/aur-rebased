@@ -1,0 +1,15 @@
+pkgbase = lumina-calculator
+	pkgdesc = Calculator for the lumina desktop environment
+	pkgver = 1.6.0
+	pkgrel = 1
+	url = https://github.com/lumina-desktop/lumina-calculator
+	arch = x86_64
+	license = BSD
+	makedepends = qt5-svg
+	makedepends = qt5-tools
+	depends = qt5-base
+	source = https://github.com/lumina-desktop/lumina-calculator/archive/v1.6.0.tar.gz
+	sha512sums = e4005a3b17ff46a90b07f6dd22c7b2c6156c9c26396aefd33394fa5bbb434437e5361a276868b8e2b8753a17b13604b448094b1c04a34e3360fae4f78a271e37
+
+pkgname = lumina-calculator
+

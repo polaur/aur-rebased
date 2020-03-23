@@ -1,0 +1,26 @@
+pkgbase = toxcore-git
+	pkgdesc = Secure, configuration-free, P2P Skype replacement backend
+	pkgver = 0.2.1.9.geb6b6020
+	pkgrel = 1
+	url = https://tox.chat
+	install = toxcore.install
+	arch = x86_64
+	license = GPL3
+	makedepends = git
+	depends = systemd
+	depends = libconfig
+	depends = libsodium
+	depends = libvpx
+	depends = opus
+	provides = tox
+	provides = toxcore
+	conflicts = tox
+	conflicts = toxcore
+	backup = etc/tox-bootstrapd.conf
+	source = git+https://github.com/TokTok/c-toxcore.git
+	source = toxcore.conf
+	sha512sums = SKIP
+	sha512sums = aa1dcfbdf9b613f5d89e238ff5d01e0ea150ad3162792acb806f51ce07fd9ade1270b310b1285a828dcdf578549b95a89fd9bd198fb205c83f5a5be2c969ea63
+
+pkgname = toxcore-git
+

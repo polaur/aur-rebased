@@ -1,0 +1,23 @@
+pkgbase = jreen-qt5-git
+	pkgdesc = Free and Opensource Jabber library, written in C++ using cross-platform framework Qt. - development version
+	pkgver = 1.3.0.2.gc04c229
+	pkgrel = 1
+	epoch = 1
+	url = https://github.com/euroelessar/jreen
+	arch = x86_64
+	license = GPL2
+	makedepends = git
+	makedepends = cmake
+	depends = gsasl
+	depends = qt5-base
+	depends = speex
+	provides = jreen
+	provides = jreen-git
+	conflicts = jreen
+	conflicts = jreen-git
+	conflicts = jreen-qt5
+	source = git+https://github.com/euroelessar/jreen.git
+	md5sums = SKIP
+
+pkgname = jreen-qt5-git
+

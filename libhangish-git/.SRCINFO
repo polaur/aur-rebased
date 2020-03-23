@@ -1,0 +1,16 @@
+pkgbase = libhangish-git
+	pkgdesc = Qt library for Google Talks
+	pkgver = r43.42fef0f
+	pkgrel = 1
+	url = https://github.com/tiagosh/libhangish/
+	arch = x86_64
+	license = GPL
+	makedepends = cmake
+	makedepends = git
+	depends = protobuf
+	depends = qt5-script
+	source = git+https://github.com/tiagosh/libhangish/
+	md5sums = SKIP
+
+pkgname = libhangish-git
+

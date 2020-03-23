@@ -1,0 +1,26 @@
+pkgbase = qtox-git
+	pkgdesc = Powerful Tox client written in C++/Qt that follows the Tox design guidelines. GTK free.
+	pkgver = 1.14.0.52.ga918e559
+	pkgrel = 1
+	url = https://github.com/qTox/qTox
+	arch = x86_64
+	license = GPL3
+	makedepends = git
+	makedepends = qt5-tools
+	makedepends = cmake
+	depends = desktop-file-utils
+	depends = libxss
+	depends = openal
+	depends = qrencode
+	depends = ffmpeg
+	depends = qt5-svg
+	depends = libexif
+	depends = sqlcipher
+	depends = toxcore
+	provides = qtox
+	conflicts = qtox
+	source = qtox::git+https://github.com/qTox/qTox
+	sha512sums = SKIP
+
+pkgname = qtox-git
+
