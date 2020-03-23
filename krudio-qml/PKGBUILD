@@ -9,7 +9,7 @@ license=('MIT')
 makedepends=('git' 'qt5-multimedia' 'qt5-quickcontrols2')
 depends=('qt5-declarative')
 source=("git+${url}")
-install=$pkgname.install
+# install=$pkgname.install
 md5sums=('SKIP')
 
 pkgver() {
