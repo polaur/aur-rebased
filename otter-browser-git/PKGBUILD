@@ -5,10 +5,10 @@
 #Contributor: Christian Hesse <mail@eworm.de>
 
 pkgname=otter-browser-git
-pkgver=1.0.81.r8009.g23c955d89
+pkgver=1.0.81.r8442.g405222cd3
 pkgrel=1
 pkgdesc='Browser aiming to recreate the best aspects of the classic Opera (12.x) UI using Qt5 - git checkout'
-arch=('x86_64' 'arm' 'armv6h' 'armv7h' 'aarch64')
+arch=('x86_64')
 url='http://otter-browser.org/'
 license=('GPL3')
 provides=('otter-browser')
@@ -22,10 +22,6 @@ sha256sums=('SKIP')
 
 pkgver() {
 	cd otter-browser/
-
-	# git tags
-        # git describe --long --tags | sed 's/^v//;s/-/./g'
-        # cmakelist version
         _ver="$(cat CMakeLists.txt | grep -m3 -e MAJOR_VERSION -e MINOR_VERSION -e PATCH_VERSION | grep -o "[[:digit:]]*" | paste -sd'.')"
         printf "${_ver}.r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
 }
@@ -49,4 +45,3 @@ package() {
 	cd otter-browser/build/
 	make DESTDIR=${pkgdir} install
 }
-
