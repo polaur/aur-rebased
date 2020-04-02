@@ -1,0 +1,43 @@
+# Maintainer: pavbaranov
+# Maintainer: Rafał Frączek <rafalfr@protonmail.ch>
+pkgname=smarttrafficmeter-git
+pkgver=r251.c31a530
+pkgrel=1
+pkgdesc="Software for measuring network usage."
+arch=('x86_64')
+url="https://github.com/rafalfr/smarttrafficmeter"
+license=('GPL3')
+depends=('boost-libs' 'curl' 'xdg-utils')
+makedepends=('gcc' 'git' 'boost' 'curl' 'binutils' 'gzip')
+provides=('smarttrafficmeter')
+install='smarttrafficmeter.install'
+conflicts=(smarttrafficmeter)
+source=(git+https://github.com/rafalfr/smarttrafficmeter.git)
+md5sums=('SKIP')
+
+pkgver() {
+    cd $pkgname
+      ( set -o pipefail
+      git describe --long 2>/dev/null | sed 's/\([^-]*-g\)/r\1/;s/-/./g' ||
+      printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+      )
+    }
+
+prepare() {
+    mkdir -p build
+    }
+    
+build() {
+    cd $pkgname
+    cmake -H. -Bbuild
+    cmake --build build
+    }
+
+package() {
+    install -D -m755 ${srcdir}/smarttrafficmeter/bin/release/smarttrafficmeter ${pkgdir}/usr/bin/smarttrafficmeter
+    install -D -m755 ${srcdir}/smarttrafficmeter/install/arch/smarttrafficmeter.service ${pkgdir}/usr/lib/systemd/system/smarttrafficmeter.service
+    install -D -m755 ${srcdir}/smarttrafficmeter/man/smarttrafficmeter.1 ${pkgdir}/usr/share/man/man1/smarttrafficmeter.1
+    install -D -m755 ${srcdir}/smarttrafficmeter/install/desktop/smarttrafficmeter.desktop ${pkgdir}/usr/share/applications/smarttrafficmeter.desktop
+    install -D -m755 ${srcdir}/smarttrafficmeter/install/desktop/smarttrafficmeter.png ${pkgdir}/usr/share/pixmaps/smarttrafficmeter.png
+    install -D -m755 ${srcdir}/smarttrafficmeter/install/desktop/smarttrafficmeter.appdata.xml ${pkgdir}/usr/share/appdata/smarttrafficmeter.appdata.xml
+    }
