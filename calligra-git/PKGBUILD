@@ -4,7 +4,7 @@
 # so now in 3.1.0alpha1)
 
 pkgname=calligra-git
-pkgver=3.1.0.r626.g9b683a5054e
+pkgver=3.1.0.r657.gb794c1553e6
 pkgrel=1
 arch=('x86_64')
 license=('FDL1.2' 'GPL2' 'LGPL')
@@ -58,7 +58,7 @@ build() {
       -DRELEASE_BUILD=true \
       -DBUILD_TESTING=OFF  -Wno-dev \
       -DPRODUCTSET="WORDS SHEETS STAGE KARBON"
-  make 
+  make -j2
 }
 
 package() {
