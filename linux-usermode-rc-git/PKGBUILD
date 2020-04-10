@@ -6,7 +6,7 @@ pkgname=('linux-usermode-rc-git' 'linux-usermode-rc-git-modules')
 _major=5.6
 _kernelname=-usermodelinux-git
 _srcname=linux-stable-rc
-pkgver=5.6.r24.g579bffceae01
+pkgver=5.6.2.r47.g4491f12cfc6a
 pkgrel=1
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
@@ -46,7 +46,7 @@ prepare() {
     echo "Applying patch $src..."
     patch -Np1 < "../$src"
   done
-  
+
   echo "Setting config..."
   cp ../config .config
   yes "" | make ARCH=um config >/dev/null
