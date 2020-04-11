@@ -1,5 +1,5 @@
 pkgbase = calligra-git
-	pkgver = 3.1.0.r655.g5a50f653cfb
+	pkgver = 3.1.0.r657.gb794c1553e6
 	pkgrel = 1
 	url = http://www.calligra-suite.org/
 	arch = x86_64

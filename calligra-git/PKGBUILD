@@ -4,7 +4,7 @@
 # so now in 3.1.0alpha1)
 
 pkgname=calligra-git
-pkgver=3.1.0.r657.gb794c1553e6
+pkgver=3.1.0.r775.gd3355f511fe
 pkgrel=1
 arch=('x86_64')
 license=('FDL1.2' 'GPL2' 'LGPL')
