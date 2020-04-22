@@ -8,7 +8,7 @@
 
 pkgbase=networkmanager-git
 pkgname=(networkmanager-git libnm-git nm-cloud-setup-git)
-pkgver=1.23.2dev.10.g9add51ef1
+pkgver=1.25.0dev.37.gec1635dad
 pkgrel=1
 pkgdesc="Network connection manager and user applications"
 arch=(x86_64)
@@ -18,8 +18,7 @@ _pppver=2.4.7
 makedepends=(intltool dhclient iptables gobject-introspection gtk-doc "ppp=$_pppver" modemmanager
              iproute2 nss polkit wpa_supplicant curl systemd libmm-glib
              libnewt libndp libteam vala perl-yaml python-gobject git vala jansson bluez-libs
-             glib2-docs dhcpcd iwd dnsmasq systemd-resolvconf 
-             libpsl audit meson)
+             glib2-docs iwd dnsmasq openresolv libpsl audit meson)
 checkdepends=(libx11 python-dbus)
 source=("git+https://gitlab.freedesktop.org/NetworkManager/NetworkManager.git")
 sha256sums=('SKIP')
@@ -57,6 +56,9 @@ build() {
 
     # configuration plugins
     -D config_plugins_default=keyfile
+    
+    # dhcp clients
+    -D dhcpcd=no
 
     # miscellaneous
     -D vapi=true
@@ -91,7 +93,9 @@ package_networkmanager-git() {
               'bluez: Bluetooth support'
               'ppp: dialup connection support'
               'modemmanager: cellular network support'
-              'iwd: wpa_supplicant alternative')
+              'iwd: wpa_supplicant alternative'
+              'dhclient: alternative DHCP client'
+              'openresolv: alternative resolv.conf manager')
   backup=('etc/NetworkManager/NetworkManager.conf')
   conflicts=('networkmanager')
   provides=('networkmanager')
