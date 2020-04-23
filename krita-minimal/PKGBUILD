@@ -4,7 +4,7 @@
 _pkgname=krita
 pkgname="${_pkgname}-minimal"
 pkgver=4.2.9
-pkgrel=1
+pkgrel=2
 pkgdesc='Edit and paint images (less KDE dependencies)'
 arch=(x86_64)
 url='https://krita.org'
@@ -24,18 +24,21 @@ provides=("${_pkgname}=${pkgver}")
 conflicts=(calligra-krita krita-l10n "${_pkgname}")
 source=("https://download.kde.org/stable/krita/$pkgver/${_pkgname}-$pkgver.tar.gz"{,.sig}
         'replace-code.patch'
-        'krita-pyqt5-sip5.patch')
+        'krita-pyqt5-sip5.patch'
+        krita-deadlock-qt5.14.2.patch::"https://invent.kde.org/kde/krita/commit/afed6a9e.patch")
 sha256sums=('9f85bb81eaf4976af57352a482af1fdb86f338051a991f6f43976e0b65956da8'
             'SKIP'
             '9e8b41e1a5a7dffe2360386e4049392d83331094037f41fbdc8027d8e7c842a0'
-            'ab2f33843d8cad31bc13e0eca7dc732cdbfed054924f25ed61102c0d0971c1d8')
+            'ab2f33843d8cad31bc13e0eca7dc732cdbfed054924f25ed61102c0d0971c1d8'
+            '6477ceec976d376172cc82a5a8bf85938a7dffd924286fa79e64ccdab8c901eb')
 validpgpkeys=('05D00A8B73A686789E0A156858B9596C722EA3BD') # Boudewijn Rempt <foundation@krita.org>
 
 prepare() {
   mkdir -p build
   cd "${_pkgname}-$pkgver"
   patch -Np1 -i ../replace-code.patch
-  patch -Np1 -i ../krita-pyqt5-sip5.patch
+  patch -p1 -i ../krita-pyqt5-sip5.patch
+  patch -p1 -i ../krita-deadlock-qt5.14.2.patch
 }
 
 build() {
