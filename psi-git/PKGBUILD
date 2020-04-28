@@ -2,14 +2,14 @@
 # Contributor: Hyacinthe Cartiaux <hyacinthe.cartiaux@free.fr>
 
 pkgname=psi-git
-pkgver=1.4.934.g977558fa
+pkgver=1.4.1049.g6b2e81b6
 pkgrel=1
 pkgdesc="A XMPP client with webengine support. GIT version."
 arch=('x86_64')
 url="https://psi-im.org/"
 license=('GPL2')
 depends=('qt5-webengine' 'qt5-multimedia' 'qt5-x11extras' 'qca-qt5'
-	 'libidn' 'libxss' 'qt5-svg' 'hunspell' 'qtkeychain')
+	 'libidn' 'libxss' 'qt5-svg' 'hunspell' 'qtkeychain' 'http-parser')
 makedepends=('patch' 'cmake' 'git')
 provides=('psi' 'psi-qt5-git' 'psi-git')
 conflicts=('psi' 'psi-qt5-git' 'psi-git')
