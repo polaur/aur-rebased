@@ -11,7 +11,7 @@ depends=('exiv2' 'qt5-base' 'lcms2' 'fftw' 'graphicsmagick' 'lensfun' 'liblqr' '
 optdepends=('gimp: Gimp plugins' 'python2: Gimp to Photivo plugin')
 makedepends=('git' 'gimp')
 provides=('photivo')
-conflicts=('photivo' 'photivo-gimpless-git')
+conflicts=('photivo' 'photivo-gimpless-git' 'photivo-hg')
 source=('git+https://bitbucket.org/Photivo/photivo.git')
 md5sums=('SKIP')
 
