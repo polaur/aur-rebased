@@ -1,0 +1,49 @@
+# Maintainer: pavbaranov <pavbaranov at gmail dot com>
+# Maintainer: Lukas Jirkovsky <l.jirkovsky AT gmail.com>
+pkgname=photivo-git
+pkgver=r1132.1ed2499
+pkgrel=1
+pkgdesc="Free and open source photo processor"
+arch=('x86_64')
+url="http://photivo.org/"
+license=('GPL3')
+depends=('exiv2' 'qt5-base' 'lcms2' 'fftw' 'graphicsmagick' 'lensfun' 'liblqr' 'shared-mime-info' 'libraw')
+optdepends=('gimp: Gimp plugins' 'python2: Gimp to Photivo plugin')
+makedepends=('git' 'gimp')
+provides=('photivo')
+conflicts=('photivo' 'photivo-gimpless-git')
+source=('git+https://bitbucket.org/Photivo/photivo.git')
+md5sums=('SKIP')
+
+pkgver() {
+  cd ${pkgname%-*}
+    ( set -o pipefail
+    git describe --long 2>/dev/null | sed 's/\([^-]*-g\)/r\1/;s/-/./g' ||
+    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+  )
+}
+
+prepare() {
+  cd ${pkgname%-*}
+
+  # avoid installing shortcuts to the home
+  sed '/INSTALLS\s*+=\s*shortcut2/ d' -i photivo.pro
+}
+
+build() {
+  cd ${pkgname%-*}
+
+  qmake-qt5 PREFIX=/usr CONFIG-=debug CONFIG+=WithGimp
+  make
+}
+
+package() {
+  cd ${pkgname%-*}
+
+  make INSTALL_ROOT="$pkgdir" install
+  rm -rf "$pkgdir"/home
+
+  # GIMP integration
+  install -D -m755 ptGimp "$pkgdir/usr/lib/gimp/2.0/plug-ins/ptGimp"
+  install -D -m755 "mm extern photivo.py" "$pkgdir/usr/lib/gimp/2.0/plug-ins/mm-extern-photivo.py"
+}

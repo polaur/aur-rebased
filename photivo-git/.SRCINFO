@@ -1,0 +1,28 @@
+pkgbase = photivo-git
+	pkgdesc = Free and open source photo processor
+	pkgver = r1132.1ed2499
+	pkgrel = 1
+	url = http://photivo.org/
+	arch = x86_64
+	license = GPL3
+	makedepends = git
+	makedepends = gimp
+	depends = exiv2
+	depends = qt5-base
+	depends = lcms2
+	depends = fftw
+	depends = graphicsmagick
+	depends = lensfun
+	depends = liblqr
+	depends = shared-mime-info
+	depends = libraw
+	optdepends = gimp: Gimp plugins
+	optdepends = python2: Gimp to Photivo plugin
+	provides = photivo
+	conflicts = photivo
+	conflicts = photivo-gimpless-git
+	source = git+https://bitbucket.org/Photivo/photivo.git
+	md5sums = SKIP
+
+pkgname = photivo-git
+
