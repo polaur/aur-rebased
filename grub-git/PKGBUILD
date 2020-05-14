@@ -10,7 +10,7 @@ _IA32_EFI_IN_ARCH_X64="1"
 ## "1" to enable EMU build, "0" to disable
 _GRUB_EMU_BUILD="0"
 
-_UNIFONT_VER="12.1.03"
+_UNIFONT_VER="13.0.02"
 
 [[ "${CARCH}" == "x86_64" ]] && _EFI_ARCH="x86_64"
 [[ "${CARCH}" == "i686" ]] && _EFI_ARCH="i386"
@@ -21,8 +21,8 @@ _UNIFONT_VER="12.1.03"
 pkgname='grub-git'
 _pkgname='grub'
 pkgdesc='GNU GRand Unified Bootloader (2)'
-pkgver=2.04.29.g0f3f5b7c1
-pkgrel=3
+pkgver=2.04.90.gc543d6781
+pkgrel=1
 epoch=2
 url='https://www.gnu.org/software/grub/'
 arch=('x86_64')
@@ -64,7 +64,7 @@ source=("grub::git+git://git.sv.gnu.org/grub.git#branch=master"
 
 sha256sums=('SKIP'
             'SKIP'
-            '6067bda8daa1f3c49d8876107992e19fc9ab905ad54c01c3131b9649977c3746'
+            'ee02036aec9350dc35ebaaa205c43f9f9ad14efc56d63c12b177ac4fd424e94f'
             'SKIP'
             '171415ab075d1ac806f36c454feeb060f870416f24279b70104bba94bd6076d4'
             'a5198267ceb04dceb6d2ea7800281a42b3f91fd02da55d2cc9ea20d47273ca29'
