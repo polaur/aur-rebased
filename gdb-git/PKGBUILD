@@ -7,7 +7,7 @@ pkgbase=gdb-git
 # of gdb (for arm/avr/...)
 pkgname=(gdb-git gdb-common-git)
 _pkgname=binutils-gdb
-pkgver=9.1.r101639.7813437494a
+pkgver=9.1.r101747.80fc5e77f07
 pkgrel=1
 pkgdesc='The GNU Debugger'
 arch=(x86_64)
@@ -75,8 +75,6 @@ package_gdb-git() {
   rm "$pkgdir"/usr/include/{ansidecl,bfd,bfdlink,dis-asm,plugin-api,symcat,ctf,ctf-api,bfd_stdint,diagnostics}.h
   rm "$pkgdir"/usr/share/info/bfd.info
   rm "$pkgdir"/usr/lib/{libbfd,libopcodes,libctf,libctf-nobfd}.a
-  rm "$pkgdir"/usr/lib/libinproctrace.so*
-  rm "$pkgdir"/usr/bin/gdbserver
 
   # install "custom" system gdbinit
   install -dm 755 "$pkgdir/etc/gdb"
