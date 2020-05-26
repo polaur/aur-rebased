@@ -4,7 +4,7 @@
 
 pkgname=dracut-git
 _pkgname=dracut
-pkgver=049.122.g920048ff
+pkgver=050.51.g1ec7b694
 pkgrel=1
 pkgdesc="An event driven initramfs infrastructure"
 arch=('x86_64')
@@ -13,6 +13,12 @@ license=('GPL')
 depends=('bash' 'coreutils' 'cpio' 'filesystem' 'findutils' 'grep' 'gzip'
          'kmod' 'pkgconf' 'procps-ng' 'sed' 'systemd' 'util-linux' 'xz')
 makedepends=('asciidoc' 'bash-completion' 'git')
+optdepends=('binutils: --uefi option support'
+            'elfutils: strip binaries to reduce initramfs size'
+            'hardlink: --hardlink option support'
+            'multipath-tools: dmraid dracut module support'
+            'pigz: faster gzip compression'
+            'sbsigntools: uefi_secureboot_cert/key configuration option support')
 provides=('initramfs' 'dracut')
 conflicts=('dracut')
 backup=('etc/dracut.conf')
