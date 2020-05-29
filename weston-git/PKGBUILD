@@ -5,7 +5,7 @@
 
 pkgname=weston-git
 _pkgname=weston
-pkgver=8.0.0.107.g1c0507b1
+pkgver=8.0.0.133.g50aa3a76
 pkgrel=1
 pkgdesc='Reference implementation of a Wayland compositor'
 arch=('x86_64')
@@ -42,7 +42,7 @@ prepare() {
 }
 
 build() {
-  meson $_pkgname build \
+  arch-meson $_pkgname build \
     --libexec=lib/weston -D b_lto=false -D simple-dmabuf-drm=auto
   ninja -C build
 }
