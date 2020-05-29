@@ -8,7 +8,7 @@
 
 pkgbase=networkmanager-test-git
 pkgname=(networkmanager-test-git libnm-test-git nm-cloud-setup-test-git)
-pkgver=1.24.rc1.35.g5a06b1b53
+pkgver=1.24.3dev.0.gc1e5de0e3
 pkgrel=1
 pkgdesc="Network connection manager and user applications"
 arch=(x86_64)
@@ -69,7 +69,7 @@ build() {
   )
 
   arch-meson NetworkManager build "${meson_args[@]}"
-  ninja -C build
+  meson compile -C build
 }
 
 #check() {
@@ -95,7 +95,8 @@ package_networkmanager-test-git() {
               'modemmanager: cellular network support'
               'iwd: wpa_supplicant alternative'
               'dhclient: alternative DHCP client'
-              'openresolv: alternative resolv.conf manager')
+              'openresolv: alternative resolv.conf manager'
+              'firewalld: Firewall support')
   backup=('etc/NetworkManager/NetworkManager.conf')
   conflicts=('networkmanager')
   provides=('networkmanager')
