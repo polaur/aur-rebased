@@ -9,8 +9,8 @@
 pkgname=toxcore-git
 _pkgname=c-toxcore
 __pkgname=toxcore
-pkgver=0.2.1.9.geb6b6020
-pkgrel=1
+pkgver=0.2.10.21.gf6c3ce6d
+pkgrel=2
 pkgdesc='Secure, configuration-free, P2P Skype replacement backend'
 arch=('x86_64')
 url='https://tox.chat'
@@ -38,20 +38,19 @@ prepare() {
 }
 
 build() {
-  cd $_pkgname
-  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+  cmake -B build -S $_pkgname \ 
+        -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_INSTALL_LIBDIR=/usr/lib \
         -DDHT_BOOTSTRAP=on \
         -DBOOTSTRAP_DAEMON=on \
         -DBUILD_NTOX=off \
         -DBUILD_TOXAV=on \
         -DBUILD_AV_TEST=on
-  make
+  cmake --build build
 }
 
 package() {
-  cd $_pkgname
-  make DESTDIR="$pkgdir" install
+  DESTDIR="$pkgdir" cmake --install build
   install -Dm644 "$srcdir/toxcore.conf" "$pkgdir/usr/lib/sysusers.d/toxcore.conf"
   install -Dm644 ./other/bootstrap_daemon/tox-bootstrapd.service "$pkgdir/usr/lib/systemd/system/tox-bootstrapd.service"
   install -Dm644 ./other/bootstrap_daemon/tox-bootstrapd.conf "$pkgdir/etc/tox-bootstrapd.conf"
