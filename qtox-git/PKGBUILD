@@ -5,7 +5,7 @@
 
 pkgname=qtox-git
 _pkgname=qtox
-pkgver=1.14.0.52.ga918e559
+pkgver=1.17.2.231.g1c29152f9
 pkgrel=1
 pkgdesc='Powerful Tox client written in C++/Qt that follows the Tox design guidelines. GTK free.'
 arch=('x86_64')
@@ -32,18 +32,14 @@ pkgver() {
 }
 
 build() {
-  cd $_pkgname
-  mkdir -p build
-  cd build
-  cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
+  cmake -B build -S $_pkgname \
+           -DCMAKE_INSTALL_PREFIX=/usr \
 	   -DENABLE_GTK_SYSTRAY=False \
 	   -DENABLE_STATUSNOTIFIER=False \
 	   -DGIT_DESCRIBE=$pkgver 
-  make
+  cmake --build build
 }
 
 package() {
-  cd $_pkgname
-  cd build
-  make DESTDIR="$pkgdir" install
+  DESTDIR="$pkgdir" cmake --install build
 }
