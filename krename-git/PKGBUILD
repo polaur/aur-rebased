@@ -3,7 +3,7 @@
 
 pkgname=krename-git
 pkgver=5.0.60.r530.b185fab
-pkgrel=1
+pkgrel=2
 pkgdesc="A very powerful batch file renamer for KDE. (GIT Version)"
 arch=('x86_64')
 url='http://www.krename.net'
@@ -17,23 +17,18 @@ sha1sums=('SKIP')
 
 pkgver() {
   cd krename
-  _ver="$(cat CMakeLists.txt | grep -m1 krename | grep -o "[[:digit:]]*" | paste -sd'.')"
+  _ver="$(cat CMakeLists.txt | grep -m1 KRENAME_VERSION | grep -o "[[:digit:]]*" | paste -sd'.')"
   echo "${_ver}.r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
 }
 
-prepare() {
-  mkdir -p build
-}
-
 build() {
-  cd build
-  cmake ../krename \
+  cmake -B build -S krename \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DBUILD_TESTING=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  make -C build DESTDIR="${pkgdir}" install
+  DESTDIR="$pkgdir" cmake --install build
 }
