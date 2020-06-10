@@ -2,7 +2,7 @@
 # Contributor: Hyacinthe Cartiaux <hyacinthe.cartiaux@free.fr>
 
 pkgname=psi-git
-pkgver=1.4.1049.g6b2e81b6
+pkgver=1.4.1326.gdd38680f
 pkgrel=1
 pkgdesc="A XMPP client with webengine support. GIT version."
 arch=('x86_64')
@@ -38,16 +38,10 @@ prepare() {
 }
 
 build() {
-  cd $srcdir/psi
-  mkdir -p build
-  cd build
-  cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DPSI_PLUS=OFF -DCHAT_TYPE=WEBENGINE ..
-  make
+  cmake -B build -S psi -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DPSI_PLUS=OFF -DCHAT_TYPE=WEBENGINE ..
+  cmake --build build
 }
 
 package() {
-  cd psi/build
-
-  make DESTDIR="$pkgdir" install
+  DESTDIR="$pkgdir" cmake --install build
 }
-
