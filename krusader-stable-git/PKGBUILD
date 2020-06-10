@@ -2,27 +2,20 @@
 # Contributor: Gustavo Alvarez <sl1pkn07@gmail.com>
 
 pkgname=krusader-stable-git
-pkgver=2.7.1.dev.r5903.gec5284ea
-pkgrel=1
+pkgver=2.7.3.dev.r5976.gaf0d0d21
+pkgrel=2
 pkgdesc="Advanced twin panel file manager for KDE. (GIT version)"
 arch=('x86_64')
 url='http://www.krusader.org'
 license=('GPL')
-depends=('karchive' 'kbookmarks' 'kcodecs' 'kcompletion' 'kcoreaddons' 'kconfig'
-         'kdoctools' 'ki18n' 'kiconthemes' 'kitemviews' 'kio' 'knotifications'
-         'kparts' 'solid' 'ktextwidgets' 'kwallet' 'kwidgetsaddons' 'kwindowsystem'
-         'kxmlgui' 'kguiaddons' 'hicolor-icon-theme')
-makedepends=('cmake' 'extra-cmake-modules' 'git')
-optdepends=(
-            # archive formats
-            # look for KrServices::cmdExist calls
-            'xz: LZMA and XZ archive support'
+depends=('kparts' 'hicolor-icon-theme')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+optdepends=('xz: LZMA and XZ archive support'
             'unzip: ZIP decompression support'
             'zip: ZIP archive support'
             'lhasa: LHA archive support'
             'cpio: cpio archive support'
             'unrar: RAR decompression support'
-            'rar: RAR archive support'
             'arj: ARJ archive support'
             'unarj: ARJ decompression support'
             'unace: ACE decompression support'
@@ -34,11 +27,10 @@ optdepends=(
             'kdiff3: file contents comparison'
             'krename: advanced rename tool'
             'konsole: terminal'
-            'ktexteditor: file editing support'
-)
+            'ktexteditor: file editing support')
 provides=('krusader')
 conflicts=('krusader')
-source=('git://anongit.kde.org/krusader#branch=2.7')
+source=('git://anongit.kde.org/krusader#branch=stable')
 sha1sums=('SKIP')
 
 pkgver() {
@@ -48,15 +40,11 @@ pkgver() {
 }
 
 build() {
-  cd krusader
-  cmake . \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
+  cmake -B build -S krusader \
     -DKDESU_PATH="/usr/lib/kf5/kdesu"
-  make
+  cmake --build build
 }
 
 package() {
-  cd krusader
-  make DESTDIR="$pkgdir" install
+  DESTDIR="$pkgdir" cmake --install build
 }
