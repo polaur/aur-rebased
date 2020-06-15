@@ -2,8 +2,8 @@
 # Contributor: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=krename-git
-pkgver=5.0.60.r530.b185fab
-pkgrel=2
+pkgver=5.0.60.r543.141e811
+pkgrel=1
 pkgdesc="A very powerful batch file renamer for KDE. (GIT Version)"
 arch=('x86_64')
 url='http://www.krename.net'
@@ -12,12 +12,12 @@ depends=('kio' 'kjs' 'exiv2' 'podofo' 'taglib' 'hicolor-icon-theme')
 makedepends=('extra-cmake-modules' 'git')
 provides=('krename' 'krename-frameworks-git')
 conflicts=('krename' 'krename-frameworks-git')
-source=('git://anongit.kde.org/krename.git')
+source=('git+https://anongit.kde.org/krename.git')
 sha1sums=('SKIP')
 
 pkgver() {
   cd krename
-  _ver="$(cat CMakeLists.txt | grep -m1 KRENAME_VERSION | grep -o "[[:digit:]]*" | paste -sd'.')"
+  _ver="$(cat CMakeLists.txt | grep -m1 krename | grep -o "[[:digit:]]*" | paste -sd'.')"
   echo "${_ver}.r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
 }
 
