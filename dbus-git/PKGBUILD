@@ -5,7 +5,7 @@
 
 pkgbase=dbus-git
 pkgname=('dbus-git' 'dbus-docs-git')
-pkgver=1.13.12.r54.gbf0eaec4
+pkgver=1.13.18.r0.gc91ca6ed
 pkgrel=1
 pkgdesc="Freedesktop.org message bus system"
 url="http://www.freedesktop.org/Software/dbus"
@@ -13,10 +13,11 @@ arch=(x86_64)
 license=('GPL' 'custom')
 depends=('systemd-libs' 'expat' 'audit')
 makedepends=('systemd' 'xmlto' 'docbook-xsl' 'python' 'yelp-tools' 'doxygen' 'git' 'autoconf-archive')
-source=(git://anongit.freedesktop.org/dbus/dbus
-        dbus-reload.hook)
+source=(git+https://gitlab.freedesktop.org/dbus/dbus.git
+        dbus-reload.hook no-fatal-warnings.diff)
 md5sums=('SKIP'
-         'c3b3957a7d236ccebf84862aa6226d58')
+         'c3b3957a7d236ccebf84862aa6226d58'
+         'c28b6b9baec725bc816ae6976c9ae722')
 
 pkgver() {
   cd dbus
@@ -25,6 +26,10 @@ pkgver() {
 
 prepare() {
   cd dbus
+
+  # Allow us to enable checks without them being fatal
+  patch -Np1 -i ../no-fatal-warnings.diff
+
   NOCONFIGURE=1 ./autogen.sh
 }
 
@@ -42,12 +47,13 @@ build() {
     --with-system-socket=/run/dbus/system_bus_socket \
     --with-systemdsystemunitdir=/usr/lib/systemd/system \
     --enable-inotify \
+    --enable-libaudit \
     --enable-systemd \
     --enable-user-session \
+    --enable-xml-docs \
+    --enable-doxygen-docs \
+    --enable-ducktype-docs \
     --disable-static \
-    --disable-verbose-mode \
-    --disable-asserts \
-    --disable-checks \
     --without-x
   make
 }
