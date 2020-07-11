@@ -1,0 +1,22 @@
+pkgbase = telepathy-tank-git
+	pkgdesc = Matrix connection operator for the Telepathy framework
+	pkgver = r39.596d523
+	pkgrel = 2
+	url = https://telepathy.freedesktop.org/
+	arch = i686
+	arch = x86_64
+	arch = armv7h
+	arch = aarch64
+	license = GPL
+	makedepends = cmake
+	makedepends = git
+	depends = telepathy-qt
+	depends = libquotient-git
+	provides = telepathy-tank
+	conflicts = telepathy-tank
+	conflicts = telepathy-tank-git-wip
+	source = git+https://github.com/TelepathyIM/telepathy-tank#branch=aa13q/master
+	md5sums = SKIP
+
+pkgname = telepathy-tank-git
+
