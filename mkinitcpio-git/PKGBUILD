@@ -4,7 +4,7 @@
 # Contributor: Thomas Bächler <thomas@archlinux.org> ([core] package)
 
 pkgname=mkinitcpio-git
-pkgver=28.0.g3340dbc
+pkgver=28.r0.g3340dbc
 pkgrel=1
 pkgdesc='Modular initramfs image creation utility - git checkout'
 arch=('any')
@@ -29,7 +29,7 @@ sha256sums=('SKIP'
 
 pkgver() {
   cd mkinitcpio
-  git describe --long --tags | sed 's/^v//;s/-/./g'
+  git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
 } 
 
 prepare() {
