@@ -2,7 +2,7 @@
 # Contributor: Kamran Mackey <kamranm1200@gmail.com>
 
 pkgname=git-test-git
-pkgver=2.25.0.rc1.272.gf5214142cd
+pkgver=2.28.0.rc1.151.gdc10067ca7
 pkgrel=1
 pkgdesc="A fast distributed version control system"
 arch=('x86_64')
@@ -28,8 +28,8 @@ optdepends=('tk: gitk and git gui'
 conflicts=('git' 'git-dev-git' 'git-main-git' 'git-git')
 provides=('git')
 install=git-git.install
-source=("git://github.com/git/git.git#branch=pu"
-       #"git://git.kernel.org/pub/scm/git/git.git#branch=pu"
+source=("git://github.com/git/git.git#branch=seen"
+       #"git://git.kernel.org/pub/scm/git/git.git#branch=seen"
         'git-daemon@.service'
         'git-daemon.socket'
         'git-sysusers.conf')
