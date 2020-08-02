@@ -8,7 +8,7 @@
 
 pkgbase=networkmanager-stable-git
 pkgname=(networkmanager-stable-git libnm-stable-git nm-cloud-setup-stable-git)
-pkgver=1.22.15dev.0.g8ba610b91
+pkgver=1.24.3dev.25.g18c76745f
 pkgrel=1
 pkgdesc="Network connection manager and user applications"
 arch=(x86_64)
@@ -20,7 +20,7 @@ makedepends=(intltool dhclient iptables gobject-introspection gtk-doc "ppp=$_ppp
              libnewt libndp libteam vala perl-yaml python-gobject git vala jansson bluez-libs
              glib2-docs iwd dnsmasq openresolv libpsl audit meson)
 checkdepends=(libx11 python-dbus)
-source=("git+https://gitlab.freedesktop.org/NetworkManager/NetworkManager.git#branch=nm-1-22")
+source=("git+https://gitlab.freedesktop.org/NetworkManager/NetworkManager.git#branch=nm-1-24")
 sha256sums=('SKIP')
 
 prepare() {
