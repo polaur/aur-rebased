@@ -7,12 +7,12 @@ _kernelname=-usermodelinux-rc
 _major=5.7
 _minor=12
 _minorc=$((_minor+1))
-_rcver=rc1
+_rcver=rc2
 pkgver=${_major}.${_minorc}
 _stable=${_major}.${_minor}
 _stablerc=${pkgver}-${_rcver}
 _srcname=linux-${_stable}
-pkgrel=1
+pkgrel=2
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
 license=('GPL2')
@@ -30,7 +30,7 @@ source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_stable}.tar.xz"
 
 sha256sums=('7a54cf89d7198d99004495c0e3a25d3af05c5d5b70cccf92237f603d7fa15e08'
             'SKIP'
-            'b640a94ef6bc6111404f89863cc4110639a27387f6209f09df2b87c33942b8a0'
+            'a3ea07f0db95cd04004c132c1459093117e8c5e29693c013ff34053f020e72e5'
             'SKIP'
             'd3aed447de89a141442509e31b266460dcaad2116301d35c289d6ee66c231081'
             '05ea4e00d1e99bf8140a21c94e3c42acf17b9debad9c6f5decbe1dd1fe04332c')
