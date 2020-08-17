@@ -1,6 +1,6 @@
 pkgbase = falkon-git
 	pkgdesc = Cross-platform Qt Web Browser
-	pkgver = 3.1.0.197.g30ca8c3a
+	pkgver = 3.1.0.200.g501678d0
 	pkgrel = 1
 	url = http://falkon.org
 	arch = i686
@@ -30,7 +30,11 @@ pkgbase = falkon-git
 	conflicts = qupzilla-qt5-git
 	conflicts = falkon
 	source = git+https://invent.kde.org/network/falkon.git
+	source = po.tar.gz
+	source = poqm.tar.gz
 	sha256sums = SKIP
+	sha256sums = 7c70f78b10829745f2a3125492a38a172bcfba40c392330e14ad166b4a44e708
+	sha256sums = 5bb6f68ce3502ec00fe07e768e09a37bae236338cbc7945b4c53d582910a253d
 
 pkgname = falkon-git
 
