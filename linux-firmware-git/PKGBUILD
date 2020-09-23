@@ -6,7 +6,7 @@
 pkgbase=linux-firmware-git
 _pkgbase=linux-firmware
 pkgname=(linux-firmware-git amd-ucode-git)
-pkgver=20200721.r1678.g2b823fc
+pkgver=20200918.r0.g00a84c5
 pkgrel=1
 pkgdesc="Firmware files for Linux"
 url="http://git.kernel.org/?p=linux/kernel/git/firmware/linux-firmware.git;a=summary"
@@ -14,13 +14,13 @@ license=('GPL2' 'GPL3' 'custom')
 arch=('any')
 makedepends=('git')
 options=(!strip)
-source=("git+https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git")
+source=("git+https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git#branch=master")
 md5sums=('SKIP')
 
 pkgver() {
   cd ${_pkgbase}
   
-  echo "$(git show --format='%cI' -q master | sed 's/T.*//g;s/-//g').r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
+  git describe --long --tags | sed 's/v//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
 prepare() {
