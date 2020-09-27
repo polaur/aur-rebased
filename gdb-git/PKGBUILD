@@ -8,12 +8,13 @@ pkgbase=gdb-git
 pkgname=(gdb-git gdb-common-git)
 _pkgname=binutils-gdb
 pkgver=9.1.r101747.80fc5e77f07
-pkgrel=1
+pkgrel=2
 pkgdesc='The GNU Debugger'
 arch=(x86_64)
 url='http://www.gnu.org/software/gdb/'
 license=(GPL3)
-makedepends=(texinfo python guile2.0 ncurses expat xz mpfr source-highlight git)
+makedepends=(glibc gcc-libs texinfo python guile2.0 ncurses expat xz mpfr source-highlight
+             readline git)
 source=(git://sourceware.org/git/binutils-gdb.git)
 sha1sums=('SKIP')
 
@@ -52,34 +53,16 @@ package_gdb-common-git() {
   conflicts=(gdb-common)
 
   cd ${srcdir}/${_pkgname}/build
-  make DESTDIR="$pkgdir" install
-
-  # resolve conflicts with binutils
-  rm "$pkgdir"/usr/include/{ansidecl,bfd,bfdlink,dis-asm,plugin-api,symcat,ctf,ctf-api,bfd_stdint,diagnostics}.h
-  rm "$pkgdir"/usr/share/info/bfd.info
-  rm "$pkgdir"/usr/lib/{libbfd,libopcodes,libctf,libctf-nobfd}.a
-
-  rm -r "$pkgdir"/usr/{bin,include,lib,share/info,share/man}
+  make -C gdb/data-directory DESTDIR="$pkgdir" install
 }
 
 package_gdb-git() {
-  depends=(ncurses expat xz mpfr source-highlight gdb-git-common=$pkgver)
+  depends=(glibc ncurses libncursesw.so gcc-libs expat xz mpfr source-highlight gdb-git-common=$pkgver
+           readline libreadline.so guile2.0 python)
   backup=(etc/gdb/gdbinit)
   provides=(gdb)
   conflicts=(gdb)
 
   cd ${srcdir}/${_pkgname}/build
-  make DESTDIR="$pkgdir" install
-
-  # resolve conflicts with binutils
-  rm "$pkgdir"/usr/include/{ansidecl,bfd,bfdlink,dis-asm,plugin-api,symcat,ctf,ctf-api,bfd_stdint,diagnostics}.h
-  rm "$pkgdir"/usr/share/info/bfd.info
-  rm "$pkgdir"/usr/lib/{libbfd,libopcodes,libctf,libctf-nobfd}.a
-
-  # install "custom" system gdbinit
-  install -dm 755 "$pkgdir/etc/gdb"
-  touch "$pkgdir/etc/gdb/gdbinit"
-
-  # comes from gdb-common
-  rm -r "$pkgdir/usr/share/gdb/"
+  make -C gdb DESTDIR="$pkgdir" install
 }
