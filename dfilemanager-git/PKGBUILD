@@ -1,0 +1,32 @@
+# Maintainer: pavbaranov <pavbaranov at gmail dot com>
+
+pkgname=dfilemanager-git
+pkgver=r415.c592d64
+pkgrel=1
+pkgdesc="File manager for Mac-like experience; more for Plasma then AUR version"
+url='http://dfilemanager.sourceforge.net'
+arch=(x86_64)
+license=(GPL)
+depends=(solid exiv2 poppler-qt5)
+makedepends=(git cmake)
+source=("git+https://github.com/probonopd/dfilemanager.git")
+sha256sums=('SKIP')
+
+pkgver() {
+  cd "${pkgname%-*}"
+  ( set -o pipefail
+    git describe --long | sed -r 's/([^-]*-g)/r\1/;s/-/./g' ||
+    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+  )
+}
+
+build() {
+  cmake -B build -S ${pkgname%-*} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DQT5BUILD=ON
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+}
