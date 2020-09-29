@@ -1,0 +1,17 @@
+pkgbase = dfilemanager-git
+	pkgdesc = File manager for Mac-like experience; more for Plasma then AUR version
+	pkgver = r415.c592d64
+	pkgrel = 1
+	url = http://dfilemanager.sourceforge.net
+	arch = x86_64
+	license = GPL
+	makedepends = git
+	makedepends = cmake
+	depends = solid
+	depends = exiv2
+	depends = poppler-qt5
+	source = git+https://github.com/probonopd/dfilemanager.git
+	sha256sums = SKIP
+
+pkgname = dfilemanager-git
+
