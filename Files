@@ -1,0 +1,218 @@
+.
+├── adapta-kde-git
+│   └── PKGBUILD
+├── bat-polaur-git
+│   └── PKGBUILD
+├── calligra-git
+│   └── PKGBUILD
+├── cpio-git
+│   └── PKGBUILD
+├── dbus-git
+│   ├── dbus-reload.hook
+│   ├── no-fatal-warnings.diff
+│   └── PKGBUILD
+├── dbus-stable-git
+│   ├── dbus-reload.hook
+│   ├── no-fatal-warnings.diff
+│   └── PKGBUILD
+├── dfilemanager-git
+│   └── PKGBUILD
+├── dracut-git
+│   └── PKGBUILD
+├── dvb-firmware
+│   ├── LICENSE
+│   └── PKGBUILD
+├── ecrire-git
+│   └── PKGBUILD
+├── etcher-cli
+│   └── PKGBUILD
+├── falkon-git
+│   ├── PKGBUILD
+│   ├── poqm.tar.gz
+│   └── po.tar.gz
+├── fetchmirrors-git
+│   └── PKGBUILD
+├── Files
+├── gdb-git
+│   └── PKGBUILD
+├── git-dev-git
+│   ├── git-daemon@.service
+│   ├── git-daemon.socket
+│   ├── git-git.install
+│   ├── git-sysusers.conf
+│   └── PKGBUILD
+├── git-extras-git
+│   └── PKGBUILD
+├── git-git
+│   ├── git-daemon@.service
+│   ├── git-daemon.socket
+│   ├── git-git.install
+│   ├── git-sysusers.conf
+│   └── PKGBUILD
+├── gitless
+│   ├── 0001-Update-libgit2.patch
+│   ├── 0002-Update-requirements.patch
+│   └── PKGBUILD
+├── git-main-git
+│   ├── git-daemon@.service
+│   ├── git-daemon.socket
+│   ├── git-git.install
+│   ├── git-sysusers.conf
+│   └── PKGBUILD
+├── git-test-git
+│   ├── git-daemon@.service
+│   ├── git-daemon.socket
+│   ├── git-git.install
+│   ├── git-sysusers.conf
+│   └── PKGBUILD
+├── grub-git
+│   ├── 0003-10_linux-detect-archlinux-initramfs.patch
+│   ├── 0004-add-GRUB_COLOR_variables.patch
+│   ├── 0005-grub-install-fix-inverted-test-for-NLS-enabled-when-.patch
+│   ├── grub.default
+│   ├── grub.install
+│   └── PKGBUILD
+├── hstr-git
+│   └── PKGBUILD
+├── hub-git
+│   └── PKGBUILD
+├── jreen-qt5
+│   └── PKGBUILD
+├── jreen-qt5-git
+│   └── PKGBUILD
+├── k4dirstat
+│   └── PKGBUILD
+├── kaidan-git
+│   └── PKGBUILD
+├── kdiff3-git
+│   └── PKGBUILD
+├── konversation-git
+│   ├── PKGBUILD
+│   └── po.tar.gz
+├── krename-git
+│   └── PKGBUILD
+├── krita-minimal
+│   ├── krita-pyqt5-sip5.patch
+│   ├── PKGBUILD
+│   └── replace-code.patch
+├── krudio-qml
+│   └── PKGBUILD
+├── krusader-stable-git
+│   └── PKGBUILD
+├── kvantum-qt5-git
+│   └── PKGBUILD
+├── libgit2-git
+│   ├── libgit2-0.99.0-remove_http-parse_incompatible_tests.patch
+│   └── PKGBUILD
+├── libhangish-git
+│   └── PKGBUILD
+├── lightzone
+│   └── PKGBUILD
+├── linux-firmware-git
+│   └── PKGBUILD
+├── linux-firmware-main-git
+│   └── PKGBUILD
+├── linux-usermode
+│   ├── 70-uml.hook
+│   ├── config
+│   └── PKGBUILD
+├── linux-usermode-git
+│   ├── 70-uml.hook
+│   ├── config
+│   └── PKGBUILD
+├── linux-usermode-rc
+│   ├── 70-uml.hook
+│   ├── config
+│   └── PKGBUILD
+├── linux-usermode-rc-git
+│   ├── 70-uml.hook
+│   ├── config
+│   └── PKGBUILD
+├── lumina-calculator
+│   └── PKGBUILD
+├── marwaita-icon-theme
+│   ├── Marwaita Icons.tar.xz
+│   └── PKGBUILD
+├── materia-kde-git
+│   └── PKGBUILD
+├── mercurial-hg
+│   ├── mercurial.profile
+│   └── PKGBUILD
+├── meson-git
+│   ├── arch-meson
+│   ├── PKGBUILD
+│   └── skip-test.diff
+├── micro-git
+│   └── PKGBUILD
+├── mkinitcpio-git
+│   ├── 0001-alpm-hooks-should-use-Type-Path-not-File.patch
+│   └── PKGBUILD
+├── moc-pulse-dev
+│   ├── moc-ffmpeg4.patch
+│   ├── PKGBUILD
+│   └── pulseaudio.patch
+├── networkmanager-git
+│   └── PKGBUILD
+├── networkmanager-stable-git
+│   └── PKGBUILD
+├── networkmanager-test-git
+│   └── PKGBUILD
+├── ninja-git
+│   └── PKGBUILD
+├── openvpn-git
+│   └── PKGBUILD
+├── otter-browser-git
+│   └── PKGBUILD
+├── photivo-git
+│   └── PKGBUILD
+├── pkgbuild-introspection-lucjan-git
+│   └── PKGBUILD
+├── psi-git
+│   └── PKGBUILD
+├── qpxtool
+│   ├── libpng15.patch
+│   └── PKGBUILD
+├── qstopmotion-qt5
+│   └── PKGBUILD
+├── qtox-git
+│   └── PKGBUILD
+├── qtrans
+│   └── PKGBUILD
+├── README.md
+├── s-git
+│   └── PKGBUILD
+├── smarttrafficmeter-git
+│   ├── PKGBUILD
+│   └── smarttrafficmeter.install
+├── telepathy-brain-im-git
+│   └── PKGBUILD
+├── telepathy-hanging-git
+│   └── PKGBUILD
+├── telepathy-tank-git
+│   └── PKGBUILD
+├── tomahawk-git
+│   └── PKGBUILD
+├── tomahawk-qt5
+│   ├── arch-build.patch
+│   └── PKGBUILD
+├── toxcore-git
+│   ├── PKGBUILD
+│   ├── toxcore.conf
+│   └── toxcore.install
+├── ttf-liberation-sans-narrow
+│   ├── 30-0-liberation-sans-narrow.conf
+│   ├── PKGBUILD
+│   └── ttf.install
+├── videomorph
+│   └── PKGBUILD
+├── wayland-git
+│   └── PKGBUILD
+├── weston-git
+│   └── PKGBUILD
+├── wps-office-mui
+│   └── PKGBUILD
+└── wsjtx
+    ├── PKGBUILD
+    └── wsjtx.patch
+
+78 directories, 137 files
