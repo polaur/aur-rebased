@@ -7,13 +7,13 @@ pkgbase=gdb-git
 # of gdb (for arm/avr/...)
 pkgname=(gdb-git gdb-common-git)
 _pkgname=binutils-gdb
-pkgver=9.1.r101747.80fc5e77f07
-pkgrel=2
+pkgver=10.1.r103778.ce04ca31231
+pkgrel=1
 pkgdesc='The GNU Debugger'
 arch=(x86_64)
 url='http://www.gnu.org/software/gdb/'
 license=(GPL3)
-makedepends=(glibc gcc-libs texinfo python guile2.0 ncurses expat xz mpfr source-highlight
+makedepends=(glibc gcc-libs texinfo python guile ncurses expat xz mpfr source-highlight
              readline git)
 source=(git://sourceware.org/git/binutils-gdb.git)
 sha1sums=('SKIP')
@@ -42,13 +42,13 @@ build() {
     --enable-tui \
     --with-system-readline \
     --with-python=/usr/bin/python \
-    --with-guile=guile-2.0 \
+    --with-guile=guile-2.2 \
     --with-system-gdbinit=/etc/gdb/gdbinit
   make
 }
 
 package_gdb-common-git() {
-  depends=(python guile2.0)
+  depends=(python guile)
   provides=(gdb-common)
   conflicts=(gdb-common)
 
@@ -58,7 +58,7 @@ package_gdb-common-git() {
 
 package_gdb-git() {
   depends=(glibc ncurses libncursesw.so gcc-libs expat xz mpfr source-highlight gdb-git-common=$pkgver
-           readline libreadline.so guile2.0 python)
+           readline libreadline.so guile python libelf)
   backup=(etc/gdb/gdbinit)
   provides=(gdb)
   conflicts=(gdb)
