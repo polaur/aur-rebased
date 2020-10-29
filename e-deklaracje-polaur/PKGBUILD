@@ -1,0 +1,25 @@
+# Maintainer: Damian N. <nycko123 at gmail>
+# Previous maintainer: Proxy <ergo-proxy at domain tlen pl>
+# Contributor: Lukasz Kszonowski <archlinux at kszonek dot pl>
+
+pkgname=e-deklaracje-polaur
+pkgrel=1
+pkgver=12.0.5
+pkgdesc="Application for submitting tax return in Poland - POLAUR"
+arch=('any')
+url="https://www.podatki.gov.pl/e-deklaracje/aplikacja-e-deklaracje-desktop/"
+license=('custom')
+depends=('acroread-polaur' 'adobe-air')
+conflicts=('e-deklaracje')
+source=("e-deklaracje-$pkgver.air::https://www.podatki.gov.pl/media/3103/e-deklaracjedesktop.air"
+         'e-deklaracje.desktop')
+sha256sums=('c776e20530da344bf49b2083dc0119332b1dd3193783c3ff39f77c7ff72c4d3e'
+            'ca9f9337fb40301d34f3e853dd9d7a83374caa0b0bb27fa95310f4dbeeb83743')
+noextract=(e-deklaracje-$pkgver.air)
+
+package() {
+  unzip -q -u e-deklaracje-$pkgver.air
+  install -D -m 644 "$srcdir/e-deklaracje-$pkgver.air" "$pkgdir/opt/e-deklaracje/e-DeklaracjeDesktop.air"
+  install -D -m 644 "$srcdir/assets/icons/icon128.png" "$pkgdir/usr/share/pixmaps/e-deklaracje.png"
+  install -D -m 644 "$srcdir/e-deklaracje.desktop" "$pkgdir/usr/share/applications/e-deklaracje.desktop"
+}
