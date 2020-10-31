@@ -1,0 +1,18 @@
+pkgbase = e-deklaracje-polaur
+	pkgdesc = Application for submitting tax return in Poland - POLAUR
+	pkgver = 12.0.5
+	pkgrel = 1
+	url = https://www.podatki.gov.pl/e-deklaracje/aplikacja-e-deklaracje-desktop/
+	arch = any
+	license = custom
+	depends = acroread-polaur
+	depends = adobe-air
+	conflicts = e-deklaracje
+	noextract = e-deklaracje-12.0.5.air
+	source = e-deklaracje-12.0.5.air::https://www.podatki.gov.pl/media/3103/e-deklaracjedesktop.air
+	source = e-deklaracje.desktop
+	sha256sums = c776e20530da344bf49b2083dc0119332b1dd3193783c3ff39f77c7ff72c4d3e
+	sha256sums = ca9f9337fb40301d34f3e853dd9d7a83374caa0b0bb27fa95310f4dbeeb83743
+
+pkgname = e-deklaracje-polaur
+
