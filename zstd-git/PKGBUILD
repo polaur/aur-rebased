@@ -1,0 +1,37 @@
+# Maintainer: Piotr Górski <lucjan.lucjanov@gmail.com>
+# Contributor: Johan Förberg <johan@forberg.se>
+
+pkgname=zstd-git
+_pkgname=zstd
+pkgver=1.4.5.r611.g69b8361b
+pkgrel=1
+pkgdesc='A fast and efficient compression algorithm.'
+arch=('x86_64')
+url='https://github.com/facebook/zstd'
+license=('BSD' 'GPL2')
+depends=('xz' 'zlib' 'lz4')
+makedepends=('git' 'gtest')
+conflicts=('zstd')
+provides=('zstd')
+# Use the dev branch by default; upstream merges only full releases to master.
+source=('git://github.com/facebook/zstd.git#branch=dev')
+md5sums=('SKIP')
+
+pkgver() {
+    cd $_pkgname
+    git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g;s/^v//g'
+}
+
+build() {
+    cd $_pkgname
+    make
+    make -C contrib/pzstd
+}
+
+package() {
+    cd $_pkgname
+    make PREFIX="/usr" DESTDIR="$pkgdir/" install
+    ln -sf /usr/bin/zstd "$pkgdir/usr/bin/zstdmt"
+    install -D -m755 contrib/pzstd/pzstd "$pkgdir/usr/bin/pzstd"
+    install -D -m644 LICENSE "${pkgdir}/usr/share/licenses/${_pkgname}/LICENSE"
+}
