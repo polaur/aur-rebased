@@ -1,0 +1,46 @@
+# Maintainer: Piotr Gorski <lucjan.lucjanov@gmail.com>
+
+pkgname=gitless-git
+_pkgname=gitless
+pkgver=0.8.8.r69.g1ffeab0
+pkgrel=1
+pkgdesc="A scientifically proven easier-to-use git interface"
+arch=("any")
+url="http://gitless.com/"
+license=("GPL")
+depends=('python' 'git' 'python-sh' 'python-clint' 'python-pygit2>=1.1.1' 'python-setuptools' 'python-argcomplete')
+makedepends=('git')
+conflits=('gitless')
+provides=('gitless')
+# source=("git://github.com/sirlucjan/gitless")
+source=("git://github.com/gitless-vcs/gitless"
+        '0001-Update-requirements.patch')
+sha256sums=('SKIP'
+            'ea57856d16e1ee593edac34361429a67d5546329e9a05043618f7a3d710acfde')
+
+pkgver() {
+  cd $_pkgname
+  
+  # git describe
+  git describe --long --tags | sed 's/v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+  
+  # other
+  # _ver="$(cat $_pkgname/cli/gl.py | grep -m1 __version__ | grep -o "[[:digit:]]*" | paste -sd'.')"
+  # echo "${_ver}.r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+  cd $_pkgname
+  # Update requirements
+  patch -p1 -i ../0001-Update-requirements.patch
+}
+
+build() {
+  cd $_pkgname
+  python setup.py build
+}
+
+package() {
+  cd $_pkgname
+  python setup.py install --root=${pkgdir} --optimize=1 --skip-build
+}
