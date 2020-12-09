@@ -7,8 +7,8 @@
 # Contributor: Andres Perera <aepd87@gmail.com>
 
 pkgname=pacman-git
-pkgver=6.0.0alpha1.r0.ga4240a55
-pkgrel=2
+pkgver=6.0.0alpha1.r1.g11e09a23
+pkgrel=1
 pkgdesc="A library-based package manager with dependency support"
 arch=('i686' 'x86_64' 'arm' 'armv6h' 'armv7h' 'aarch64')
 url="https://www.archlinux.org/pacman/"
@@ -29,14 +29,12 @@ source=("git+https://git.archlinux.org/pacman.git"
         "pacman.conf.x86_64"
         "pacman.conf.arm"
         "makepkg.conf"
-        "TotalDownload.patch"
         "0001-meson-update-version-and-libalpm_version.patch")
 sha256sums=('SKIP'
             '07b4e78745b9c9ecd93b703649b24b05803941f02ac2142ef62d50e36cb865a7'
             '4f349704aee808873bef4759a56d92e7985c3f9bffdd7b00bfaa988110124208'
             '6185dc65b18d1d085f65281c6bd1ce556466a64bf883d1f27c89b7e620570334'
             '54b7b886d6b35a35f4edc1829ea398db0d83d334a99cfe80ff4110d722da5c6d'
-            '0051cd7a6f4fdc46065cec362a2f0e5e125f625ef2353b7fc305c79112a3abc8'
             '0c77034fce49bc264757bb14f47d13f3046013af64721b29e71fb203806f66ac')
 
 pkgver() {
