@@ -1,0 +1,31 @@
+# Maintainer: pavbaranov <pavbaranov at gmail dot com>
+# Maintainer: Piotr Gorski <lucjan.lucjanov@gmail.com>
+# Maintainer : Solomon Choina <shlomochoina@gmail.com>
+
+pkgname=kcm-grub2-git
+pkgver=0.6.4.r86.g1912ede
+pkgrel=1
+pkgdesc="A KDE Control Module for configuring the GRUB2 bootloader"
+arch=('x86_64')
+url="https://www.pling.com/p/1127844/"
+license=('GPL3')
+depends=('imagemagick' 'hwinfo' 'kio' 'packagekit-qt5')
+makedepends=('git' 'qt5-tools')
+source=("git+https://invent.kde.org/system/kcm-grub2.git")
+sha256sums=('SKIP')
+
+pkgver() {
+  cd "${pkgname%-*}"
+  git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+build() {
+  cmake -B build -S ${pkgname%-*} \
+    -DBUILD_TESTING=OFF \
+    -DCMAKE_BUILD_TYPE=Release 
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+}
