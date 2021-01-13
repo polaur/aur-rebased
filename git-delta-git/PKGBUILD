@@ -1,0 +1,60 @@
+# Maintainer: Piotr Górski <lucjan.lucjanov@gmail.com>
+
+pkgname=git-delta-git
+_pkgname=delta
+pkgver=0.5.1.r14.g5468fd6
+pkgrel=1
+pkgdesc="A syntax-highlighting pager for git"
+arch=('any')
+url="https://github.com/dandavison/delta"
+license=('custom')
+depends=('git' 'libgit2')
+makedepends=('rust' 'clang' 'llvm' 'git')
+provides=('delta')
+conflicts=('delta')
+source=(git+https://github.com/dandavison/$_pkgname.git)
+md5sums=('SKIP')
+
+pkgver() {
+  cd $_pkgname
+  git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+prepare() {
+  # Assist chroot builds with a persistent cargo cache (hat tip @ccorn for this patch)
+  if [ -d "$startdir/.cargo" ]; then
+    export CARGO_HOME="${CARGO_HOME:-$startdir/.cargo}"
+  else
+    msg2 "NOTE : If you're building in a (clean) chroot and want a persistant
+            cargo cache folder specific for this package, you can create
+            an empty '.cargo' directory next to the 'PKGBUILD'. This will
+            be recognized and used as CARGO_HOME (except when CARGO_HOME is
+            already set)."
+  fi
+}
+
+build() {
+  cd $_pkgname
+  cargo build --release --locked
+}
+
+check() {
+  cd $_pkgname
+  cargo test --release --locked
+}
+
+package() {
+  cd $_pkgname
+  install -Dm755 "target/release/$_pkgname"   -t"$pkgdir/usr/bin/"
+  install -Dm644 {README,CONTRIBUTING}.md  -t"$pkgdir/usr/share/doc/$_pkgname/"
+  install -Dm644 LICENSE                   -t"$pkgdir/usr/share/licenses/$_pkgname/"
+  cd etc
+  cp -a --no-preserve=o performance examples "$pkgdir/usr/share/doc/$_pkgname/"
+  install -Dm644 completion/completion.bash  "$pkgdir/usr/share/bash-completion/completions/$_pkgname"
+  install -Dm644 completion/completion.zsh   "$pkgdir/usr/share/zsh/site-functions/$_pkgname"
+  cd bin
+  local _bin
+  for _bin in *; do
+    install -Dm755 "$_bin"                   "$pkgdir/usr/bin/delta-$_bin"
+  done
+}
