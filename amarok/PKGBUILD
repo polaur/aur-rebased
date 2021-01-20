@@ -1,0 +1,58 @@
+# Maintainer: Fredy García <frealgagu at gmail dot com>
+# Contributor: Ronald van Haren <ronald@archlinux.org>
+# Contributor: Antonio Rojas <arojas@archlinux.org>
+# Contributor: Andrea Scarpino <andrea@archlinux.org>
+# Contributor: damir <damir@archlinux.org>
+
+pkgname=amarok-git
+pkgver=2.9.0.r503.2354525397
+pkgrel=1
+pkgdesc="The powerful music player for KDE"
+arch=("x86_64")
+url="http://${pkgname}.kde.org/"
+license=("FDL" "GPL2" "LGPL2.1")
+depends=("kcmutils" "kdoctools" "kdnssd" "kirigami2" "knewstuff" "ktexteditor" "liblastfm-qt5" "libmtp" "libmygpo-qt5" "libofa" "mariadb" "phonon-qt5" "qt5-script" "qt5-webengine" "taglib-extras" "threadweaver")
+makedepends=("extra-cmake-modules" "gdk-pixbuf2" "git" "knotifyconfig" "libmtp" "libmygpo-qt5" "loudmouth")
+optdepends=(
+            "libgpod: support for Apple iPod audio devices"
+            "libmtp: support for portable media devices"
+            "loudmouth: backend needed by mp3tunes for syncing"
+            "libmygpo-qt5: gpodder.net Internet Service"
+)
+conflicts=("amarok")
+source=(
+    "git+https://invent.kde.org/multimedia/amarok.git"
+    "amarokcollectionscanner_qt.mo"  "amarok.mo"  "amarokpkg.mo"
+)
+sha256sums=('SKIP'
+            '79d58e836aaac8efd2630ed23ca75d7531e5d0b37acbd2e66a3aab1cbd8123b7'
+            '45de629a901ab0a622f39fc866cf7980bfcc64519b5684c32e1a1825820edc20'
+            '641743ec6e2ead117239e0d056ca28fa01c320dda5ddfb628733901ce9c975ad')
+
+pkgver() {
+    cd ${pkgname%-*}
+    git describe --long --tags 2> /dev/null | sed "s/^[A-Za-z\.\-]*//;s/\([^-]*-\)g/r\1/;s/-/./g"
+}
+
+#prepare() {
+#    mv po ${pkgname%-*}
+#}
+
+build() {
+  cmake -B build -S ${pkgname%-*} \
+    -DBUILD_TESTING=OFF \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DWITH_IPOD=OFF 
+
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  install -Dm644 $srcdir/amarokcollectionscanner_qt.mo $pkgdir/usr/share/locale/pl/LC_MESSAGE/amarokcollectionscanner_qt.mo
+  install -Dm644 $srcdir/amarok.mo $pkgdir/usr/share/locale/pl/LC_MESSAGE/amarok.mo  
+  install -Dm644 $srcdir/amarokpkg.mo $pkgdir/usr/share/locale/pl/LC_MESSAGE/amarokpkg.mo
+
+}
