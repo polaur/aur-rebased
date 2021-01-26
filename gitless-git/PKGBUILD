@@ -3,7 +3,7 @@
 pkgname=gitless-git
 _pkgname=gitless
 pkgver=0.8.8.r69.g1ffeab0
-pkgrel=1
+pkgrel=4
 pkgdesc="A scientifically proven easier-to-use git interface"
 arch=("any")
 url="http://gitless.com/"
@@ -14,9 +14,11 @@ conflits=('gitless')
 provides=('gitless')
 # source=("git://github.com/sirlucjan/gitless")
 source=("git://github.com/gitless-vcs/gitless"
-        '0001-Update-requirements.patch')
+        '0001-Update-requirements.patch'
+        '0002-Fix-gitless-error.patch')
 sha256sums=('SKIP'
-            'ea57856d16e1ee593edac34361429a67d5546329e9a05043618f7a3d710acfde')
+            'ea57856d16e1ee593edac34361429a67d5546329e9a05043618f7a3d710acfde'
+            'c98230a622ea800b07d9348b4c3b3e585e6106efd364bb889066b1ca3eb06a68')
 
 pkgver() {
   cd $_pkgname
@@ -31,8 +33,15 @@ pkgver() {
 
 prepare() {
   cd $_pkgname
-  # Update requirements
-  patch -p1 -i ../0001-Update-requirements.patch
+  
+  local src
+  for src in "${source[@]}"; do
+    src="${src%%::*}"
+    src="${src##*/}"
+    [[ $src = *.patch ]] || continue
+    echo "Applying patch $src..."
+    patch -Np1 < "../$src"
+  done
 }
 
 build() {
