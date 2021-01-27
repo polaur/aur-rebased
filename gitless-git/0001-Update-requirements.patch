@@ -1,37 +1,26 @@
-From d278f9eee55e63dcfad49b309eadd2eaf7d8d42a Mon Sep 17 00:00:00 2001
+From f3c3218f0f52f8a8a3c3b7e2441d1e2fcc3d7c96 Mon Sep 17 00:00:00 2001
 From: Piotr Gorski <lucjan.lucjanov@gmail.com>
-Date: Tue, 25 Aug 2020 20:15:58 +0200
+Date: Wed, 27 Jan 2021 12:38:16 +0100
 Subject: [PATCH] Update requirements
 
 Signed-off-by: Piotr Gorski <lucjan.lucjanov@gmail.com>
 ---
- requirements.txt | 2 +-
- setup.py         | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ setup.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/requirements.txt b/requirements.txt
-index 86b228a..cc04cf5 100644
---- a/requirements.txt
-+++ b/requirements.txt
-@@ -1,4 +1,4 @@
- # make sure to update setup.py if you make any changes to this file
- 
- argcomplete>=1.11.1
--pygit2==1.2.0  # requires libgit2 1.0.x
-+pygit2>=1.2.0  # requires libgit2 1.0.x
 diff --git a/setup.py b/setup.py
-index dbf3e65..89bfa03 100755
+index 4c4081b..7b22424 100755
 --- a/setup.py
 +++ b/setup.py
 @@ -66,7 +66,7 @@ setup(
      packages=['gitless', 'gitless.cli'],
      install_requires=[
        # make sure install_requires is consistent with requirements.txt
--      'pygit2==1.2.0', # requires libgit2 1.0.x
-+      'pygit2>=1.2.0', # requires libgit2 1.0.x
+-      'pygit2==1.4.0', # requires libgit2 1.1.x
++      'pygit2>=1.4.0', # requires libgit2 1.1.x
        'argcomplete>=1.11.1'
      ],
      license='MIT',
 -- 
-2.28.0.89.g85b4e0a6dc
+2.30.0.155.g66e871b664
 
