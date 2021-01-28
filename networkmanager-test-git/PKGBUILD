@@ -8,13 +8,13 @@
 
 pkgbase=networkmanager-test-git
 pkgname=(networkmanager-test-git libnm-test-git nm-cloud-setup-test-git)
-pkgver=1.28.1dev.1.gbc14bb20d
+pkgver=1.28.1dev.15.gaa2bc9e6e
 pkgrel=1
 pkgdesc="Network connection manager and user applications"
 arch=(x86_64)
 license=(GPL2 LGPL2.1)
 url="http://www.gnome.org/projects/NetworkManager/"
-_pppver=2.4.7
+_pppver=2.4.8
 makedepends=(intltool dhclient iptables gobject-introspection gtk-doc "ppp=$_pppver" modemmanager
              iproute2 nss polkit wpa_supplicant curl systemd libmm-glib
              libnewt libndp libteam vala perl-yaml python-gobject git vala jansson bluez-libs
@@ -56,7 +56,11 @@ build() {
 
     # configuration plugins
     -D config_plugins_default=keyfile
-    
+
+    # handlers for resolv.conf
+    -D netconfig=no
+    -D config_dns_rc_manager_default=auto
+
     # dhcp clients
     -D dhcpcd=no
 
@@ -114,7 +118,7 @@ END
   # packaged configuration
   install -Dm644 /dev/stdin "$pkgdir/usr/lib/NetworkManager/conf.d/20-connectivity.conf" <<END
 [connectivity]
-uri=http://www.archlinux.org/check_network_status.txt
+uri=http://archlinux.org/check_network_status.txt
 END
 
   shopt -s globstar
