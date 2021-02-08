@@ -8,7 +8,7 @@
 
 pkgbase=networkmanager-git
 pkgname=(networkmanager-git libnm-git nm-cloud-setup-git)
-pkgver=1.29.10dev.15.gd446cde26
+pkgver=1.29.11dev.11.g60800b33b
 pkgrel=1
 pkgdesc="Network connection manager and user applications"
 arch=(x86_64)
@@ -59,7 +59,7 @@ build() {
 
     # handlers for resolv.conf
     -D netconfig=no
-    -D config_dns_rc_manager_default=auto
+    -D config_dns_rc_manager_default=symlink
 
     # dhcp clients
     -D dhcpcd=no
@@ -122,7 +122,7 @@ uri=http://archlinux.org/check_network_status.txt
 END
 
   shopt -s globstar
-  
+
   _pick libnm "$pkgdir"/usr/include/libnm
   _pick libnm "$pkgdir"/usr/lib/girepository-1.0/NM-*
   _pick libnm "$pkgdir"/usr/lib/libnm.*
@@ -130,7 +130,7 @@ END
   _pick libnm "$pkgdir"/usr/share/gir-1.0/NM-*
   _pick libnm "$pkgdir"/usr/share/gtk-doc/html/libnm
   _pick libnm "$pkgdir"/usr/share/vala/vapi/libnm.*
-  
+
   _pick nm-cloud-setup "$pkgdir"/usr/lib/**/*nm-cloud-setup*
 
   # Restore empty dir
@@ -139,7 +139,7 @@ END
 
 package_libnm-git() {
   pkgdesc="NetworkManager client library"
-  depends=(glib2 nss libutil-linux jansson systemd-libs)
+  depends=(glib2 nss util-linux-libs jansson systemd-libs)
   conflicts=('libnm')
   provides=('libnm' 'libnm.so')
 
