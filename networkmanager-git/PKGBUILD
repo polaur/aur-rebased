@@ -8,7 +8,7 @@
 
 pkgbase=networkmanager-git
 pkgname=(networkmanager-git libnm-git nm-cloud-setup-git)
-pkgver=1.29.11dev.11.g60800b33b
+pkgver=1.31.1dev.6.g933e6c140
 pkgrel=1
 pkgdesc="Network connection manager and user applications"
 arch=(x86_64)
@@ -132,6 +132,7 @@ END
   _pick libnm "$pkgdir"/usr/share/vala/vapi/libnm.*
 
   _pick nm-cloud-setup "$pkgdir"/usr/lib/**/*nm-cloud-setup*
+  _pick nm-cloud-setup "$pkgdir"/usr/share/man/*/nm-cloud-setup*
 
   # Restore empty dir
   mkdir "$pkgdir/usr/lib/NetworkManager/dispatcher.d/no-wait.d"
