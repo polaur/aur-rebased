@@ -8,7 +8,7 @@
 
 pkgbase=networkmanager-stable-git
 pkgname=(networkmanager-stable-git libnm-stable-git nm-cloud-setup-stable-git)
-pkgver=1.26.7dev.7.gcdbd6bd9e
+pkgver=1.28.1dev.33.g086452e9a
 pkgrel=1
 pkgdesc="Network connection manager and user applications"
 arch=(x86_64)
@@ -20,7 +20,7 @@ makedepends=(intltool dhclient iptables gobject-introspection gtk-doc "ppp=$_ppp
              libnewt libndp libteam vala perl-yaml python-gobject git vala jansson bluez-libs
              glib2-docs iwd dnsmasq openresolv libpsl audit meson)
 checkdepends=(libx11 python-dbus)
-source=("git+https://gitlab.freedesktop.org/NetworkManager/NetworkManager.git#branch=nm-1-26")
+source=("git+https://gitlab.freedesktop.org/NetworkManager/NetworkManager.git#branch=nm-1-28")
 sha256sums=('SKIP')
 
 prepare() {
@@ -56,7 +56,11 @@ build() {
 
     # configuration plugins
     -D config_plugins_default=keyfile
-    
+
+    # handlers for resolv.conf
+    -D netconfig=no
+    -D config_dns_rc_manager_default=symlink
+
     # dhcp clients
     -D dhcpcd=no
 
@@ -114,11 +118,11 @@ END
   # packaged configuration
   install -Dm644 /dev/stdin "$pkgdir/usr/lib/NetworkManager/conf.d/20-connectivity.conf" <<END
 [connectivity]
-uri=http://www.archlinux.org/check_network_status.txt
+uri=http://archlinux.org/check_network_status.txt
 END
 
   shopt -s globstar
-  
+
   _pick libnm "$pkgdir"/usr/include/libnm
   _pick libnm "$pkgdir"/usr/lib/girepository-1.0/NM-*
   _pick libnm "$pkgdir"/usr/lib/libnm.*
@@ -126,7 +130,7 @@ END
   _pick libnm "$pkgdir"/usr/share/gir-1.0/NM-*
   _pick libnm "$pkgdir"/usr/share/gtk-doc/html/libnm
   _pick libnm "$pkgdir"/usr/share/vala/vapi/libnm.*
-  
+
   _pick nm-cloud-setup "$pkgdir"/usr/lib/**/*nm-cloud-setup*
 
   # Restore empty dir
@@ -135,7 +139,7 @@ END
 
 package_libnm-stable-git() {
   pkgdesc="NetworkManager client library"
-  depends=(glib2 nss libutil-linux jansson systemd-libs)
+  depends=(glib2 nss util-linux-libs jansson systemd-libs)
   conflicts=('libnm')
   provides=('libnm' 'libnm.so')
 
