@@ -8,7 +8,7 @@
 
 pkgbase=networkmanager-git
 pkgname=(networkmanager-git libnm-git nm-cloud-setup-git)
-pkgver=1.31.1dev.6.g933e6c140
+pkgver=1.31.1dev.70.gfc142c24e
 pkgrel=1
 pkgdesc="Network connection manager and user applications"
 arch=(x86_64)
@@ -118,7 +118,7 @@ END
   # packaged configuration
   install -Dm644 /dev/stdin "$pkgdir/usr/lib/NetworkManager/conf.d/20-connectivity.conf" <<END
 [connectivity]
-uri=http://archlinux.org/check_network_status.txt
+uri=http://ping.archlinux.org/nm-check.txt
 END
 
   shopt -s globstar
