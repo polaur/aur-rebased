@@ -3,16 +3,16 @@
 
 pkgname=zstd-git
 _pkgname=zstd
-pkgver=1.4.8.r8533.gf5b3f64d
+pkgver=1.4.9.r8588.g0388054a
 pkgrel=1
 pkgdesc='A fast and efficient compression algorithm.'
 arch=('x86_64')
 url='https://github.com/facebook/zstd'
 license=('BSD' 'GPL2')
-depends=('xz' 'zlib' 'lz4')
+depends=('glibc' 'gcc-libs' 'zlib' 'xz' 'lz4')
 makedepends=('git' 'gtest')
 conflicts=('zstd')
-provides=('zstd')
+provides=('zstd' 'libzstd.so')
 # Use the dev branch by default; upstream merges only full releases to master.
 source=('git://github.com/facebook/zstd.git#branch=dev')
 md5sums=('SKIP')
@@ -35,8 +35,8 @@ build() {
 
 package() {
     cd $_pkgname
-    make PREFIX="/usr" DESTDIR="$pkgdir/" install
-    ln -sf /usr/bin/zstd "$pkgdir/usr/bin/zstdmt"
-    install -D -m755 contrib/pzstd/pzstd "$pkgdir/usr/bin/pzstd"
-    install -D -m644 LICENSE "${pkgdir}/usr/share/licenses/${_pkgname}/LICENSE"
+    make PREFIX=/usr DESTDIR="${pkgdir}" install
+    ln -sf /usr/bin/zstd "${pkgdir}/usr/bin/zstdmt"
+    install -Dm 755 contrib/pzstd/pzstd -t "${pkgdir}/usr/bin"
+    install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${_pkgname}"
 }
