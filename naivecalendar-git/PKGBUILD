@@ -12,7 +12,7 @@ makedepends=("git")
 source=("git+https://framagit.org/Daguhh/naivecalendar.git"
 		"https://gitlab.com/nycko123/archlinux/-/raw/master/PKGBUILDs/naivecalendar-git/arc_dark.7z")
 sha256sums=('SKIP'
-            '8c1f660260f6d5eda02d147053d0cbf88510499f1ea0b0c86be7e9df24dae521')
+            '28be0c9d237176ab610123f486747dd1fef0fec527420063f73fedf712383761')
 provides=("${pkgname%-*}")
 conflicts=("${pkgname%-*}")
 
@@ -32,7 +32,7 @@ prepare() {
 	msg2 "Changing default paths for notes and birthdays to ~/.config/naivecalendar/"
 	cd "${srcdir}/${pkgname%-*}/src/themes/"
 	for file in *.cfg; do
-		sed -i "s/\.naivecalendar_events/\$HOME\/.config\/naivecalendar/g" "${file##*/}"
+		sed -i "s/\.naivecalendar_events/\.config\/naivecalendar/g" "${file##*/}"
 	done
 
 	msg2 "Setting arc_dark as default theme"
