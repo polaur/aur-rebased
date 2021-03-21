@@ -1,0 +1,16 @@
+pkgbase = naivecalendar-git
+	pkgdesc = A popup calendar with rofi and python3
+	pkgver = 20210302.5fc9046
+	pkgrel = 1
+	url = https://framagit.org/Daguhh/naivecalendar
+	arch = any
+	makedepends = git
+	depends = python
+	provides = naivecalendar
+	conflicts = naivecalendar
+	source = git+https://framagit.org/Daguhh/naivecalendar.git
+	source = https://gitlab.com/nycko123/archlinux/-/raw/master/PKGBUILDs/naivecalendar-git/arc_dark.7z
+	sha256sums = SKIP
+	sha256sums = 9e822932c396224592e3083e2aaaf515580f28b691acd1db451e2e4a53dcf733
+
+pkgname = naivecalendar-git

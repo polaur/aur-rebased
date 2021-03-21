@@ -1,0 +1,69 @@
+# Maintainer: Damian N. <nycko123 at gmail>
+# Previous Maintainer: Pieter Joost van de Sande <pj@born2code.net>
+
+pkgname=naivecalendar-git
+pkgdesc="A popup calendar with rofi and python3"
+url="https://framagit.org/Daguhh/naivecalendar"
+pkgver=20210302.5fc9046
+pkgrel=1
+arch=("any")
+depends=("python")
+makedepends=("git")
+source=("git+https://framagit.org/Daguhh/naivecalendar.git"
+		"https://gitlab.com/nycko123/archlinux/-/raw/master/PKGBUILDs/naivecalendar-git/arc_dark.7z")
+sha256sums=('SKIP'
+            '9e822932c396224592e3083e2aaaf515580f28b691acd1db451e2e4a53dcf733')
+provides=("${pkgname%-*}")
+conflicts=("${pkgname%-*}")
+
+pkgver() {
+	cd "${srcdir}/${pkgname%-*}"
+	git log -1 --format='%cd.%h' --date=short | tr -d -
+}
+
+prepare() {
+	# add arc-dark theme to sources
+	msg "Changing upstream default values"
+
+	msg2 "Adding arc_dark theme"
+	\cp -r "${srcdir}/themes" "${srcdir}/${pkgname%-*}/src/"
+	# change default path for notes and birthdays
+
+	msg2 "Changing default paths for notes and birthdays to ~/.config/naivecalendar/"
+	cd "${srcdir}/${pkgname%-*}/src/themes/"
+	for file in *.cfg; do
+		sed -i "s/\.naivecalendar_events/\$HOME\/.config\/naivecalendar/g" "${file##*/}"
+	done
+
+	msg2 "Setting arc_dark as default theme"
+	cd "${srcdir}/${pkgname%-*}/src/"
+		sed -i "s/classic_dark /arc_dark /g" naivecalendar.py
+		sed -i "s/classic_dark_extended/arc_dark/g" naivecalendar.py
+		sed -i "s/classic_dark_extended\.rasi/arc_dark\.rasi/g" naivecalendar.sh
+}
+
+package() {
+	# bin to /usr/bin/
+	install -Dm755 "${srcdir}/${pkgname%-*}/${pkgname%-*}" "${pkgdir}/usr/bin/${pkgname%-*}"
+
+	# scripts to /usr/share/naivecalendar/
+	for file in "${srcdir}/${pkgname%-*}"/src/*; do
+		install -Dm755 "${file}" "${pkgdir}/usr/share/${pkgname%-*}/${file##*/}" 2>&- &
+	done
+	# tools to /usr/share/naivecalendar/tools/
+	for file in "${srcdir}/${pkgname%-*}"/tools/*; do
+		install -Dm755 "${file}" "${pkgdir}/usr/share/${pkgname%-*}/tools/${file##*/}"
+	done
+	# themes to /usr/share/naivecalendar/themes
+	for file in "${srcdir}/${pkgname%-*}"/src/themes/*; do
+		install -Dm644 "${file}" "${pkgdir}/usr/share/${pkgname%-*}/themes/${file##*/}" 2>&- &
+	done
+	# additional themes to /usr/share/naivecalendar/themes/common
+	for file in "${srcdir}/${pkgname%-*}"/src/themes/common/*; do
+		install -Dm644 "${file}" "${pkgdir}/usr/share/${pkgname%-*}/themes/common/${file##*/}" 2>&- &
+	done
+	# docs to /usr/share/naivecalendar/docs/
+	for file in "${srcdir}/${pkgname%-*}"/docs/*; do
+		install -Dm644 "${file}" "${pkgdir}/usr/share/${pkgname%-*}/docs/${file##*/}" 2>&- &
+	done
+}
