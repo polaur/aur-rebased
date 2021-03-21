@@ -12,7 +12,7 @@ makedepends=("git")
 source=("git+https://framagit.org/Daguhh/naivecalendar.git"
 		"https://gitlab.com/nycko123/archlinux/-/raw/master/PKGBUILDs/naivecalendar-git/arc_dark.7z")
 sha256sums=('SKIP'
-            '9e822932c396224592e3083e2aaaf515580f28b691acd1db451e2e4a53dcf733')
+            '8c1f660260f6d5eda02d147053d0cbf88510499f1ea0b0c86be7e9df24dae521')
 provides=("${pkgname%-*}")
 conflicts=("${pkgname%-*}")
 
