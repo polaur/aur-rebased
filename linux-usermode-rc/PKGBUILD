@@ -41,7 +41,15 @@ validpgpkeys=(
              )
 
 prepare() {
-  cd ${_srcname}
+
+    ### Fix broken file 5.40-1
+        if [[ ! -f "$srcdir/patch-${_stablerc}" ]]; then
+            echo "Fix broken file 5.40-1"
+            unlink "$srcdir/patch-${_stablerc}.xz"
+            xz -dc "$SRCDEST/patch-${_stablerc}.xz" > "patch-${_stablerc}"
+        fi
+
+  cd $_srcname
 
   echo "Add stable-review patch..."
   patch -p1 -i ../patch-${_stablerc}
