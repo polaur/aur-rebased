@@ -5,7 +5,7 @@
 
 pkgname=git-extras-git
 _pkgname=git-extras
-pkgver=5.2.0.dev.r1399.g6438dee
+pkgver=6.3.0.dev.r1565.g206fe7c
 pkgrel=1
 pkgdesc="GIT utilities -- repo summary, repl, changelog population, author commit percentages and more"
 arch=('any')
@@ -30,6 +30,13 @@ pkgver() {
 
 package() {
     cd $_pkgname
+
+    # avoid annoying interactive prompts if an alias is in your gitconfig
+    export GIT_CONFIG=/dev/null
     make DESTDIR="${pkgdir}" PREFIX=/usr SYSCONFDIR=/etc install
-    install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/$pkgname/LICENSE"
+    install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+
+    # add documentation for completions, which do not work when autoloaded
+    mkdir -p "${pkgdir}"/usr/share/doc/git-extras/
+    cp etc/*.zsh etc/*.fish "${pkgdir}"/usr/share/doc/git-extras/
 }
