@@ -2,20 +2,19 @@
 # Contributor: Kamran Mackey <kamranm1200@gmail.com>
 
 pkgname=git-dev-git
-pkgver=2.26.0.rc1.225.g7574825f8c
+pkgver=2.32.0.272.g935e593368
 pkgrel=1
 pkgdesc="A fast distributed version control system"
 arch=('x86_64')
 url='http://git-scm.com/'
 license=('GPL2')
 depends=('curl' 'expat' 'perl' 'perl-error' 'perl-mailtools'
-         'openssl' 'pcre2' 'grep' 'shadow')
+         'openssl' 'pcre2' 'grep' 'shadow' 'zlib')
 makedepends=('python' 'libgnome-keyring' 'xmlto' 'asciidoc')
 optdepends=('tk: gitk and git gui'
             'perl-libwww: git svn'
             'perl-term-readkey: git svn and interactive.singlekey setting'
-            'perl-mime-tools: git send-email'
-            'perl-net-smtp-ssl: git send-email TLS support'
+            'perl-io-socket-ssl: git send-email TLS support'
             'perl-authen-sasl: git send-email TLS support'
             'perl-mediawiki-api: git mediawiki support'
             'perl-datetime-format-iso8601: git mediawiki support'
