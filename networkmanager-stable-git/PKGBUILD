@@ -8,19 +8,19 @@
 
 pkgbase=networkmanager-stable-git
 pkgname=(networkmanager-stable-git libnm-stable-git nm-cloud-setup-stable-git)
-pkgver=1.28.1dev.33.g086452e9a
-pkgrel=2
+pkgver=1.30.5dev.44.g08d9341b0c
+pkgrel=1
 pkgdesc="Network connection manager and user applications"
 arch=(x86_64)
 license=(GPL2 LGPL2.1)
 url="http://www.gnome.org/projects/NetworkManager/"
-_pppver=2.4.8
+_pppver=2.4.9
 makedepends=(intltool dhclient iptables gobject-introspection gtk-doc "ppp=$_pppver" modemmanager
              iproute2 nss polkit wpa_supplicant curl systemd libmm-glib
              libnewt libndp libteam vala perl-yaml python-gobject git vala jansson bluez-libs
              glib2-docs iwd dnsmasq openresolv libpsl audit meson)
 checkdepends=(libx11 python-dbus)
-source=("git+https://gitlab.freedesktop.org/NetworkManager/NetworkManager.git#branch=nm-1-28")
+source=("git+https://gitlab.freedesktop.org/NetworkManager/NetworkManager.git#branch=nm-1-30")
 sha256sums=('SKIP')
 
 prepare() {
@@ -132,6 +132,7 @@ END
   _pick libnm "$pkgdir"/usr/share/vala/vapi/libnm.*
 
   _pick nm-cloud-setup "$pkgdir"/usr/lib/**/*nm-cloud-setup*
+  _pick nm-cloud-setup "$pkgdir"/usr/share/man/*/nm-cloud-setup*
 
   # Restore empty dir
   mkdir "$pkgdir/usr/lib/NetworkManager/dispatcher.d/no-wait.d"
