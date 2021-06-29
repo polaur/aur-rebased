@@ -4,15 +4,15 @@
 
 pkgbase=wayland-git
 pkgname=(wayland-git wayland-git-docs)
-pkgver=1.18.0.1.gc57157e
+pkgver=1.19.0.26.g817fdb9
 pkgrel=1
 pkgdesc='A computer display server protocol.'
 arch=(x86_64)
 url='http://wayland.freedesktop.org'
 license=('MIT')
 depends=('glibc' 'libffi' 'expat' 'libxml2')
-makedepends=('meson' 'ninja' 'libxslt' 'doxygen' 'xmlto' 'graphviz' 'docbook-xsl' 'git')
-source=(git://anongit.freedesktop.org/wayland/wayland)
+makedepends=('meson' 'ninja' 'libxslt' 'doxygen' 'xmlto' 'graphviz' 'docbook-xsl')
+source=(git://anongit.freedesktop.org/wayland/wayland#branch=main)
 sha1sums=('SKIP')
 
 pkgver() {
