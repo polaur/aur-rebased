@@ -6,8 +6,8 @@ pkgname=('linux-usermode-rc-git' 'linux-usermode-rc-git-modules')
 _major=5.12
 _kernelname=-usermodelinux-git
 _srcname=linux-stable-rc
-pkgver=5.12.13.r11.g6645d6f022e7
-pkgrel=2
+pkgver=5.12.13.r110.g5f4499a4d0cb
+pkgrel=1
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
 license=('GPL2')
@@ -79,8 +79,7 @@ _package-modules() {
 
   cd ${_srcname}
   local kernver="$(<version)"
-  #  make ARCH=um INSTALL_MOD_PATH="${pkgdir}/usr" modules_install
-  make ARCH=um INSTALL_MOD_PATH="${pkgdir}/usr" _modinst_
+  make ARCH=um INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 modules_install
   rm -f $pkgdir/usr/lib/modules/${kernver}/{source,build}
   # sed expression for following substitutions
   local _subst="
