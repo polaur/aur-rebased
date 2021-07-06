@@ -3,7 +3,7 @@
 
 pkgname=zstd-git
 _pkgname=zstd
-pkgver=1.4.9.r8588.g0388054a
+pkgver=1.5.0.r8924.gb3e372c1
 pkgrel=1
 pkgdesc='A fast and efficient compression algorithm.'
 arch=('x86_64')
@@ -31,6 +31,12 @@ build() {
     cd $_pkgname
     make
     make -C contrib/pzstd
+}
+
+check() {
+    cd $_pkgname
+    make check
+    make -C contrib/pzstd test
 }
 
 package() {
