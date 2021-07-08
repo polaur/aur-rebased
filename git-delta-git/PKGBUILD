@@ -1,15 +1,22 @@
 # Maintainer: Piotr Górski <lucjan.lucjanov@gmail.com>
+# Contributor: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=git-delta-git
 _pkgname=delta
-pkgver=0.5.1.r14.g5468fd6
+pkgver=0.8.2.r13.gb6d221c
 pkgrel=1
 pkgdesc="A syntax-highlighting pager for git"
 arch=('any')
 url="https://github.com/dandavison/delta"
 license=('custom')
-depends=('git' 'libgit2')
-makedepends=('rust' 'clang' 'llvm' 'git')
+depends=('libgit2')
+makedepends=('rust' 'git')
+checkdepends=('git')
+optdepends=(
+  'bash-completion: for shell auto-completion'
+  'zsh-completions: for shell auto-completion'
+)
+options=('!lto')
 provides=('delta')
 conflicts=('delta')
 source=(git+https://github.com/dandavison/$_pkgname.git)
@@ -20,41 +27,31 @@ pkgver() {
   git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
-prepare() {
-  # Assist chroot builds with a persistent cargo cache (hat tip @ccorn for this patch)
-  if [ -d "$startdir/.cargo" ]; then
-    export CARGO_HOME="${CARGO_HOME:-$startdir/.cargo}"
-  else
-    msg2 "NOTE : If you're building in a (clean) chroot and want a persistant
-            cargo cache folder specific for this package, you can create
-            an empty '.cargo' directory next to the 'PKGBUILD'. This will
-            be recognized and used as CARGO_HOME (except when CARGO_HOME is
-            already set)."
-  fi
-}
-
 build() {
   cd $_pkgname
-  cargo build --release --locked
+  RUSTUP_TOOLCHAIN=stable cargo build --release --locked --all-features --target-dir=target
 }
 
 check() {
   cd $_pkgname
-  cargo test --release --locked
+  # some tests hang for 60+ seconds, find out why
+  RUSTUP_TOOLCHAIN=stable cargo test --locked --target-dir=target
 }
 
 package() {
   cd $_pkgname
-  install -Dm755 "target/release/$_pkgname"   -t"$pkgdir/usr/bin/"
-  install -Dm644 {README,CONTRIBUTING}.md  -t"$pkgdir/usr/share/doc/$_pkgname/"
-  install -Dm644 LICENSE                   -t"$pkgdir/usr/share/licenses/$_pkgname/"
-  cd etc
-  cp -a --no-preserve=o performance examples "$pkgdir/usr/share/doc/$_pkgname/"
-  install -Dm644 completion/completion.bash  "$pkgdir/usr/share/bash-completion/completions/$_pkgname"
-  install -Dm644 completion/completion.zsh   "$pkgdir/usr/share/zsh/site-functions/$_pkgname"
-  cd bin
-  local _bin
-  for _bin in *; do
-    install -Dm755 "$_bin"                   "$pkgdir/usr/bin/delta-$_bin"
-  done
+  # binary
+  install -vDm755 -t "$pkgdir/usr/bin" target/release/delta
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+
+  # shell auto-completions
+  install -vDm644 etc/completion/completion.bash \
+    "$pkgdir/usr/share/bash-completion/completions/$_pkgname"
+  install -vDm644 etc/completion/completion.zsh \
+    "$pkgdir/usr/share/zsh/site-functions/_$_pkgname"
+
+  # documentation
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
 }
