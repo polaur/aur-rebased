@@ -1,0 +1,62 @@
+# Maintainer: Piotr Gorski <lucjan.lucjanov@gmail.com>
+# Contributor: Morten Linderud <foxboron@archlinux.org>
+# Contributor: Eli Schwartz <eschwartz@archlinux.org>
+# Contributor: Richard Bradfield <bradfier@fstab.me>
+
+pkgname=github-cli-git
+_pkgname=cli
+pkgver=2.0.0.r4.g355d2819
+pkgrel=1
+pkgdesc="The GitHub CLI"
+arch=("x86_64")
+url="https://github.com/cli/cli"
+license=("MIT")
+depends=("glibc" "mailcap")
+makedepends=("go" "git")
+optdepends=("git: To interact with repositories")
+conflicts=('github-cli')
+provides=('github-cli')
+source=('git://github.com/cli/cli')
+sha256sums=('SKIP')
+
+pkgver() {
+   cd $_pkgname
+
+   # git describe
+   git describe --long --tags | sed 's/v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+
+prepare() {
+    cd $_pkgname
+    # TODO: These tests invoke the TTY and our container *really* does not like that
+    rm pkg/cmd/auth/login/login_test.go
+}
+
+build() {
+    cd $_pkgname
+
+    export CGO_CPPFLAGS="${CPPFLAGS}"
+    export CGO_CFLAGS="${CFLAGS}"
+    export CGO_CXXFLAGS="${CXXFLAGS}"
+    export CGO_LDFLAGS="${LDFLAGS}"
+    export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw -ldflags=-linkmode=external"
+
+    make GH_VERSION="v$pkgver" bin/gh manpages
+    bin/gh completion -s bash | install -Dm644 /dev/stdin share/bash-completion/completions/gh
+    bin/gh completion -s zsh | install -Dm644 /dev/stdin share/zsh/site-functions/_gh
+    bin/gh completion -s fish | install -Dm644 /dev/stdin share/fish/vendor_completions.d/gh.fish
+}
+
+check(){
+    cd $_pkgname
+    make test
+}
+
+package() {
+    cd $_pkgname
+    make DESTDIR="${pkgdir}" prefix="/usr" install
+    cp -r share/ "$pkgdir"/usr
+    install -Dm644 "LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+    install -Dm644 "README.md" "$pkgdir/usr/share/doc/$pkgname/README.md"
+}
