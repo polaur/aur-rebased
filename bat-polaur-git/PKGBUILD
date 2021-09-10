@@ -4,7 +4,7 @@
 
 pkgname=bat-polaur-git
 _pkgname=bat
-pkgver=0.12.1.r0.g608cefb
+pkgver=0.18.3.r98.g9124271e
 pkgrel=1
 pkgdesc='Cat clone with syntax highlighting and git integration'
 arch=('x86_64')
@@ -18,21 +18,36 @@ provides=('bat' 'bat-cat-git')
 conflicts=('bat' 'bat-cat-git')
 
 pkgver() {
-  cd "${srcdir}/${_pkgname}"
+  cd $_pkgname
   git describe --long --tags | sed 's/v//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
 build() {
-  cd "${srcdir}/${_pkgname}"
-  cargo build --release
+  cargo build \
+    --manifest-path "$srcdir/$_pkgname/Cargo.toml" \
+    --release
 }
 
 package() {
-  cd "${srcdir}/${_pkgname}"
-  install -Dm755 target/release/$_pkgname "$pkgdir/usr/bin/$_pkgname"
-  install -Dm644 doc/bat.1 "$pkgdir/usr/share/man/man1/bat.1"
-  install -Dm644 LICENSE-APACHE \
+  install -Dm755 $_pkgname/target/release/$_pkgname "$pkgdir/usr/bin/$_pkgname"
+
+  # Package licenses
+  install -Dm644 $_pkgname/LICENSE-APACHE \
     "$pkgdir/usr/share/licenses/$_pkgname/LICENSE-APACHE"
-  install -Dm644 LICENSE-MIT \
+  install -Dm644 $_pkgname/LICENSE-MIT \
     "$pkgdir/usr/share/licenses/$_pkgname/LICENSE-MIT"
+
+  cd $_pkgname/target/release/build
+
+  # Package the man page
+  find . -name bat.1 -type f -exec install -Dm644 {} \
+    "$pkgdir/usr/share/man/man1/bat.1" \;
+
+  # Package the zsh completion file (not in zsh-completions yet)
+  find . -name bat.zsh -type f -exec install -Dm644 {} \
+    "$pkgdir/usr/share/zsh/site-functions/_bat" \;
+
+  # Package the fish completion
+  find . -name bat.fish -type f -exec install -Dm644 {} \
+    "$pkgdir/usr/share/fish/vendor_completions.d/bat.fish" \;
 }
