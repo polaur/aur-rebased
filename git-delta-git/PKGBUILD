@@ -3,7 +3,7 @@
 
 pkgname=git-delta-git
 _pkgname=delta
-pkgver=0.8.2.r13.gb6d221c
+pkgver=0.8.3.r55.gb49f903
 pkgrel=1
 pkgdesc="A syntax-highlighting pager for git"
 arch=('any')
@@ -12,10 +12,6 @@ license=('custom')
 depends=('libgit2')
 makedepends=('rust' 'git')
 checkdepends=('git')
-optdepends=(
-  'bash-completion: for shell auto-completion'
-  'zsh-completions: for shell auto-completion'
-)
 options=('!lto')
 provides=('delta')
 conflicts=('delta')
@@ -27,15 +23,20 @@ pkgver() {
   git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
+prepare() {
+  cd $_pkgname
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
+
 build() {
   cd $_pkgname
-  RUSTUP_TOOLCHAIN=stable cargo build --release --locked --all-features --target-dir=target
+  cargo build --frozen --release --all-features
 }
 
 check() {
   cd $_pkgname
   # some tests hang for 60+ seconds, find out why
-  RUSTUP_TOOLCHAIN=stable cargo test --locked --target-dir=target
+  cargo test --frozen --all-features
 }
 
 package() {
