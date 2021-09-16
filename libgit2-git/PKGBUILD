@@ -5,7 +5,7 @@
 
 pkgname=libgit2-git
 _pkgname=libgit2
-pkgver=1.0.0.r105.g2f8d0cf24
+pkgver=1.2.0.r25.g7d195b9c3
 pkgrel=1
 epoch=1
 pkgdesc='A linkable library for Git'
@@ -17,9 +17,9 @@ provides=('libgit2' 'libgit2.so')
 conflicts=('libgit2')
 license=('GPL2')
 source=("git://github.com/libgit2/libgit2"
-        'libgit2-0.99.0-remove_http-parse_incompatible_tests.patch')
+        'libgit2-1.2.0-remove_http-parse_incompatible_tests.patch')
 sha256sums=('SKIP'
-            '0a597176a551dfe8dda56a46362ff1ef614928206a162d78fdf2d3074c9273ca')
+            'bd5be80561439f5071cc4b1c31739f1f984b529aac30ef5bd2b399ad87198ae0')
 
 pkgver() {
   cd "$_pkgname"
@@ -28,9 +28,9 @@ pkgver() {
 
 prepare() {
   cd "$_pkgname"
-  # removing tests that are only compatible with the (modified) vendored
-  # version of http-parser, but not with upstream http-parser
-  patch -Np1 -i "../libgit2-0.99.0-remove_http-parse_incompatible_tests.patch"
+  # remove tests that are only compatible with the (modified) vendored version
+  # of http-parser, but not with upstream http-parser
+  patch -Np1 -i "../libgit2-1.2.0-remove_http-parse_incompatible_tests.patch"
 }
 
 build() {
