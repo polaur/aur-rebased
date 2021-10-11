@@ -6,8 +6,8 @@ pkgname=('linux-usermode-rc-git' 'linux-usermode-rc-git-modules')
 _major=5.14
 _kernelname=-usermodelinux-git
 _srcname=linux-stable-rc
-pkgver=5.14.10.r49.g24e85a19693f
-pkgrel=2
+pkgver=5.14.11.r152.ge05796e3468b
+pkgrel=3
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
 license=('GPL2')
@@ -50,6 +50,7 @@ prepare() {
   echo "Setting config..."
   cp ../config .config
   yes "" | make ARCH=um config >/dev/null
+  diff -u ../config .config || :
 
   make ARCH=um kernelrelease > version
   echo "Prepared $pkgbase version $(<version)"
