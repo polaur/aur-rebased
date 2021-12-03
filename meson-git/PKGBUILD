@@ -2,7 +2,7 @@
 # Contributor: nontlikeuname
 
 pkgname=meson-git
-pkgver=0.56.99.r10308.gc64d40707
+pkgver=0.60.0.209.gc88bfdbef
 pkgrel=1
 pkgdesc="SCons-like build system that use python as a front-end language and Ninja as a building backend"
 arch=(any)
@@ -23,24 +23,19 @@ source=('git+https://github.com/mesonbuild/meson'
         'skip-test.diff')
 md5sums=('SKIP'
          'b85d62ecca0729f0c5168f759a2ff37d'
-         '28b5b8cac7121217b38e0eb84541e574')
+         'dfd0fec42a3f763283c34a443a6e19c5')
 
+pkgver() {
+	cd meson
+	
+	git describe --tags --long | sed 's/^v//;s/-/./g'
+}
+         
 prepare() {
         cd meson
         
         # Our containers do not allow sanitizers to run
         patch -Np1 -i ../skip-test.diff
-}
-
-pkgver() {
-	cd meson
-	
-	# git describe
-	# git describe --tags --long | sed 's/^v//;s/-/./g'
-	
-	# other
-        _ver="$(cat mesonbuild/coredata.py | grep -m1 version | cut -d "'" -f2 | sed 's/-/./g')"
-        echo "${_ver}.r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
 }
 
 build() {
