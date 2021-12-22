@@ -2,9 +2,9 @@
 # Maintainer: Hans-Nikolai Viessmann <hans AT viess DOT mn
 
 pkgname=musikcube-git
-pkgver=0.96.7.r18.g440a34b5
-pkgrel=2
-pkgdesc="a terminal-based cross-platform music player, audio engine, metadata indexer, and server"
+pkgver=0.96.7.r35.g52ac2c1f
+pkgrel=1
+pkgdesc="A terminal-based cross-platform music player, audio engine, metadata indexer, and server. (polaur - no httpserver, alsa output only)"
 arch=('x86_64')
 url="https://github.com/clangen/musikcube"
 license=('BSD')
@@ -15,15 +15,28 @@ provides=('musikcube')
 conflicts=('musikcube')
 source=('musikcube::git+https://github.com/clangen/musikcube.git')
 md5sums=('SKIP')
+# skip system CFLAGS - unable to build with -Werror=format-security
+options=(!buildflags !debug strip)
 
 pkgver() {
     cd "$srcdir/${pkgname%-git}"
-	## remove server side
-	sed -iE 's|libmicrohttpd\${DEB_MICROHTTPD_VERSION}, ||' CMakeLists.txt
-	sed -iE 's| server||;s| httpdatastream||' CMakeLists.txt
-	sed -iE 's|add_subdirectory(src/plugins/server)||' CMakeLists.txt
-	##
     git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+prepare() {
+    cd "$srcdir/${pkgname%-git}"
+	## remove server side
+	sed -iE 's|libmicrohttpd\${DEB_MICROHTTPD_VERSION}, ||g' CMakeLists.txt
+	sed -iE 's| server||;s| httpdatastream||g' CMakeLists.txt
+	sed -iE 's|add_subdirectory(src/plugins/server)||g' CMakeLists.txt
+	sed -iE 's|add_subdirectory(src/plugins/httpdatastream)||g' CMakeLists.txt
+	## remove libopenmpt
+	sed -iE 's|add_subdirectory(src/plugins/server)||g' CMakeLists.txt
+	\rm -rv src/plugins/{libopenmptdecoder,httpdatastream,macos*,win32*}
+	# \rm -rv src/plugins/httpdatastream
+	# \rm -rv src/plugins/macos*
+	# \rm -rv src/plugins/win32*
+
 }
 
 build() {
@@ -34,6 +47,7 @@ build() {
         -DENABLE_MPRIS=false \
         -DLIB_SYSTEMD=false \
         -DENABLE_PULSEAUDIO=false \
+        -DENABLE_LIBOPENMTP=false \
         -DENABLE_ALSA=true \
         -DCMAKE_SKIP_RPATH=YES \
         -DCMAKE_INSTALL_PREFIX=/usr

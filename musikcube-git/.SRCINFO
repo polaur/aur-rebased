@@ -1,7 +1,7 @@
 pkgbase = musikcube-git
-	pkgdesc = a terminal-based cross-platform music player, audio engine, metadata indexer, and server
-	pkgver = 0.96.7.r18.g440a34b5
-	pkgrel = 2
+	pkgdesc = A terminal-based cross-platform music player, audio engine, metadata indexer, and server. (polaur - no httpserver, alsa output only)
+	pkgver = 0.96.7.r35.g52ac2c1f
+	pkgrel = 1
 	url = https://github.com/clangen/musikcube
 	arch = x86_64
 	license = BSD
@@ -21,6 +21,9 @@ pkgbase = musikcube-git
 	depends = curl
 	provides = musikcube
 	conflicts = musikcube
+	options = !buildflags
+	options = !debug
+	options = strip
 	source = musikcube::git+https://github.com/clangen/musikcube.git
 	md5sums = SKIP
 
