@@ -40,7 +40,7 @@ pkgbase = git-test-git
 	conflicts = git-dev-git
 	conflicts = git-main-git
 	conflicts = git-git
-	source = git://github.com/git/git.git#branch=seen
+	source = git+https://github.com/git/git.git#branch=seen
 	source = git-daemon@.service
 	source = git-daemon.socket
 	source = git-sysusers.conf

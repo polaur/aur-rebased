@@ -10,7 +10,7 @@ pkgbase = git-extras-git
 	depends = git
 	provides = git-extras
 	conflicts = git-extras
-	source = git://github.com/tj/git-extras
+	source = git+https://github.com/tj/git-extras
 	md5sums = SKIP
 
 pkgname = git-extras-git

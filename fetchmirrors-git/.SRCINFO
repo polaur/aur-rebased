@@ -7,7 +7,7 @@ pkgbase = fetchmirrors-git
 	license = GPL
 	depends = curl
 	depends = pacman-contrib
-	source = git://github.com/deadhead420/fetchmirrors
+	source = git+https://github.com/deadhead420/fetchmirrors
 	md5sums = SKIP
 
 pkgname = fetchmirrors-git

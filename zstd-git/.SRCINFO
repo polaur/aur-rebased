@@ -18,7 +18,7 @@ pkgbase = zstd-git
 	provides = zstd
 	provides = libzstd.so
 	conflicts = zstd
-	source = git://github.com/facebook/zstd.git#branch=dev
+	source = git+https://github.com/facebook/zstd.git#branch=dev
 	md5sums = SKIP
 
 pkgname = zstd-git

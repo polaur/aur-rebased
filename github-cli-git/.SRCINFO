@@ -14,7 +14,7 @@ pkgbase = github-cli-git
 	optdepends = git: To interact with repositories
 	provides = github-cli
 	conflicts = github-cli
-	source = git://github.com/cli/cli
+	source = git+https://github.com/cli/cli
 	sha256sums = SKIP
 
 pkgname = github-cli-git

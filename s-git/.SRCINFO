@@ -10,7 +10,7 @@ pkgbase = s-git
 	provides = s=0.5.14.r4.gbce10d1
 	options = !strip
 	options = !emptydirs
-	source = git://github.com/zquestz/s
+	source = git+https://github.com/zquestz/s
 	sha256sums = SKIP
 
 pkgname = s-git

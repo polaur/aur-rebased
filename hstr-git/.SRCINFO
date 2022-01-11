@@ -9,7 +9,7 @@ pkgbase = hstr-git
 	makedepends = ncurses
 	depends = bash
 	conflicts = hh
-	source = git://github.com/dvorka/hstr.git#branch=master
+	source = git+https://github.com/dvorka/hstr.git#branch=master
 	md5sums = SKIP
 
 pkgname = hstr-git

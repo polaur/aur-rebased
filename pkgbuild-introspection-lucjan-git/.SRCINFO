@@ -12,7 +12,7 @@ pkgbase = pkgbuild-introspection-lucjan-git
 	provides = pkgbuild-introspection-git
 	conflicts = pkgbuild-reflection-git
 	conflicts = pkgbuild-introspection
-	source = git://github.com/sirlucjan/pkgbuild-introspection.git
+	source = git+https://github.com/sirlucjan/pkgbuild-introspection.git
 	md5sums = SKIP
 
 pkgname = pkgbuild-introspection-lucjan-git

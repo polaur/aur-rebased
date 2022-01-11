@@ -18,7 +18,7 @@ pkgbase = openvpn-git
 	provides = openvpn-dev
 	conflicts = openvpn
 	conflicts = openvpn-dev
-	source = git://github.com/OpenVPN/openvpn.git
+	source = git+https://github.com/OpenVPN/openvpn.git
 	sha256sums = SKIP
 
 pkgname = openvpn-git
