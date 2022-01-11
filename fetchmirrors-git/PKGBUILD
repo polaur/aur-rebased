@@ -10,7 +10,7 @@ arch=('any')
 url="https://github.com/deadhead420/${_srcname}"
 license=('GPL')
 depends=('curl' 'pacman-contrib')
-source=("git://github.com/deadhead420/${_srcname}")
+source=("git+https://github.com/deadhead420/${_srcname}")
 md5sums=('SKIP')
 
 pkgver() {  

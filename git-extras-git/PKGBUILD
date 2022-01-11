@@ -14,7 +14,7 @@ license=('MIT')
 depends=('git')
 conflicts=('git-extras')
 provides=('git-extras')
-source=('git://github.com/tj/git-extras')
+source=('git+https://github.com/tj/git-extras')
 md5sums=('SKIP')
 
 pkgver() {

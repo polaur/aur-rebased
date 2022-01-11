@@ -13,9 +13,9 @@ depends=('qt5-webengine' 'qt5-multimedia' 'qt5-x11extras'
 makedepends=('patch' 'cmake' 'git')
 provides=('psi' 'psi-qt5-git' 'psi-git')
 conflicts=('psi' 'psi-qt5-git' 'psi-git')
-source=('git://github.com/psi-im/psi.git'
-        'git://github.com/psi-im/iris.git'
-        'git://github.com/psi-im/libpsi.git')
+source=('git+https://github.com/psi-im/psi.git'
+        'git+https://github.com/psi-im/iris.git'
+        'git+https://github.com/psi-im/libpsi.git')
 md5sums=('SKIP'
          'SKIP'
          'SKIP')

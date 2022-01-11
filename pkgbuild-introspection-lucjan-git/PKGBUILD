@@ -13,7 +13,7 @@ depends=('bash' 'pacman')
 makedepends=('git')
 provides=('pkgbuild-introspection' 'pkgbuild-introspection-git')
 conflicts=('pkgbuild-reflection-git' 'pkgbuild-introspection')
-source=("git://github.com/sirlucjan/$_pkgname.git")
+source=("git+https://github.com/sirlucjan/$_pkgname.git")
 md5sums=('SKIP')
 
 pkgver() {

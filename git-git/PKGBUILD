@@ -27,7 +27,7 @@ optdepends=('tk: gitk and git gui'
 conflicts=('git' 'git-dev-git' 'git-test-git' 'git-main-git')
 provides=('git')
 install=git-git.install
-source=("git://github.com/git/git.git#branch=master"
+source=("git+https://github.com/git/git.git#branch=master"
         #"git://git.kernel.org/pub/scm/git/git.git#branch=master"
         'git-daemon@.service'
         'git-daemon.socket'

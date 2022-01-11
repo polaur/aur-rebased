@@ -23,7 +23,7 @@ provides=('mkinitcpio' 'initramfs')
 conflicts=('mkinitcpio')
 backup=('etc/mkinitcpio.conf')
 #source=('git+https://gitlab.archlinux.org/mkinitcpio/mkinitcpio')
-source=('git://github.com/archlinux/mkinitcpio.git')
+source=('git+https://github.com/archlinux/mkinitcpio.git')
 sha256sums=('SKIP')
 
 pkgver() {

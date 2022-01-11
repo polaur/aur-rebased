@@ -17,7 +17,7 @@ depends=( 'qt5-webkit' 'qt5-multimedia>=5.4' 'qt5-xmlpatterns>=5.4')
 makedepends=('cmake' 'git' 'qt5-declarative>=5.4' 'qt5-webengine' 'hunspell')
 optdepends=('hunspell: for spell checking'
             'qt5-webengine: for experimental backend using the Chromium browser project')
-source=('git://github.com/OtterBrowser/otter-browser.git')
+source=('git+https://github.com/OtterBrowser/otter-browser.git')
 sha256sums=('SKIP')
 
 pkgver() {

@@ -13,7 +13,7 @@ makedepends=('go' 'git')
 options=('!strip' '!emptydirs')
 provides=("s=${pkgver}")
 conflict=("s")
-source=("git://github.com/zquestz/${_pkgname}")
+source=("git+https://github.com/zquestz/${_pkgname}")
 sha256sums=('SKIP')
 
 pkgver() {

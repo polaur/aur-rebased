@@ -14,7 +14,7 @@ makedepends=('git' 'gtest')
 conflicts=('zstd')
 provides=('zstd' 'libzstd.so')
 # Use the dev branch by default; upstream merges only full releases to master.
-source=('git://github.com/facebook/zstd.git#branch=dev')
+source=('git+https://github.com/facebook/zstd.git#branch=dev')
 md5sums=('SKIP')
 
 pkgver() {

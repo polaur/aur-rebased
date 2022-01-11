@@ -12,8 +12,8 @@ depends=('python' 'git' 'python-sh' 'python-clint' 'python-pygit2>=1.1.1' 'pytho
 makedepends=('git')
 conflits=('gitless')
 provides=('gitless')
-# source=("git://github.com/sirlucjan/gitless")
-source=("git://github.com/gitless-vcs/gitless"
+# source=("git+https://github.com/sirlucjan/gitless")
+source=("git+https://github.com/gitless-vcs/gitless"
         '0001-Update-requirements.patch')
 sha256sums=('SKIP'
             'd7162b958c2ec2d2e824fca5584942b4388973c53e6c255cc36192252499de27')

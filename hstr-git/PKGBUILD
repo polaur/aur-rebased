@@ -13,7 +13,7 @@ url="https://github.com/dvorka/hstr"
 license=('Apache')
 makedepends=('git' 'ncurses')
 depends=('bash')
-source=(git://github.com/dvorka/hstr.git#branch=master)
+source=(git+https://github.com/dvorka/hstr.git#branch=master)
 md5sums=('SKIP')
 conflicts=('hh');
 

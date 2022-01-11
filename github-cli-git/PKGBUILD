@@ -16,7 +16,7 @@ makedepends=("go" "git")
 optdepends=("git: To interact with repositories")
 conflicts=('github-cli')
 provides=('github-cli')
-source=('git://github.com/cli/cli')
+source=('git+https://github.com/cli/cli')
 sha256sums=('SKIP')
 
 pkgver() {
