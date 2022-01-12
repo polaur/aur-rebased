@@ -2,9 +2,9 @@
 # Maintainer: Hans-Nikolai Viessmann <hans AT viess DOT mn
 
 pkgname=musikcube-git
-pkgver=0.96.7.r35.g52ac2c1f
+pkgver=0.96.10.r9.ge0763f37
 pkgrel=1
-pkgdesc="A terminal-based cross-platform music player, audio engine, metadata indexer, and server. (polaur - no httpserver, alsa output only)"
+pkgdesc="A terminal-based cross-platform music player, audio engine, metadata indexer, and server. (no httpserver, alsa output)"
 arch=('x86_64')
 url="https://github.com/clangen/musikcube"
 license=('BSD')
@@ -15,7 +15,6 @@ provides=('musikcube')
 conflicts=('musikcube')
 source=('musikcube::git+https://github.com/clangen/musikcube.git')
 md5sums=('SKIP')
-# skip system CFLAGS - unable to build with -Werror=format-security
 options=(!buildflags !debug strip)
 
 pkgver() {
@@ -46,8 +45,10 @@ build() {
         -DNO_NCURSESW=true \
         -DENABLE_MPRIS=false \
         -DLIB_SYSTEMD=false \
+        -DENABLE_SYSTEMD=false \
         -DENABLE_PULSEAUDIO=false \
         -DENABLE_LIBOPENMTP=false \
+        -DENABLE_OPENMTP=false \
         -DENABLE_ALSA=true \
         -DCMAKE_SKIP_RPATH=YES \
         -DCMAKE_INSTALL_PREFIX=/usr
@@ -59,4 +60,8 @@ package() {
     make -C build DESTDIR="$pkgdir/" install
 
     install -Dm644 "LICENSE.txt" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.txt"
+	# temp symlink lib .so file
+	mkdir -p "${pkgdir}/usr/lib"
+	cd "${pkgdir}"
+	ln -sf "/usr/share/musikcube/libmusikcore.so" "${pkgdir}/usr/lib/libmusikcore.so"
 }
