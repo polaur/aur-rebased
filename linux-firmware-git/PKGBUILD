@@ -9,7 +9,7 @@ pkgname=(linux-firmware-whence-git linux-firmware-git amd-ucode-git
          linux-firmware-{nfp,mellanox,marvell,qcom,liquidio,qlogic,bnx2x}-git
 )
 pkgver=20211216.r54.geb8ea1b
-pkgrel=1
+pkgrel=2
 pkgdesc="Firmware files for Linux"
 url="http://git.kernel.org/?p=linux/kernel/git/firmware/linux-firmware.git;a=summary"
 license=('GPL2' 'GPL3' 'custom')
@@ -75,7 +75,7 @@ package_linux-firmware-git() {
 
   cd ${_pkgbase}
 
-  make DESTDIR="${pkgdir}" FIRMWAREDIR=/usr/lib/firmware install
+  make DESTDIR="${pkgdir}" FIRMWAREDIR=/usr/lib/firmware installcompress
 
   # Trigger a microcode reload for configurations not using early updates
   echo 'w /sys/devices/system/cpu/microcode/reload - - - - 1' |
