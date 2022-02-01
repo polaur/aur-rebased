@@ -8,8 +8,8 @@
 
 pkgbase=networkmanager-git
 pkgname=(networkmanager-git libnm-git nm-cloud-setup-git)
-pkgver=1.33.1dev.111.g6bc6d45925
-pkgrel=2
+pkgver=1.35.7dev.11.g3034b99c00
+pkgrel=1
 pkgdesc="Network connection manager and user applications"
 arch=(x86_64)
 license=(GPL2 LGPL2.1)
@@ -35,7 +35,7 @@ pkgver() {
 }
 
 build() {
-  local meson_args=(
+  local meson_options=(
     # system paths
     -D dbus_conf_dir=/usr/share/dbus-1/system.d
 
@@ -72,7 +72,7 @@ build() {
     -D qt=false
   )
 
-  arch-meson NetworkManager build "${meson_args[@]}"
+  arch-meson NetworkManager build "${meson_options[@]}"
   meson compile -C build
 }
 
