@@ -1,0 +1,72 @@
+# Maintainer: Piotr Górski <lucjan.lucjanov@gmail.com>
+# Maintainer: Mark Wagie <mark dot wagie at tutanota dot com>
+# Contributor: desbma
+
+pkgname=bat-polaur-extras-git
+_pkgname=bat-extras
+pkgver=2021.08.21.r1.g8ad00bd
+pkgrel=2
+pkgdesc="Bash scripts that integrate bat with various command line tools."
+arch=('any')
+url="https://github.com/eth-p/bat-extras"
+license=('MIT')
+depends=('bash' 'bat-polaur-git' 'git' 'man-db' 'ripgrep')
+makedepends=('git')
+optdepends=('ncurses: optional for batdiff script'
+            'git-delta: optional for batdiff script'
+            'fzf: optional for batman script'
+            'exa: optional for batpipe script'
+            'entr: optional for batwatch script'
+            'prettier: various code formatting for prettybat script'
+            'shfmt: bash formatting for prettybat script'
+            'rustfmt: Rust formatting for prettybat script'
+            'clang: C / C++ / Objective-C formatting for prettybat script'
+            'python-black: Python formatting for prettybat script')
+provides=("bat-extras")
+conflicts=("bat-extras")
+source=('git+https://github.com/eth-p/bat-extras.git'
+        'git+https://github.com/eth-p/best.git'
+        'git+https://github.com/eth-p/best-tests.git')
+sha256sums=('SKIP'
+            'SKIP'
+            'SKIP')
+
+prepare() {
+  cd $_pkgname
+  git submodule init .test-framework
+  git config submodule.best.url "$srcdir/best"
+  git submodule update
+
+  cd .test-framework
+  git submodule init tests
+  git config submodule.best-tests.url "$srcdir/best-tests"
+  git submodule update
+}
+
+pkgver() {
+  cd $_pkgname
+  git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+check() {
+  cd $_pkgname
+  ./test.sh
+}
+
+package() {
+  cd $_pkgname
+  
+  ./build.sh \
+    --minify=none \
+    --no-verify \
+    --prefix="$pkgdir/usr" \
+    --install
+
+  # documentation
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" \
+    CONTRIBUTING.md README.md doc/*
+  install -vDm644 -t "$pkgdir/usr/share/man/man1" man/*
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.md
+}
