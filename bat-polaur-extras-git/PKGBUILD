@@ -5,12 +5,12 @@
 pkgname=bat-polaur-extras-git
 _pkgname=bat-extras
 pkgver=2021.08.21.r1.g8ad00bd
-pkgrel=2
+pkgrel=3
 pkgdesc="Bash scripts that integrate bat with various command line tools."
 arch=('any')
 url="https://github.com/eth-p/bat-extras"
 license=('MIT')
-depends=('bash' 'bat-polaur-git' 'git' 'man-db' 'ripgrep')
+depends=('bash' 'bat' 'git' 'man-db' 'ripgrep')
 makedepends=('git')
 optdepends=('ncurses: optional for batdiff script'
             'git-delta: optional for batdiff script'
