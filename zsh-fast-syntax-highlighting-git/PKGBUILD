@@ -1,0 +1,39 @@
+# Maintainer: Piotr Gorski <lucjan.lucjanov@gmail.com>
+# Contributor: Jonathan Waldrep <spartan074 at gmail dot com>
+# Contributor: Niklas Bolander <niklas.bolander at gmail dot com>
+
+pkgname=zsh-fast-syntax-highlighting-git
+pkgver=1.55.r87.g585c089
+pkgrel=1
+pkgdesc='Optimized and extended zsh-syntax-highlighting'
+arch=('any')
+url='https://github.com/zdharma-continuum/fast-syntax-highlighting'
+license=('BSD')
+depends=('zsh')
+makedepends=('git')
+source=("git+${url}.git")
+sha512sums=('SKIP')
+
+_gitname='fast-syntax-highlighting'
+
+pkgver() {
+  cd "${_gitname}"
+  git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+package() {
+  _srcdir=${srcdir}/${_gitname}
+  _plugindir=${pkgdir}/usr/share/zsh/plugins
+  _licdir=${pkgdir}/usr/share/licenses/${pkgname}
+
+  install -dm0755 ${_plugindir}
+  cp -r ${_srcdir} ${_plugindir}
+  rm -rf ${_plugindir}/${_gitname}/.git
+  rm -rf ${_plugindir}/${_gitname}/.github
+  echo ${_plugindir}/${_gitname}/.git
+
+  install -dm755 ${_licdir}
+  install -m0644 ${_srcdir}/LICENSE ${_licdir}
+}
+
+# vim:set syntax=PKGBUILD ts=2 sw=2 et:
