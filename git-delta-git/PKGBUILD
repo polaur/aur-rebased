@@ -3,14 +3,14 @@
 
 pkgname=git-delta-git
 _pkgname=delta
-pkgver=0.8.3.r55.gb49f903
+pkgver=0.12.0.r2.g32e15ce
 pkgrel=1
 pkgdesc="A syntax-highlighting pager for git"
 arch=('any')
 url="https://github.com/dandavison/delta"
 license=('custom')
 depends=('libgit2')
-makedepends=('rust' 'git')
+makedepends=('rust' 'mdbook' 'git')
 checkdepends=('git')
 options=('!lto')
 provides=('delta')
@@ -25,12 +25,19 @@ pkgver() {
 
 prepare() {
   cd $_pkgname
+
+  # download dependencies
   cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
 }
 
 build() {
   cd $_pkgname
+  # binary
   cargo build --frozen --release --all-features
+
+  # html manual
+  cd manual
+  mdbook build --dest-dir html
 }
 
 check() {
@@ -55,4 +62,7 @@ package() {
 
   # documentation
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
+
+  # html manual
+  cp -r manual/html "$pkgdir/usr/share/doc/$pkgname"
 }
