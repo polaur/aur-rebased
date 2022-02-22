@@ -13,7 +13,6 @@ makedepends=('git')
 conflits=('gitless')
 provides=('gitless')
 # source=("git+https://github.com/sirlucjan/gitless")
-# source=("git+https://github.com/gitless-vcs/gitless")
 source=("git+https://github.com/goldstar611/gitless"
 '0001-Update-requirements.patch')
 sha256sums=('SKIP'
