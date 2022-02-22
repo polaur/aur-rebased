@@ -3,7 +3,7 @@
 pkgname=gitless-git
 _pkgname=gitless
 pkgver=0.8.8.r755.g29cbb1d
-pkgrel=1
+pkgrel=2
 pkgdesc="A scientifically proven easier-to-use git interface"
 arch=("any")
 url="http://gitless.com/"
@@ -16,7 +16,7 @@ provides=('gitless')
 source=("git+https://github.com/goldstar611/gitless"
 '0001-Update-requirements.patch')
 sha256sums=('SKIP'
-            'ebf73c7f7a00f650dc356820acd86236530e6c97beb62edbfa1ac4c51e862e60')
+            '9292178088444151044d90ae3b8897d54f93cf7255f21e9d6cb55d1cbe1f238c')
 
 pkgver() {
   cd $_pkgname
