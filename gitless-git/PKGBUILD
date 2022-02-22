@@ -2,7 +2,7 @@
 
 pkgname=gitless-git
 _pkgname=gitless
-pkgver=0.8.8.r89.g982e47a
+pkgver=0.8.8.r755.g29cbb1d
 pkgrel=1
 pkgdesc="A scientifically proven easier-to-use git interface"
 arch=("any")
@@ -13,20 +13,21 @@ makedepends=('git')
 conflits=('gitless')
 provides=('gitless')
 # source=("git+https://github.com/sirlucjan/gitless")
-source=("git+https://github.com/gitless-vcs/gitless"
-        '0001-Update-requirements.patch')
+# source=("git+https://github.com/gitless-vcs/gitless")
+source=("git+https://github.com/goldstar611/gitless"
+'0001-Update-requirements.patch')
 sha256sums=('SKIP'
-            'd7162b958c2ec2d2e824fca5584942b4388973c53e6c255cc36192252499de27')
+            'ebf73c7f7a00f650dc356820acd86236530e6c97beb62edbfa1ac4c51e862e60')
 
 pkgver() {
   cd $_pkgname
   
   # git describe
-  git describe --long --tags | sed 's/v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+  # git describe --long --tags | sed 's/v//;s/\([^-]*-g\)/r\1/;s/-/./g'
   
   # other
-  # _ver="$(cat $_pkgname/cli/gl.py | grep -m1 __version__ | grep -o "[[:digit:]]*" | paste -sd'.')"
-  # echo "${_ver}.r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
+  _ver="$(cat $_pkgname/cli/gl.py | grep -m1 __version__ | grep -o "[[:digit:]]*" | paste -sd'.')"
+  echo "${_ver}.r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
 }
 
 prepare() {

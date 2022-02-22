@@ -1,6 +1,6 @@
-From f3c3218f0f52f8a8a3c3b7e2441d1e2fcc3d7c96 Mon Sep 17 00:00:00 2001
+From 255d717aa9f848d268b0d70b0241e04a76a4983f Mon Sep 17 00:00:00 2001
 From: Piotr Gorski <lucjan.lucjanov@gmail.com>
-Date: Wed, 27 Jan 2021 12:38:16 +0100
+Date: Tue, 22 Feb 2022 10:04:10 +0100
 Subject: [PATCH] Update requirements
 
 Signed-off-by: Piotr Gorski <lucjan.lucjanov@gmail.com>
@@ -9,18 +9,18 @@ Signed-off-by: Piotr Gorski <lucjan.lucjanov@gmail.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/setup.py b/setup.py
-index 4c4081b..7b22424 100755
+index 1713b07..a7e9dec 100755
 --- a/setup.py
 +++ b/setup.py
-@@ -66,7 +66,7 @@ setup(
+@@ -63,7 +63,7 @@ setup(
      packages=['gitless', 'gitless.cli'],
      install_requires=[
-       # make sure install_requires is consistent with requirements.txt
--      'pygit2==1.4.0', # requires libgit2 1.1.x
-+      'pygit2>=1.4.0', # requires libgit2 1.1.x
-       'argcomplete>=1.11.1'
+         # make sure install_requires is consistent with requirements.txt
+-        'pygit2==1.4.0',  # requires libgit2 1.1.x
++        'pygit2>=1.4.0',  # requires libgit2 1.1.x
+         'argcomplete>=1.11.1'
      ],
      license='MIT',
 -- 
-2.30.0.155.g66e871b664
+2.35.1.129.gb80121027d
 
