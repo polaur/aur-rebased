@@ -6,7 +6,7 @@ pkgver=0.8.8.r755.g29cbb1d
 pkgrel=4
 pkgdesc="A scientifically proven easier-to-use git interface"
 arch=("any")
-url="http://gitless.com/"
+url="https://github.com/goldstar611/gitless"
 license=("GPL")
 depends=('python' 'git' 'python-pygit2>=1.4.0' 'python-setuptools' 'python-argcomplete')
 conflits=('gitless')
