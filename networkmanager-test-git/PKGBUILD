@@ -8,7 +8,7 @@
 
 pkgbase=networkmanager-test-git
 pkgname=(networkmanager-test-git libnm-test-git nm-cloud-setup-test-git)
-pkgver=1.34.1dev.6.g634e023e72
+pkgver=1.36.1dev.0.g68c19b401f
 pkgrel=1
 pkgdesc="Network connection manager and user applications"
 arch=(x86_64)
@@ -21,7 +21,7 @@ makedepends=(intltool dhclient dhcpcd iptables-nft gobject-introspection gtk-doc
              python-gobject git vala jansson bluez-libs glib2-docs iwd dnsmasq
              openresolv libpsl audit meson)
 checkdepends=(libx11 python-dbus)
-source=("git+https://gitlab.freedesktop.org/NetworkManager/NetworkManager.git#branch=nm-1-34")
+source=("git+https://gitlab.freedesktop.org/NetworkManager/NetworkManager.git#branch=nm-1-36")
 sha256sums=('SKIP')
 
 prepare() {
