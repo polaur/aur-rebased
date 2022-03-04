@@ -2,7 +2,7 @@
 
 pkgname=gitless-git
 _pkgname=gitless
-pkgver=0.9.16.r817.g039b1ae
+pkgver=0.9.16.r819.g3c3cc59
 pkgrel=1
 pkgdesc="A scientifically proven easier-to-use git interface"
 arch=("any")
@@ -12,10 +12,8 @@ depends=('python' 'git' 'python-pygit2>=1.4.0' 'python-setuptools' 'python-argco
 conflicts=('gitless')
 provides=('gitless')
 # source=("git+https://github.com/sirlucjan/gitless")
-source=("git+https://github.com/goldstar611/gitless"
-        '0001-Adds-gl-revert-a-wrapper-for-git-revert.patch')
-sha256sums=('SKIP'
-            'dfd6140d2845d469e9264d646616a4753cbc1a590239e3a68001212f81e4f559')
+source=("git+https://github.com/goldstar611/gitless")
+sha256sums=('SKIP')
 
 pkgver() {
   cd $_pkgname
