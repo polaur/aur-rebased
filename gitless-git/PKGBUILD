@@ -2,7 +2,7 @@
 
 pkgname=gitless-git
 _pkgname=gitless
-pkgver=0.9.16.r819.g3c3cc59
+pkgver=0.9.17.r2.gd70d539
 pkgrel=1
 pkgdesc="A scientifically proven easier-to-use git interface"
 arch=("any")
@@ -19,11 +19,11 @@ pkgver() {
   cd $_pkgname
 
   # git describe
-  # git describe --long --tags | sed 's/v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+  git describe --long --tags | sed 's/v//;s/\([^-]*-g\)/r\1/;s/-/./g'
 
   # other
-  _ver="$(cat $_pkgname/__init__.py  | grep -m1 __version__ | grep -o "[[:digit:]]*" | paste -sd'.')"
-  echo "${_ver}.r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
+  #_ver="$(cat $_pkgname/__init__.py  | grep -m1 __version__ | grep -o "[[:digit:]]*" | paste -sd'.')"
+  # echo "${_ver}.r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
 }
 
 prepare() {
