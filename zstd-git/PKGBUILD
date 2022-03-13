@@ -3,7 +3,7 @@
 
 pkgname=zstd-git
 _pkgname=zstd
-pkgver=1.5.0.r8924.gb3e372c1
+pkgver=1.5.2.r9527.g05fc7c78c
 pkgrel=1
 pkgdesc='A fast and efficient compression algorithm.'
 arch=('x86_64')
@@ -29,7 +29,8 @@ pkgver() {
 
 build() {
     cd $_pkgname
-    make
+    # Set PREFIX, as libzstd.pc is otherwise generated with -L/usr/local
+    make PREFIX=/usr
     make -C contrib/pzstd
 }
 
