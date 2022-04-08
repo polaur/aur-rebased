@@ -6,8 +6,8 @@ pkgname=('linux-usermode-rc-git' 'linux-usermode-rc-git-modules')
 _major=5.17
 _kernelname=-usermodelinux-git
 _srcname=linux-stable-rc
-pkgver=5.17.r0.gf443e374ae13
-pkgrel=1
+pkgver=5.17.1.r1124.g8137844a8b59
+pkgrel=2
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
 license=('GPL2')
@@ -77,10 +77,12 @@ _package() {
 _package-modules() {
   conflicts=('linux-usermode-rc-modules' 'linux-usermode-git-modules'
              'linux-usermode-modules')
+  depends=('kmod')
 
   cd ${_srcname}
   local kernver="$(<version)"
-  make ARCH=um INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 modules_install
+  make ARCH=um INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 \
+    DEPMOD=/doesnt/exist modules_install  # Suppress depmod
   rm -f $pkgdir/usr/lib/modules/${kernver}/{source,build}
   # sed expression for following substitutions
   local _subst="
