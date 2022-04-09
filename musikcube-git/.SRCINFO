@@ -1,6 +1,6 @@
 pkgbase = musikcube-git
-	pkgdesc = A terminal-based cross-platform music player, audio engine, metadata indexer, and server. (no httpserver, alsa output)
-	pkgver = 0.96.10.r9.ge0763f37
+	pkgdesc = A terminal-based cross-platform music player, audio engine, metadata indexer, and server. (no httpserver, alsa output) (manual install)
+	pkgver = 0.97.0.r26.ge4593ba0
 	pkgrel = 1
 	url = https://github.com/clangen/musikcube
 	arch = x86_64

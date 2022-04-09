@@ -2,9 +2,9 @@
 # Maintainer: Hans-Nikolai Viessmann <hans AT viess DOT mn
 
 pkgname=musikcube-git
-pkgver=0.96.10.r9.ge0763f37
+pkgver=0.97.0.r26.ge4593ba0
 pkgrel=1
-pkgdesc="A terminal-based cross-platform music player, audio engine, metadata indexer, and server. (no httpserver, alsa output)"
+pkgdesc="A terminal-based cross-platform music player, audio engine, metadata indexer, and server. (no httpserver, alsa output) (manual install)"
 arch=('x86_64')
 url="https://github.com/clangen/musikcube"
 license=('BSD')
@@ -24,17 +24,22 @@ pkgver() {
 
 prepare() {
     cd "$srcdir/${pkgname%-git}"
-	## remove server side
+	## remove few plugins from CMakeLists
 	sed -iE 's|libmicrohttpd\${DEB_MICROHTTPD_VERSION}, ||g' CMakeLists.txt
 	sed -iE 's| server||;s| httpdatastream||g' CMakeLists.txt
 	sed -iE 's|add_subdirectory(src/plugins/server)||g' CMakeLists.txt
 	sed -iE 's|add_subdirectory(src/plugins/httpdatastream)||g' CMakeLists.txt
-	## remove libopenmpt
-	sed -iE 's|add_subdirectory(src/plugins/server)||g' CMakeLists.txt
-	\rm -rv src/plugins/{libopenmptdecoder,httpdatastream,macos*,win32*}
-	# \rm -rv src/plugins/httpdatastream
-	# \rm -rv src/plugins/macos*
-	# \rm -rv src/plugins/win32*
+	sed -iE 's|add_plugin("src/plugins/server" "server")||g' CMakeLists.txt
+	sed -iE 's|add_plugin("src/plugins/httpdatastream" "httpdatastream")||g' CMakeLists.txt
+	sed -iE 's|add_plugin("src/plugins/libopenmptdecoder" "openmptdecoder")||g' CMakeLists.txt
+	sed -iE 's|add_plugin("src/plugins/pulseout" "pulseout")||g' CMakeLists.txt
+	sed -iE 's|add_plugin("src/plugins/pipewireout" "pipewireout")||g' CMakeLists.txt
+	sed -iE 's|add_plugin("src/plugins/sndioout" "sndioout")||g' CMakeLists.txt
+	sed -iE 's|add_plugin("src/plugins/coreaudioout" "coreaudioout")||g' CMakeLists.txt
+	sed -iE 's|add_plugin("src/plugins/mpris" "mpris")||g' CMakeLists.txt
+	sed -iE 's|add_plugin("src/plugins/macosmediakeys" "macosmediakeys")||g' CMakeLists.txt
+	## remove few plugins dirs
+	\rm -rv src/plugins/{libopenmptdecoder,httpdatastream,macos*,win32*,pulseout,pipewireout,sndioout*,coreaudioout,mpris,server}
 
 }
 
@@ -47,6 +52,7 @@ build() {
         -DLIB_SYSTEMD=false \
         -DENABLE_SYSTEMD=false \
         -DENABLE_PULSEAUDIO=false \
+        -DENABLE_PIPEWIRE=false \
         -DENABLE_LIBOPENMTP=false \
         -DENABLE_OPENMTP=false \
         -DENABLE_ALSA=true \
