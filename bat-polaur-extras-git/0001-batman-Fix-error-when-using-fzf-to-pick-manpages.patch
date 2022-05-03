@@ -1,0 +1,34 @@
+From 241c724d6e7907653ae7bdd9dda3ed897daa986f Mon Sep 17 00:00:00 2001
+From: Trevor Leibert <tleibert1999@gmail.com>
+Date: Fri, 17 Sep 2021 15:26:12 -0400
+Subject: [PATCH 1/3] batman: Fix error when using fzf to pick manpages
+
+- steps to reproduce error:
+  - run batman with no arguments
+  - pick any entry
+  - script exits and man prints an error message similar to 'No manual entry for .k5identity  in section 5'
+
+I speculated that this error was due to whitespace being attached to the second argument in the man call.
+This commit fixes this error by piping the second argument through xargs to strip these spaces.
+
+After applying this commit the script works as expected.
+---
+ src/batman.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/batman.sh b/src/batman.sh
+index 5b87eb8..b5ad994 100755
+--- a/src/batman.sh
++++ b/src/batman.sh
+@@ -61,7 +61,7 @@ if [[ "${#MAN_ARGS[@]}" -eq 0 ]] && [[ -z "$BATMAN_LEVEL" ]] && command -v "$EXE
+ 	# Convert the page(section) format to something that can be fed to the man command.
+ 	while read -r line; do
+ 		if [[ "$line" =~ ^(.*)\(([0-9]+)\)$ ]]; then
+-			MAN_ARGS+=("${BASH_REMATCH[2]}" "${BASH_REMATCH[1]}")
++			MAN_ARGS+=("${BASH_REMATCH[2]}" "$(echo ${BASH_REMATCH[1]} | xargs)")
+ 		fi
+ 	done <<< "$selected_page"	
+ fi
+-- 
+2.36.0.44.g0f828332d5
+
