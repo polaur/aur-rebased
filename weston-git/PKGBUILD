@@ -5,7 +5,7 @@
 
 pkgname=weston-git
 _pkgname=weston
-pkgver=9.0.0.321.g7a44ee7f
+pkgver=10.0.0.207.ge6a9e3c4
 pkgrel=1
 pkgdesc='Reference implementation of a Wayland compositor'
 arch=('x86_64')
@@ -14,7 +14,7 @@ license=('MIT')
 depends=('glibc' 'wayland' 'libxkbcommon' 'libinput' 'libunwind' 'pixman'
          'libdrm' 'pam' 'systemd-libs' 'cairo' 'libpng' 'libjpeg-turbo' 'libwebp'
          'mesa' 'libegl' 'libgles' 'glib2' 'pango' 'lcms2' 'mtdev' 'libx11'
-         'libxcb' 'dbus' 'libva' 'libxcursor' 'colord' 'libpipewire02')
+         'libxcb' 'dbus' 'libva' 'libxcursor' 'colord' 'pipewire' 'seatd')
 makedepends=('wayland-protocols' 'meson' 'ninja' 'freerdp' 'git')
 optdepends=('freerdp: support rdp backend')
 conflicts=('weston')
@@ -43,7 +43,7 @@ prepare() {
 
 build() {
   arch-meson $_pkgname build \
-    --libexec=lib/weston -D b_lto=false -D simple-dmabuf-drm=auto
+   --libexec=lib/weston -D b_lto=false
   ninja -C build
 }
 
