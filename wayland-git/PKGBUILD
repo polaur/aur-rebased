@@ -4,14 +4,14 @@
 
 pkgbase=wayland-git
 pkgname=(wayland-git wayland-git-docs)
-pkgver=1.19.0.26.g817fdb9
+pkgver=1.20.0.34.g1078ee4
 pkgrel=1
 pkgdesc='A computer display server protocol.'
 arch=(x86_64)
 url='http://wayland.freedesktop.org'
 license=('MIT')
 depends=('glibc' 'libffi' 'expat' 'libxml2')
-makedepends=('meson' 'ninja' 'libxslt' 'doxygen' 'xmlto' 'graphviz' 'docbook-xsl')
+makedepends=('meson' 'libxslt' 'doxygen' 'xmlto' 'graphviz' 'docbook-xsl')
 source=(git://anongit.freedesktop.org/wayland/wayland#branch=main)
 sha1sums=('SKIP')
 
@@ -23,18 +23,19 @@ pkgver() {
 
 
 build() {
-  meson build wayland --buildtype=release --prefix=/usr
-  ninja -C build
+  arch-meson wayland build
+  meson compile -C build
 }
 
 check() {
-  ninja -C build test
+  meson test -C build --print-errorlogs
 }
 
 package_wayland-git() {
   conflicts=('wayland')
-  provides=('wayland')
-  DESTDIR="$pkgdir" ninja -C build install
+  provides=('wayland' libwayland-{client,cursor,egl,server}.so)
+
+  meson install -C build --destdir "$pkgdir"
   mkdir -p docs/share
   mv "$pkgdir"/usr/share/{doc,man} docs/share
   install -Dm 644 wayland/COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
