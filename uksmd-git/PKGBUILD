@@ -4,12 +4,12 @@
 pkgname=uksmd-git
 _pkgname=uksmd
 pkgver=20220513.r31.ge9b06f4
-pkgrel=1
+pkgrel=2
 pkgdesc="Userspace KSM helper daemon"
 url="https://gitlab.com/post-factum/uksmd"
 license=(GPL3)
 arch=(x86_64)
-depends=('systemd' 'procps-ng' 'libcap-ng')
+depends=('UKSMD-BUILTIN' 'systemd' 'procps-ng' 'libcap-ng')
 makedepends=('meson' 'git')
 conflicts=('uksmd')
 provides=('uksmd')
