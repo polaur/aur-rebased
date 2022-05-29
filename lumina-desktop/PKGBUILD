@@ -1,0 +1,45 @@
+# Maintainer: Daniel Maslowski <info@orangecms.org>
+# Contributor: FredBezies
+# Contributor: pavbaranov
+# Contributor: marcin82
+# Based on original PKGBUILD created by:
+# Contributor: Chad "crossroads1112" Sharp <crossroads1112@riseup.net>
+# Contributor: Gabriel Moura <develop@srmoural.com.br>
+pkgname=lumina-desktop
+pkgver=1.6.2
+pkgrel=1
+_pkgfullname="${pkgname%-*}-${pkgver}"
+pkgdesc="A Lightweight QT5 Desktop for FreeBSD"
+arch=('x86_64' 'i686' 'x86_64_v2' 'x86_64_v3')
+url="https://github.com/trueos/lumina"
+license=('BSD')
+depends=('qt5-x11extras' 'qt5-multimedia' 'qt5-declarative' 'hicolor-icon-theme' 'libxcursor')
+optdepends=('xorg-xbacklight: required for changing screen brightness'
+            'alsa-utils: required for adjusting audio volume'
+            'acpi: required for monitoring battery life'
+            'numlockx: required for changign state of numlock at login'
+            'pavucontrol: required for detatched audio mixer'
+            'fluxmod-styles: A good set of Fluxbox themes to improve the appearence of window decorations'
+            'network-manager-applet: Manage network connections from panel'
+            'xterm: Terminal emulator'
+            'fluxbox: window manager for Lumina DE'
+            )
+makedepends=('qt5-base' 'qt5-svg' 'qt5-tools')
+conflicts=("lumina-de-git" "lumina-desktop-git" "insight-fm")
+provides=("${pkgname%-*}" "insight-fm")
+#install="${pkgname%-*}.install"
+source=("$pkgname-$pkgver.tar.gz::https://github.com/trueos/lumina/archive/v${pkgver}.tar.gz")
+sha512sums=('0bebdc89644af49232ad9a0b753dee501f3e99d6615ce926c71790932d228e3c6676ca4835aeaf6badf5455102278261e48bed0d3004fe9209aca68d620cae02')
+
+build() {
+    cd "${srcdir}/${_pkgfullname}"
+    find "${srcdir}/${_pkgfullname}" -name *.desktop -exec sed -i 's/usr\/local/usr/' {} \;
+    qmake QMAKE_CFLAGS_ISYSTEM= PREFIX="/usr" LIBPREFIX=/usr/lib QT5LIBDIR=/usr/lib/qt CONFIG+=WITH_I18N L_MANDIR=/usr/share/man L_ETCDIR="/etc"
+    make
+}
+
+package() {
+    cd "${srcdir}/${_pkgfullname}"
+    make INSTALL_ROOT="${pkgdir}" install
+    install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
