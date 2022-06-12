@@ -3,16 +3,17 @@
 
 pkgname=zstd-git
 _pkgname=zstd
-pkgver=1.5.2.r9527.g05fc7c78c
+pkgver=1.5.2.r9596.g3b1bd9185
 pkgrel=1
 pkgdesc='A fast and efficient compression algorithm.'
 arch=('x86_64')
 url='https://github.com/facebook/zstd'
 license=('BSD' 'GPL2')
 depends=('glibc' 'gcc-libs' 'zlib' 'xz' 'lz4')
-makedepends=('git' 'gtest')
+makedepends=('cmake' 'gtest' 'ninja' 'git')
 conflicts=('zstd')
 provides=('zstd' 'libzstd.so')
+options=('staticlibs')
 # Use the dev branch by default; upstream merges only full releases to master.
 source=('git+https://github.com/facebook/zstd.git#branch=dev')
 md5sums=('SKIP')
@@ -28,22 +29,22 @@ pkgver() {
 }
 
 build() {
-    cd $_pkgname
-    # Set PREFIX, as libzstd.pc is otherwise generated with -L/usr/local
-    make PREFIX=/usr
-    make -C contrib/pzstd
+    cmake -S $_pkgname/build/cmake -B build -G Ninja \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DZSTD_BUILD_CONTRIB=ON \
+    -DZSTD_BUILD_TESTS=ON
+  cmake --build build
 }
 
-check() {
-    cd $_pkgname
-    make check
-    make -C contrib/pzstd test
-}
+#check() {
+#    cd build/tests
+#    ctest
+#}
 
 package() {
-    cd $_pkgname
-    make PREFIX=/usr DESTDIR="${pkgdir}" install
-    ln -sf /usr/bin/zstd "${pkgdir}/usr/bin/zstdmt"
-    install -Dm 755 contrib/pzstd/pzstd -t "${pkgdir}/usr/bin"
-    install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${_pkgname}"
+     DESTDIR="${pkgdir}" cmake --install build
+  ln -sf /usr/bin/zstd "${pkgdir}/usr/bin/zstdmt"
+  install -Dm 644 $_pkgname/LICENSE -t "${pkgdir}/usr/share/licenses/$_pkgname"
 }
