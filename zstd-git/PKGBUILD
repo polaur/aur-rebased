@@ -3,7 +3,7 @@
 
 pkgname=zstd-git
 _pkgname=zstd
-pkgver=1.5.2.r9596.g3b1bd9185
+pkgver=1.5.2.r9603.gb7b7edb3a
 pkgrel=1
 pkgdesc='A fast and efficient compression algorithm.'
 arch=('x86_64')
@@ -13,38 +13,52 @@ depends=('glibc' 'gcc-libs' 'zlib' 'xz' 'lz4')
 makedepends=('cmake' 'gtest' 'ninja' 'git')
 conflicts=('zstd')
 provides=('zstd' 'libzstd.so')
-options=('staticlibs')
 # Use the dev branch by default; upstream merges only full releases to master.
 source=('git+https://github.com/facebook/zstd.git#branch=dev')
 md5sums=('SKIP')
 
 pkgver() {
-    cd $_pkgname
-    # git describe
-    # git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g;s/^v//g'
+  cd $_pkgname
+  # git describe
+  # git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g;s/^v//g'
 
-    # other
-    _ver="$(cat lib/zstd.h | grep -m3 -e _MAJOR -e _MINOR -e _RELEASE | grep -o "[[:digit:]]*" | paste -sd'.')"
-    echo "${_ver}.r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
+  # other
+  _ver="$(cat lib/zstd.h | grep -m3 -e _MAJOR -e _MINOR -e _RELEASE | grep -o "[[:digit:]]*" | paste -sd'.')"
+  echo "${_ver}.r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+  cd $_pkgname
+  # avoid error on tests without static libs, we use LD_LIBRARY_PATH
+  sed '/build static library to build tests/d' -i build/cmake/CMakeLists.txt
+  sed 's/libzstd_static/libzstd_shared/g' -i build/cmake/tests/CMakeLists.txt
 }
 
 build() {
-    cmake -S $_pkgname/build/cmake -B build -G Ninja \
+  cd $_pkgname
+  export CFLAGS+=' -ffat-lto-objects'
+  export CXXFLAGS+=' -ffat-lto-objects'
+
+  cmake -S build/cmake -B build -G Ninja \
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DZSTD_BUILD_CONTRIB=ON \
-    -DZSTD_BUILD_TESTS=ON
+    -DZSTD_BUILD_STATIC=OFF \
+    -DZSTD_BUILD_TESTS=ON \
+    -DZSTD_PROGRAMS_LINK_SHARED=ON
   cmake --build build
 }
 
 #check() {
-#    cd build/tests
-#    ctest
+#  cd $_pkgname
+#  export LD_LIBRARY_PATH="$(pwd)/build/lib"
+#  ctest -VV --test-dir build
 #}
 
 package() {
-     DESTDIR="${pkgdir}" cmake --install build
+  cd $_pkgname
+  DESTDIR="${pkgdir}" cmake --install build
   ln -sf /usr/bin/zstd "${pkgdir}/usr/bin/zstdmt"
-  install -Dm 644 $_pkgname/LICENSE -t "${pkgdir}/usr/share/licenses/$_pkgname"
+  install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
 }
