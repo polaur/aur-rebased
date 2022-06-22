@@ -6,7 +6,7 @@ pkgname=('linux-usermode-git' 'linux-usermode-git-modules')
 _major=5.18
 _kernelname=-usermodelinux-git
 _srcname=linux
-pkgver=5.18.3.r0.g3a82f34133ab
+pkgver=5.18.6.r0.g5f112b51a0a0
 pkgrel=1
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
@@ -20,7 +20,7 @@ source=(
   '70-uml.hook')
 
 sha256sums=('SKIP'
-            'dbad2440501eee116dccdd6a5bbc978d907c2ff52971dafc5cc06c91955c3bc0'
+            'a9514fde70979f811416b01413ba7427be1a1910cce8a5304da3c1a41a7f77d4'
             '05ea4e00d1e99bf8140a21c94e3c42acf17b9debad9c6f5decbe1dd1fe04332c')
 
 pkgver() {
