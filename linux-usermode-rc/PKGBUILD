@@ -12,13 +12,15 @@ pkgver=${_major}.${_minorc}
 _stable=${_major}.${_minor}
 _stablerc=${pkgver}-${_rcver}
 _srcname=linux-${_stable}
-pkgrel=0.1
+pkgrel=0.2
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
 license=('GPL2')
 url="http://user-mode-linux.sourceforge.net/"
 depends=('coreutils')
 makedepends=('bc' 'inetutils')
+#_lucjanpath="https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/${_major}"
+_lucjanpath="https://gitlab.com/sirlucjan/kernel-patches/raw/master/${_major}"
 
 ### Stable-review
 # In case the stable-review repository ever stopped working,
@@ -36,6 +38,7 @@ source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_stable}.tar.xz"
         "https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-${_stablerc}.sign"
         # https://lkml.org/lkml/2019/8/23/712
         # "patch-${_stablerc}.diff::https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git/patch/?id=linux-${_major}.y&id2=v${_patchver}"
+        "${_lucjanpath}/uml-patches/0001-um-Add-missing-apply_returns.patch"
         'config'
         '70-uml.hook')
 
@@ -43,6 +46,7 @@ sha256sums=('e20d8e54a782f7079b22762e8ee8adec0d08351b1083553adb2d6885ad1815af'
             'SKIP'
             '051766cb7df214f9491e5c7586a658db7b8c663184e587173f231ac60a30f66e'
             'SKIP'
+            '4344722c8e3fc08566d6dceb51cc41591d1f7972cf52b2f33510a3e8cc51af08'
             'b0e116603c5897552c1096ea66551aff5acab59101b32e7d1754c0cf86443b71'
             '05ea4e00d1e99bf8140a21c94e3c42acf17b9debad9c6f5decbe1dd1fe04332c')
 
