@@ -15,8 +15,12 @@ license=('GPL2')
 url="http://user-mode-linux.sourceforge.net/"
 depends=('coreutils')
 makedepends=('bc' 'inetutils')
+#_lucjanpath="https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/${_major}"
+_lucjanpath="https://gitlab.com/sirlucjan/kernel-patches/raw/master/${_major}"
+
 source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${pkgver}.tar.xz"
         "https://www.kernel.org/pub/linux/kernel/v5.x/linux-${pkgver}.tar.sign"
+        # "${_lucjanpath}/uml-patches/0001-um-Add-missing-apply_returns.patch"
         'config'
         '70-uml.hook')
 
