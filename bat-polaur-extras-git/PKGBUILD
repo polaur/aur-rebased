@@ -4,8 +4,8 @@
 
 pkgname=bat-polaur-extras-git
 _pkgname=bat-extras
-pkgver=2021.08.21.r1.g8ad00bd
-pkgrel=4
+pkgver=2022.07.27.r9.g38014ba
+pkgrel=1
 pkgdesc="Bash scripts that integrate bat with various command line tools."
 arch=('any')
 url="https://github.com/eth-p/bat-extras"
@@ -26,16 +26,10 @@ provides=("bat-extras")
 conflicts=("bat-extras")
 source=('git+https://github.com/eth-p/bat-extras.git'
         'git+https://github.com/eth-p/best.git'
-        'git+https://github.com/eth-p/best-tests.git'
-        '0001-batman-Fix-error-when-using-fzf-to-pick-manpages.patch'
-        '0002-batdiff-Fix-use-of-deprecated-hunk-style.patch'
-        '0003-batdiff-Fix-line-too-long-80-chars.patch')
+        'git+https://github.com/eth-p/best-tests.git')
 sha256sums=('SKIP'
             'SKIP'
-            'SKIP'
-            'd1b0b4b144ce62529fa4f61b8d1f3d9876412ed98a08bc572082c80a610bc227'
-            '76a00b4bfab441ae887e78f365fa58d477ba09d23f7aa275894b3e2b6e5c81cf'
-            '2e8f44de9ab595808cb2cc1aa56ed3a3573945ddb0ffeb3fe81a3e0ba13f48a9')
+            'SKIP')
 
 prepare() {
   cd $_pkgname
