@@ -12,7 +12,7 @@ pkgver=${_major}.${_minorc}
 _stable=${_major}.${_minor}
 _stablerc=${pkgver}-${_rcver}
 _srcname=linux-${_stable}
-pkgrel=0
+pkgrel=0.1
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
 license=('GPL2')
@@ -38,6 +38,7 @@ source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_stable}.tar.xz"
         "https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-${_stablerc}.sign"
         # https://lkml.org/lkml/2019/8/23/712
         # "patch-${_stablerc}.diff::https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git/patch/?id=linux-${_major}.y&id2=v${_patchver}"
+        "${_lucjanpath}/uml-patches/0001-Revert-um-Add-missing-apply_returns.patch"
         'config'
         '70-uml.hook')
 
@@ -45,6 +46,7 @@ sha256sums=('513bd672066f5fb22e5739aae3eed60c75c4accc9ba365d1060c4e4225442721'
             'SKIP'
             '88f023faaa6e2db9ddc853789e57169f7d0c724bd7674f46c98c3372383defd1'
             'SKIP'
+            '73a5c239190495cf5b7074237f639eadf0e10ae517ae59e4947594fc4a0f26fd'
             '4a6bf15e2d09db7ef82a2143896c586a66bfa57fbd890f78ad90c18ad33ce563'
             '05ea4e00d1e99bf8140a21c94e3c42acf17b9debad9c6f5decbe1dd1fe04332c')
 
