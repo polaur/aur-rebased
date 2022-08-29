@@ -4,7 +4,7 @@
 
 pkgname=bat-polaur-git
 _pkgname=bat
-pkgver=0.19.0.r9.g0fa99518
+pkgver=0.21.0.r38.ga6297b28
 pkgrel=1
 pkgdesc='Cat clone with syntax highlighting and git integration'
 arch=('x86_64')
@@ -56,6 +56,10 @@ package() {
   # Find and package the man page (because cargo --out-dir is too new)
   find . -name bat.1 -type f -exec install -Dm644 {} \
     "$pkgdir/usr/share/man/man1/bat.1" \;
+
+  # Find and package the bash completion file
+  find . -name bat.bash -type f -exec install -Dm644 {} \
+    "$pkgdir/usr/share/bash-completion/completions/bat" \;
 
   # Find and package the zsh completion file (not in zsh-completions yet)
   find . -name bat.zsh -type f -exec install -Dm644 {} \
