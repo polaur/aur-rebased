@@ -8,14 +8,14 @@
 
 pkgbase=networkmanager-git
 pkgname=(networkmanager-git libnm-git nm-cloud-setup-git)
-pkgver=1.35.7dev.11.g3034b99c00
+pkgver=1.41.1dev.3.gb336b249f5
 pkgrel=1
 pkgdesc="Network connection manager and user applications"
 arch=(x86_64)
 license=(GPL2 LGPL2.1)
 url="http://www.gnome.org/projects/NetworkManager/"
 _pppver=2.4.9
-makedepends=(intltool dhclient dhcpcd iptables-nft gobject-introspection gtk-doc
+makedepends=(dhclient dhcpcd iptables-nft gobject-introspection gtk-doc
              "ppp=$_pppver" modemmanager iproute2 nss polkit wpa_supplicant curl
              systemd libmm-glib libnewt libndp libteam nftables vala perl-yaml
              python-gobject git vala jansson bluez-libs glib2-docs iwd dnsmasq
@@ -56,6 +56,8 @@ build() {
 
     # configuration plugins
     -D config_plugins_default=keyfile
+    -D ifcfg_rh=false
+    -D ifupdown=false
 
     # handlers for resolv.conf
     -D netconfig=no
