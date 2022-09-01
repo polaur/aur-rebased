@@ -3,7 +3,7 @@
 
 pkgname=git-delta-git
 _pkgname=delta
-pkgver=0.12.1.r16.g3ccf2bc
+pkgver=0.14.0.r3.g5c570f4
 pkgrel=1
 pkgdesc="A syntax-highlighting pager for git"
 arch=('any')
@@ -61,6 +61,8 @@ package() {
     "$pkgdir/usr/share/bash-completion/completions/$_pkgname"
   install -vDm644 etc/completion/completion.zsh \
     "$pkgdir/usr/share/zsh/site-functions/_$_pkgname"
+  install -vDm644 etc/completion/completion.fish \
+    "$pkgdir/usr/share/fish/vendor_completions.d/$_pkgname.fish"
 
   # documentation
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
