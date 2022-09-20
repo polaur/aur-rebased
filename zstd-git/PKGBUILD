@@ -3,7 +3,7 @@
 
 pkgname=zstd-git
 _pkgname=zstd
-pkgver=1.5.2.r9603.gb7b7edb3a
+pkgver=1.5.3.r9709.g97c23cf61
 pkgrel=1
 pkgdesc='A fast and efficient compression algorithm.'
 arch=('x86_64')
@@ -23,7 +23,7 @@ pkgver() {
   # git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g;s/^v//g'
 
   # other
-  _ver="$(cat lib/zstd.h | grep -m3 -e _MAJOR -e _MINOR -e _RELEASE | grep -o "[[:digit:]]*" | paste -sd'.')"
+  _ver="$(cat lib/zstd.h | grep -m3 -e ZSTD_VERSION_MAJOR -e ZSTD_VERSION_MINOR -e ZSTD_VERSION_RELEASE | grep -o "[[:digit:]]*" | paste -sd'.')"
   echo "${_ver}.r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
 }
 
