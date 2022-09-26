@@ -4,7 +4,7 @@
 
 pkgname=bat-polaur-git
 _pkgname=bat
-pkgver=0.21.0.r38.ga6297b28
+pkgver=0.22.1.r7.g2dbc88d3
 pkgrel=1
 pkgdesc='Cat clone with syntax highlighting and git integration'
 arch=('x86_64')
@@ -13,7 +13,7 @@ license=('Apache-2.0')
 sha256sums=('SKIP')
 source=("git+https://github.com/sharkdp/${_pkgname}")
 makedepends=('git' 'rust' 'clang')
-depends=('libssh2')
+depends=('libgit2' 'oniguruma')
 provides=('bat' 'bat-cat-git')
 conflicts=('bat' 'bat-cat-git')
 
@@ -23,23 +23,16 @@ pkgver() {
 }
 
 prepare() {
-  cargo fetch \
-    --locked \
-    --manifest-path "$srcdir/$_pkgname/Cargo.toml"
+  cargo fetch --locked --manifest-path $_pkgname/Cargo.toml
 }
 
 build() {
   export CFLAGS+=' -ffat-lto-objects -w'
-  cargo build \
-    --locked \
-    --manifest-path "$srcdir/$_pkgname/Cargo.toml" \
-    --release
+  cargo build --locked --manifest-path $_pkgname/Cargo.toml --release
 }
 
 check() {
-  cargo test \
-    --locked \
-    --manifest-path "$srcdir/$_pkgname/Cargo.toml"
+  cargo test --locked --manifest-path $_pkgname/Cargo.toml
 }
 
 package() {
