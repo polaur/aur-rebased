@@ -45,12 +45,20 @@ prepare() {
 
   git submodule init .test-framework
   git config submodule.best.url "$srcdir/best"
-  git submodule update
+  # From git 2.38.1-1, "git submodule" in PKGBUILD does not work
+  # unless we change the git config "protocol.file.allow" [1,2].
+  # [1] https://bugs.archlinux.org/task/76255
+  # [2] https://bbs.archlinux.org/viewtopic.php?pid=2063104#p2063104
+  git -c protocol.file.allow=always submodule update --init --recursive
 
   cd .test-framework
   git submodule init tests
   git config submodule.best-tests.url "$srcdir/best-tests"
-  git submodule update
+  # From git 2.38.1-1, "git submodule" in PKGBUILD does not work
+  # unless we change the git config "protocol.file.allow" [1,2].
+  # [1] https://bugs.archlinux.org/task/76255
+  # [2] https://bbs.archlinux.org/viewtopic.php?pid=2063104#p2063104
+  git -c protocol.file.allow=always submodule update --init --recursive
 }
 
 pkgver() {
