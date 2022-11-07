@@ -5,13 +5,14 @@
 pkgname=bat-polaur-extras-git
 _pkgname=bat-extras
 pkgver=2022.07.27.r9.g38014ba
-pkgrel=1
+pkgrel=2
 pkgdesc="Bash scripts that integrate bat with various command line tools."
 arch=('any')
 url="https://github.com/eth-p/bat-extras"
 license=('MIT')
 depends=('bash' 'bat' 'git' 'man-db' 'ripgrep')
-makedepends=('git')
+makedepends=('git' 'shfmt')
+checkdepends=('fish')
 optdepends=('ncurses: optional for batdiff script'
             'git-delta: optional for batdiff script'
             'fzf: optional for batman script'
@@ -43,22 +44,24 @@ prepare() {
      patch -Np1 < "../$src"
    done
 
-  git submodule init .test-framework
-  git config submodule.best.url "$srcdir/best"
+  # setup submodules
   # From git 2.38.1-1, "git submodule" in PKGBUILD does not work
   # unless we change the git config "protocol.file.allow" [1,2].
   # [1] https://bugs.archlinux.org/task/76255
   # [2] https://bbs.archlinux.org/viewtopic.php?pid=2063104#p2063104
+  git submodule init
+  git config submodule.best.url "$srcdir/best"
   git -c protocol.file.allow=always submodule update --init --recursive
 
-  cd .test-framework
-  git submodule init tests
+  pushd .test-framework
+  git submodule init
   git config submodule.best-tests.url "$srcdir/best-tests"
-  # From git 2.38.1-1, "git submodule" in PKGBUILD does not work
-  # unless we change the git config "protocol.file.allow" [1,2].
-  # [1] https://bugs.archlinux.org/task/76255
-  # [2] https://bbs.archlinux.org/viewtopic.php?pid=2063104#p2063104
   git -c protocol.file.allow=always submodule update --init --recursive
+  popd
+
+  # fix incorrect version string using commit date
+  # https://github.com/eth-p/bat-extras/issues/68
+  git show --no-patch --format=%cd --date=format:%Y.%m.%d > version.txt
 }
 
 pkgver() {
@@ -68,15 +71,14 @@ pkgver() {
 
 check() {
   cd $_pkgname
-  ./test.sh
+  ./test.sh --verbose --strict --snapshot:show
 }
 
 package() {
   cd $_pkgname
   
+  # scripts
   ./build.sh \
-    --minify=none \
-    --no-verify \
     --prefix="$pkgdir/usr" \
     --install
 
