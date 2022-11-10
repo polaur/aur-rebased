@@ -2,7 +2,7 @@
 # Contributor: nontlikeuname
 
 pkgname=meson-git
-pkgver=0.62.0.98.gc649a2b8c
+pkgver=0.64.0.8.gb78ebc674
 pkgrel=1
 pkgdesc="SCons-like build system that use python as a front-end language and Ninja as a building backend"
 arch=(any)
@@ -23,7 +23,7 @@ source=('git+https://github.com/mesonbuild/meson'
         '0001-Skip-broken-tests.patch')
 md5sums=('SKIP'
          'b85d62ecca0729f0c5168f759a2ff37d'
-         'fd02c6fa1e898581ddf98f81157c2ab3')
+         'e1333abf11f12dd22b3219b5b5b9b20b')
 
 pkgver() {
 	cd meson
