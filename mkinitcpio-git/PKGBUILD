@@ -4,11 +4,11 @@
 # Contributor: Thomas Bächler <thomas@archlinux.org> ([core] package)
 
 pkgname=mkinitcpio-git
-pkgver=30.r18.gf40bb42
+pkgver=32.r25.g1862ed5
 pkgrel=1
 pkgdesc='Modular initramfs image creation utility - git checkout'
 arch=('any')
-url='https://github.com/archlinux/mkinitcpio'
+url='https://gitlab.archlinux.org/archlinux/mkinitcpio/mkinitcpio'
 license=('GPL')
 depends=('awk' 'mkinitcpio-busybox>=1.19.4-2' 'kmod' 'util-linux>=2.23' 'libarchive' 'coreutils'
          'bash' 'diffutils' 'findutils' 'grep' 'filesystem>=2011.10-1' 'zstd' 'systemd')
@@ -22,8 +22,8 @@ optdepends=('gzip: Use gzip compression for the initramfs image'
 provides=('mkinitcpio' 'initramfs')
 conflicts=('mkinitcpio')
 backup=('etc/mkinitcpio.conf')
-#source=('git+https://gitlab.archlinux.org/mkinitcpio/mkinitcpio')
-source=('git+https://github.com/archlinux/mkinitcpio.git')
+source=('git+https://gitlab.archlinux.org/archlinux/mkinitcpio/mkinitcpio')
+#source=('git+https://github.com/archlinux/mkinitcpio.git')
 sha256sums=('SKIP')
 
 pkgver() {
