@@ -5,7 +5,7 @@
 # Contributor: Andres Perera <aepd87@gmail.com>
 
 pkgname=pacman-git
-pkgver=6.0.1.89.gda68447e
+pkgver=6.0.1.94.g23aa8281
 pkgrel=1
 pkgdesc="A library-based package manager with dependency support. git version."
 arch=('x86_64')
@@ -24,12 +24,12 @@ options=('strip' 'debug')
 source=(git+https://gitlab.archlinux.org/pacman/pacman
         pacman.conf
         makepkg.conf
-        x86_64v3.patch
+        0001-add-support-for-x86_64_v-2-3-4-autodetection.patch
         0001-add-information-about-origin-db.patch)
 sha1sums=('SKIP'
           'da4fff7132858c15358129c5eea6a915d2d4f698'
           '543c8c6c7ece78e131a2e639cc35aeb30a493fdb'
-          '2fa4e734e4d78bf8c62495ab701b84a1cb84ffdf'
+          '590d3e4aba6b1ad61f2574bc5d06d4cfb8fab946'
           '034c38d92657e9ceb40488fceb3d19223a3912ab')
 
 pkgver() {
