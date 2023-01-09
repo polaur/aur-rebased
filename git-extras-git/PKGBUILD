@@ -5,8 +5,8 @@
 
 pkgname=git-extras-git
 _pkgname=git-extras
-pkgver=6.3.0.dev.r1565.g206fe7c
-pkgrel=1
+pkgver=6.6.0.dev.r1692.g35100b4
+pkgrel=2
 pkgdesc="GIT utilities -- repo summary, repl, changelog population, author commit percentages and more"
 arch=('any')
 url="https://github.com/tj/git-extras"
@@ -14,8 +14,10 @@ license=('MIT')
 depends=('git')
 conflicts=('git-extras')
 provides=('git-extras')
-source=('git+https://github.com/tj/git-extras')
-md5sums=('SKIP')
+source=('git+https://github.com/tj/git-extras'
+        '0001-Replace-egrep-with-grep-E.patch')
+md5sums=('SKIP'
+         'e3e9073818f8586bb3f22eb48e1c773d')
 
 pkgver() {
     cd $_pkgname
@@ -26,6 +28,19 @@ pkgver() {
     # other
     _ver="$(cat bin/$_pkgname | grep -m1 VERSION | cut -d '"' -f2 | sed 's/-/./g')"
     echo "${_ver}.r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+    cd $_pkgname
+
+    local src
+    for src in "${source[@]}"; do
+      src="${src%%::*}"
+      src="${src##*/}"
+      [[ $src = *.patch ]] || continue
+      echo "Applying patch $src..."
+      patch -Np1 < "../$src"
+    done
 }
 
 package() {

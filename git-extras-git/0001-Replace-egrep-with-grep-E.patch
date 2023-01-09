@@ -1,0 +1,26 @@
+From 8b265cdcdb1d80198efaaa101cd033560e9d8ace Mon Sep 17 00:00:00 2001
+From: Piotr Gorski <lucjan.lucjanov@gmail.com>
+Date: Mon, 9 Jan 2023 21:48:10 +0100
+Subject: [PATCH] Replace egrep with grep -E
+
+Signed-off-by: Piotr Gorski <lucjan.lucjanov@gmail.com>
+---
+ bin/git-changelog | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/bin/git-changelog b/bin/git-changelog
+index ede2ea0..482381e 100755
+--- a/bin/git-changelog
++++ b/bin/git-changelog
+@@ -550,7 +550,7 @@ main() {
+   fi
+ 
+   if [[ -z "$changelog" ]]; then
+-    changelog="$(ls | egrep 'change|history' -i | head -n1)"
++    changelog="$(ls | grep -E 'change|history' -i | head -n1)"
+     if [[ -z "$changelog" ]]; then
+       changelog="History.md";
+     fi
+-- 
+2.39.0.rc2.1.gbd5df96b79
+
