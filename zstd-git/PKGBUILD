@@ -3,7 +3,7 @@
 
 pkgname=zstd-git
 _pkgname=zstd
-pkgver=1.5.3.r9760.g4d82a4d3f
+pkgver=1.5.3.r10000.g88b7088d2
 pkgrel=1
 pkgdesc='A fast and efficient compression algorithm.'
 arch=('x86_64')
@@ -42,7 +42,9 @@ build() {
   cmake -S build/cmake -B build -G Ninja \
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DZSTD_ZLIB_SUPPORT=ON \
+    -DZSTD_LZMA_SUPPORT=ON \
+    -DZSTD_LZ4_SUPPORT=ON \
     -DZSTD_BUILD_CONTRIB=ON \
     -DZSTD_BUILD_STATIC=OFF \
     -DZSTD_BUILD_TESTS=ON \
