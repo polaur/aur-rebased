@@ -1,0 +1,124 @@
+From 2677ae7334e5e46b4a24055f0126c2789ddf3d5b Mon Sep 17 00:00:00 2001
+From: Vladislav Nepogodin <nepogodin.vlad@gmail.com>
+Date: Fri, 3 Feb 2023 15:17:23 +0400
+Subject: [PATCH] Add new variable to declare package architecture
+
+---
+ doc/makepkg.8.asciidoc                        | 4 ++++
+ doc/makepkg.conf.5.asciidoc                   | 5 +++++
+ etc/makepkg.conf.in                           | 2 ++
+ scripts/libmakepkg/lint_config/variable.sh.in | 2 +-
+ scripts/libmakepkg/lint_pkgbuild/arch.sh.in   | 1 +
+ scripts/libmakepkg/util/config.sh.in          | 2 +-
+ scripts/makepkg.sh.in                         | 6 ++++++
+ 7 files changed, 20 insertions(+), 2 deletions(-)
+
+diff --git a/doc/makepkg.8.asciidoc b/doc/makepkg.8.asciidoc
+index 38032e7b..f350cc37 100644
+--- a/doc/makepkg.8.asciidoc
++++ b/doc/makepkg.8.asciidoc
+@@ -265,6 +265,10 @@ Environment Variables
+ 	Force build for a specific architecture. Useful for cross-compiling.
+ 	Overrides the corresponding value defined in linkman:makepkg.conf[5].
+ 
++**PACKAGECARCH=**"(x86_64|x86_64_v3)"::
++	Force package to be packaged for a specific architecture.
++	Overrides the corresponding value defined in linkman:makepkg.conf[5].
++
+ **PKGEXT=**".pkg.tar.gz", **SRCEXT=**".src.tar.gz"::
+ 	Sets the compression used when making compiled or source packages.
+ 	Overrides the corresponding value defined in linkman:makepkg.conf[5].
+diff --git a/doc/makepkg.conf.5.asciidoc b/doc/makepkg.conf.5.asciidoc
+index 9eac078f..86b95158 100644
+--- a/doc/makepkg.conf.5.asciidoc
++++ b/doc/makepkg.conf.5.asciidoc
+@@ -59,6 +59,11 @@ Options
+ 	A string such as ``i686-pc-linux-gnu''; do not touch this unless you know what
+ 	you are doing. This can be commented out by most users if desired.
+ 
++**PACKAGECARCH=**"packagecarch"::
++	Specifies extended computer architecture; possible values include such things
++	as ``x86_64_v2'', ``x86_64_v3'', ``x86_64_v4'', etc. This can be commented
++	out by most users if desired.
++
+ **CPPFLAGS=**"cppflags"::
+ 	Flags used for the C preprocessor; see CFLAGS for more information.
+ 
+diff --git a/etc/makepkg.conf.in b/etc/makepkg.conf.in
+index 55b52d0a..ad6ec688 100644
+--- a/etc/makepkg.conf.in
++++ b/etc/makepkg.conf.in
+@@ -35,6 +35,8 @@ VCSCLIENTS=('bzr::bzr'
+ #
+ CARCH="@CARCH@"
+ CHOST="@CHOST@"
++#-- That will be applied only at the package() stage.
++PACKAGECARCH="@CARCH@"
+ 
+ #-- Compiler and Linker Flags
+ #CPPFLAGS=""
+diff --git a/scripts/libmakepkg/lint_config/variable.sh.in b/scripts/libmakepkg/lint_config/variable.sh.in
+index 82002fce..d848ee85 100644
+--- a/scripts/libmakepkg/lint_config/variable.sh.in
++++ b/scripts/libmakepkg/lint_config/variable.sh.in
+@@ -32,7 +32,7 @@ lint_config_variables() {
+ 	local array=(DLAGENTS VCSCLIENTS BUILDENV OPTIONS INTEGRITY_CHECK MAN_DIRS
+ 	             DOC_DIRS PURGE_TARGETS COMPRESSGZ COMPRESSBZ2 COMPRESSXZ
+ 	             COMPRESSLRZ COMPRESSLZO COMPRESSZ)
+-	local string=(CARCH CHOST CPPFLAGS CFLAGS CXXFLAGS RUSTFLAGS LDFLAGS LTOFLAGS
++	local string=(CARCH CHOST PACKAGECARCH CPPFLAGS CFLAGS CXXFLAGS RUSTFLAGS LDFLAGS LTOFLAGS
+ 	              DEBUG_CFLAGS DEBUG_CXXFLAGS DEBUG_RUSTFLAGS DISTCC_HOSTS BUILDDIR
+ 	              STRIP_BINARIES STRIP_SHARED STRIP_STATIC PKGDEST SRCDEST SRCPKGDEST
+ 	              LOGDEST PACKAGER GPGKEY PKGEXT SRCEXT)
+diff --git a/scripts/libmakepkg/lint_pkgbuild/arch.sh.in b/scripts/libmakepkg/lint_pkgbuild/arch.sh.in
+index a608fb53..ad15eaf7 100644
+--- a/scripts/libmakepkg/lint_pkgbuild/arch.sh.in
++++ b/scripts/libmakepkg/lint_pkgbuild/arch.sh.in
+@@ -50,6 +50,7 @@ lint_arch() {
+ 		fi
+ 	done
+ 
++	## TODO(vnepogodin): add aliasing (e.g x86_64_v4 -> x86_64_v3 -> x86_64_v2 -> x86_64).
+ 	if (( ! IGNOREARCH )) && ! in_array "$CARCH" "${arch[@]}"; then
+ 		error "$(gettext "%s is not available for the '%s' architecture.")" "$pkgbase" "$CARCH"
+ 		return 1
+diff --git a/scripts/libmakepkg/util/config.sh.in b/scripts/libmakepkg/util/config.sh.in
+index 286f4ac7..8f03b852 100644
+--- a/scripts/libmakepkg/util/config.sh.in
++++ b/scripts/libmakepkg/util/config.sh.in
+@@ -64,7 +64,7 @@ load_makepkg_config() {
+ 
+ 	# preserve environment variables to override makepkg.conf
+ 	local restore_envvars=$(
+-		for var in PKGDEST SRCDEST SRCPKGDEST LOGDEST BUILDDIR PKGEXT SRCEXT GPGKEY PACKAGER CARCH; do
++		for var in PKGDEST SRCDEST SRCPKGDEST LOGDEST BUILDDIR PKGEXT SRCEXT GPGKEY PACKAGER CARCH PACKAGECARCH; do
+ 			# the output of 'declare -p' results in locally scoped values when used within a function
+ 			[[ -v $var ]] && printf '%s=%s\n' "$var" "${!var@Q}"
+ 		done
+diff --git a/scripts/makepkg.sh.in b/scripts/makepkg.sh.in
+index f799c8f1..81a152b9 100644
+--- a/scripts/makepkg.sh.in
++++ b/scripts/makepkg.sh.in
+@@ -687,6 +687,9 @@ create_package() {
+ 		exit $E_MISSING_PKGDIR
+ 	fi
+ 
++	local _saved_arch="${CARCH}"
++	[[ "x${PACKAGECARCH}" != "x" ]] && CARCH="${PACKAGECARCH}"
++
+ 	cd_safe "$pkgdir"
+ 	msg "$(gettext "Creating package \"%s\"...")" "$pkgname"
+ 
+@@ -735,6 +738,9 @@ create_package() {
+ 
+ 	shopt -u -o pipefail
+ 
++	# Restore CARCH
++	CARCH="${_saved_arch}"
++
+ 	if (( ret )); then
+ 		error "$(gettext "Failed to create package file.")"
+ 		exit $E_PACKAGE_FAILED
+-- 
+2.39.1.388.g2fc9e9ca3c
+

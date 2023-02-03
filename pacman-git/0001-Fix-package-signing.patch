@@ -1,0 +1,61 @@
+From 7e0059dd82daea29c76ed16ceabe23fb5e791e36 Mon Sep 17 00:00:00 2001
+From: Vladislav Nepogodin <nepogodin.vlad@gmail.com>
+Date: Fri, 3 Feb 2023 21:14:29 +0400
+Subject: [PATCH] Fix package signing
+
+---
+ scripts/libmakepkg/integrity/generate_signature.sh.in | 7 +++++++
+ scripts/makepkg.sh.in                                 | 6 ++++++
+ 2 files changed, 13 insertions(+)
+
+diff --git a/scripts/libmakepkg/integrity/generate_signature.sh.in b/scripts/libmakepkg/integrity/generate_signature.sh.in
+index 6e6d9ed5..2cfc95dc 100644
+--- a/scripts/libmakepkg/integrity/generate_signature.sh.in
++++ b/scripts/libmakepkg/integrity/generate_signature.sh.in
+@@ -52,6 +52,10 @@ create_package_signatures() {
+ 	if [[ $SIGNPKG != 'y' ]]; then
+ 		return 0
+ 	fi
++
++	local _saved_arch="${CARCH}"
++	[[ "x${PACKAGECARCH}" != "x" ]] && CARCH="${PACKAGECARCH}"
++
+ 	local pkg pkgarch pkg_file
+ 	local fullver=$(get_full_version)
+ 
+@@ -74,5 +78,8 @@ create_package_signatures() {
+ 		fi
+ 	fi
+ 
++	# Restore CARCH
++	CARCH="${_saved_arch}"
++
+ 	return $ret
+ }
+diff --git a/scripts/makepkg.sh.in b/scripts/makepkg.sh.in
+index 81a152b9..2e5a90f2 100644
+--- a/scripts/makepkg.sh.in
++++ b/scripts/makepkg.sh.in
+@@ -860,6 +860,9 @@ install_package() {
+ 	(( ASDEPS )) && pkglist+=('--asdeps')
+ 	(( NEEDED )) && pkglist+=('--needed')
+ 
++	local _saved_arch="${CARCH}"
++	[[ "x${PACKAGECARCH}" != "x" ]] && CARCH="${PACKAGECARCH}"
++
+ 	for pkg in ${pkgname[@]}; do
+ 		fullver=$(get_full_version)
+ 		pkgarch=$(get_pkg_arch $pkg)
+@@ -870,6 +873,9 @@ install_package() {
+ 		fi
+ 	done
+ 
++	# Restore CARCH
++	CARCH="${_saved_arch}"
++
+ 	if ! run_pacman -U "${pkglist[@]}"; then
+ 		warning "$(gettext "Failed to install built package(s).")"
+ 		return $E_INSTALL_FAILED
+-- 
+2.39.1.388.g2fc9e9ca3c
+
