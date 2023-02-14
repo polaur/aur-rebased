@@ -5,12 +5,12 @@
 _pkgbase=zsh
 pkgbase=zsh-git
 pkgname=('zsh-git' 'zsh-doc-git')
-pkgver=5.8.1.2.r16.gc5a891a29
+pkgver=5.9.r141.g7e0c4406c
 pkgrel=1
 arch=('x86_64')
 url='http://www.zsh.org/'
 license=('custom')
-makedepends=('pcre' 'libcap' 'gdbm' 'yodl' 'git')
+makedepends=('pcre' 'libcap' 'gdbm' 'yodl' 'git' 'texlive-core')
 source=('zsh::git://git.code.sf.net/p/zsh/code'
         'zprofile')
 md5sums=('SKIP'
@@ -60,6 +60,7 @@ build() {
 		--enable-scriptdir=/usr/share/zsh/scripts \
 		--with-tcsetpgrp \
 		--enable-pcre \
+		--enable-gdbm \
 		--enable-cap \
 		--enable-zsh-secure-free
 	make
