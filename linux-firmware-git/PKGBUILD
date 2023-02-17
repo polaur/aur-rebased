@@ -8,7 +8,7 @@ _pkgbase=linux-firmware
 pkgname=(linux-firmware-whence-git linux-firmware-git amd-ucode-git
          linux-firmware-{nfp,mellanox,marvell,qcom,liquidio,qlogic,bnx2x}-git
 )
-pkgver=20220610.r0.g7b71b75
+pkgver=20230210.r15.g83f1d77
 pkgrel=1
 pkgdesc="Firmware files for Linux"
 url="http://git.kernel.org/?p=linux/kernel/git/firmware/linux-firmware.git;a=summary"
@@ -94,7 +94,7 @@ package_linux-firmware-git() {
   _pick linux-firmware-marvell usr/share/licenses/${pkgname}/LICENCE.{Marvell,NXP}
 
   _pick linux-firmware-qcom usr/lib/firmware/{qcom,a300_*}
-  _pick linux-firmware-qcom usr/share/licenses/${pkgname}/LICENSE.qcom
+  _pick linux-firmware-qcom usr/share/licenses/${pkgname}/LICENSE.qcom*
 
   _pick linux-firmware-liquidio usr/lib/firmware/liquidio
   _pick linux-firmware-liquidio usr/share/licenses/${pkgname}/LICENCE.cavium_liquidio
