@@ -3,7 +3,7 @@
 
 pkgname=zstd-git
 _pkgname=zstd
-pkgver=1.5.3.r10000.g88b7088d2
+pkgver=1.5.4.r10073.g4ebaf3658
 pkgrel=1
 pkgdesc='A fast and efficient compression algorithm.'
 arch=('x86_64')
@@ -52,11 +52,11 @@ build() {
   cmake --build build
 }
 
-#check() {
-#  cd $_pkgname
-#  export LD_LIBRARY_PATH="$(pwd)/build/lib"
-#  ctest -VV --test-dir build
-#}
+check() {
+  cd $_pkgname
+  LD_LIBRARY_PATH="$(pwd)/build/lib" \
+    ctest -VV --test-dir build
+}
 
 package() {
   cd $_pkgname
