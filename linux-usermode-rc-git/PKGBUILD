@@ -6,8 +6,8 @@ pkgname=('linux-usermode-rc-git' 'linux-usermode-rc-git-modules')
 _major=6.2
 _kernelname=-usermodelinux-git
 _srcname=linux-stable-rc
-pkgver=6.2.r12.g7452ada133c2
-pkgrel=2
+pkgver=6.2.r13.ge81fdea0bf0d
+pkgrel=1
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
 license=('GPL2')
@@ -21,13 +21,11 @@ _lucjanpath="https://gitlab.com/sirlucjan/kernel-patches/raw/master/${_major}"
 source=(
   "git://git.kernel.org/pub/scm/linux/kernel/git/stable/${_srcname}.git#branch=linux-${_major}.y"
   "${_lucjanpath}/um-patches/0001-um-Support-LTO.patch"
-  '0001-Revert-uaccess-Add-speculation-barrier-to-copy_from_.patch'
   'config'
   '70-uml.hook')
 
 sha256sums=('SKIP'
             '4f20c25d0b185a2a10836a765451af316e05fb9e66b8a6773d4299448b5aeb8a'
-            'd105f61d13393746d134307ba13f2cc507f68bd256464f5322472f0736e12b13'
             '572a1fcb93d096501b2b446d698ca3b1eb6a1461f0dc0d831913ebceb00031a8'
             '05ea4e00d1e99bf8140a21c94e3c42acf17b9debad9c6f5decbe1dd1fe04332c')
 
