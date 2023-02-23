@@ -13,13 +13,14 @@ pkgver=${_major}.${_minorc}
 _stable=${_major}
 _stablerc=${pkgver}-${_rcver}
 _srcname=linux-${_stable}
-pkgrel=0
+pkgrel=0.1
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
 license=('GPL2')
 url="http://user-mode-linux.sourceforge.net/"
 depends=('coreutils')
 makedepends=('bc' 'inetutils')
+options=(!debug)
 #_lucjanpath="https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/${_major}"
 _lucjanpath="https://gitlab.com/sirlucjan/kernel-patches/raw/master/${_major}"
 
@@ -40,6 +41,7 @@ source=("https://www.kernel.org/pub/linux/kernel/v6.x/linux-${_stable}.tar.xz"
         # https://lkml.org/lkml/2019/8/23/712
         # "patch-${_stablerc}.diff::https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git/patch/?id=linux-${_major}.y&id2=v${_patchver}"
         "${_lucjanpath}/um-patches/0001-um-Support-LTO.patch"
+        '0001-Revert-uaccess-Add-speculation-barrier-to-copy_from_.patch'
         'config'
         '70-uml.hook')
 
@@ -48,6 +50,7 @@ sha256sums=('74862fa8ab40edae85bb3385c0b71fe103288bce518526d63197800b3cbdecb1'
             '8f06c0c9da7594dcf51ca47b7620b63dec9616b5f6839dd1c459ab1fb952de07'
             'SKIP'
             '4f20c25d0b185a2a10836a765451af316e05fb9e66b8a6773d4299448b5aeb8a'
+            'd105f61d13393746d134307ba13f2cc507f68bd256464f5322472f0736e12b13'
             '572a1fcb93d096501b2b446d698ca3b1eb6a1461f0dc0d831913ebceb00031a8'
             '05ea4e00d1e99bf8140a21c94e3c42acf17b9debad9c6f5decbe1dd1fe04332c')
 
