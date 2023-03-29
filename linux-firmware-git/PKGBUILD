@@ -8,7 +8,7 @@ _pkgbase=linux-firmware
 pkgname=(linux-firmware-whence-git linux-firmware-git amd-ucode-git
          linux-firmware-{nfp,mellanox,marvell,qcom,liquidio,qlogic,bnx2x}-git
 )
-pkgver=20230210.r15.g83f1d77
+pkgver=20230310.r22.gbcdcfbc
 pkgrel=1
 pkgdesc="Firmware files for Linux"
 url="http://git.kernel.org/?p=linux/kernel/git/firmware/linux-firmware.git;a=summary"
@@ -141,6 +141,8 @@ package_linux-firmware-marvell-git() {
   conflicts=("linux-firmware-marvell")
 
   mv -v linux-firmware-marvell/* "${pkgdir}"
+  # remove arm64 firmware #76583
+  rm "${pkgdir}"/usr/lib/firmware/mrvl/prestera/mvsw_prestera_fw_arm64-v4.1.img.xz
 }
 
 package_linux-firmware-qcom-git() {
