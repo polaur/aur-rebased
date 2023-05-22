@@ -6,7 +6,7 @@
 
 pkgname=pacman-git
 pkgver=6.0.1.119.g262aa6c2
-pkgrel=1
+pkgrel=2
 pkgdesc="A library-based package manager with dependency support. git version."
 arch=('x86_64')
 url="http://www.archlinux.org/pacman/"
@@ -31,7 +31,7 @@ source=(git+https://gitlab.archlinux.org/pacman/pacman
         0001-makepkg-add-D-flag-to-change-directory-before-buildi.patch
         0001-add-update-message-notice.patch)
 sha1sums=('SKIP'
-          'da4fff7132858c15358129c5eea6a915d2d4f698'
+          '018d5d700fcfe7c2ffe60f60a687432283ab5934'
           'becf9c6a0593798c1c3f5b087ac886ae3562e779'
           '161a97f915a7ff8545fcc45c54e371e1b7c3c5a6'
           '5a2f4ac4d59331dffacf07a045c92466b8334eb7'
