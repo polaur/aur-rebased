@@ -1,0 +1,67 @@
+# Maintainer: Piotr Gorski <lucjan.lucjanov@gmail.com>
+# Contributor: Lukas Fleischer <lfleischer@archlinux.org>
+# Contributor: Hilton Medeiros <medeiros.hilton@gmail.com>
+# Contributor: Dave Reisner <d@falconindy.com>
+
+pkgname=libgit2-git
+_pkgname=libgit2
+pkgver=1.6.3.r195.gf041a94e2
+pkgrel=1
+epoch=1
+pkgdesc='A linkable library for Git'
+arch=('x86_64')
+url='https://libgit2.github.com/'
+depends=('glibc' 'http-parser' 'openssl' 'pcre' 'zlib')
+makedepends=('cmake' 'libssh2' 'python' 'git')
+provides=('libgit2' 'libgit2.so')
+conflicts=('libgit2')
+license=('GPL2')
+source=("git+https://github.com/libgit2/libgit2")
+sha256sums=('SKIP')
+
+pkgver() {
+  cd "$_pkgname"
+  git describe --long --tags | sed 's/v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+build() {
+  local cmake_options=(
+    -B build
+    -DCMAKE_BUILD_TYPE=None
+    -DCMAKE_INSTALL_PREFIX=/usr
+    -DREGEX_BACKEND=pcre2
+    -DUSE_HTTP_PARSER=system
+    -DUSE_SSH=ON
+    -S $_pkgname
+    -Wno-dev
+  )
+  cmake "${cmake_options[@]}"
+  cmake --build build --verbose
+}
+
+check() {
+  local ignored_tests=(
+    'invasive|'
+    'online|'
+    'ssh|'
+    'network_url_parse__hostname_implied_root_empty_port|'
+    'network_url_parse__hostname_empty_port|'
+    'network_url_parse__ipv4_implied_root_empty_port|'
+    'network_url_parse__ipv4_empty_port|'
+    'network_url_parse__ipv6_implied_root_empty_port|'
+    'network_url_parse__ipv6_empty_port'
+  )
+  local ifs="$IFS"
+  IFS=
+  # NOTE: disable tests requiring the internet, relying on non-existent
+  # resources, or those that are only compatible with the (modified) vendored
+  # version of http-parser, but not with upstream http-parser
+  ctest --test-dir build --output-on-failure -E "${ignored_tests[*]}"
+  IFS="$ifs"
+}
+
+package() {
+  depends+=('libssh2.so')
+  DESTDIR="$pkgdir" cmake --install build
+  install -vDm 644 $_pkgname/{AUTHORS,README.md} -t "$pkgdir/usr/share/doc/$pkgname/"
+}
