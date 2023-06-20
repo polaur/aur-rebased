@@ -10,7 +10,7 @@ url='http://git-scm.com/'
 license=('GPL2')
 depends=('curl' 'expat' 'perl' 'perl-error' 'perl-mailtools'
          'openssl' 'pcre2' 'grep' 'shadow' 'zlib')
-makedepends=('python' 'xmlto' 'asciidoc')
+makedepends=('python' 'xmlto' 'asciidoc' 'git')
 optdepends=('tk: gitk and git gui'
             'perl-libwww: git svn'
             'perl-term-readkey: git svn and interactive.singlekey setting'
