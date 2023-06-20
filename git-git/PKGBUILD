@@ -60,7 +60,7 @@ _make_options=(
 
 build() {
   cd "$_gitname"
-  
+
   make \
     "${_make_paths[@]}" \
     "${_make_options[@]}" \
