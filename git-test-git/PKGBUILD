@@ -2,7 +2,7 @@
 # Contributor: Kamran Mackey <kamranm1200@gmail.com>
 
 pkgname=git-test-git
-pkgver=2.41.0.rc0.217.g9d3755e7ff
+pkgver=2.41.0.393.g627dc1cf79
 pkgrel=1
 pkgdesc="A fast distributed version control system"
 arch=('x86_64')
@@ -74,7 +74,7 @@ build() {
 
 #check() {
 #  cd "$_gitname"
-  
+
 #  local jobs
 #  jobs=$(expr "$MAKEFLAGS" : '.*\(-j[0-9]*\).*') || true
 #  mkdir -p /dev/shm/git-test
