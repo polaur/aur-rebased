@@ -8,7 +8,7 @@ _pkgbase=linux-firmware
 pkgname=(linux-firmware-whence-git linux-firmware-git amd-ucode-git
          linux-firmware-{nfp,mellanox,marvell,qcom,liquidio,qlogic,bnx2x}-git
 )
-pkgver=20230310.r22.gbcdcfbc
+pkgver=20230625.r0.gee91452d
 pkgrel=1
 pkgdesc="Firmware files for Linux"
 url="http://git.kernel.org/?p=linux/kernel/git/firmware/linux-firmware.git;a=summary"
@@ -16,22 +16,13 @@ license=('GPL2' 'GPL3' 'custom')
 arch=('any')
 makedepends=('git')
 options=(!strip)
-source=("git+https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git"
-         '0001-Add-support-for-compressing-firmware-in-copy-firmwar.patch')
-md5sums=('SKIP'
-         '37b210a7cf7feb7bf0f946b17c16e4d4')
+source=("git+https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git")
+md5sums=('SKIP')
 
 pkgver() {
   cd ${_pkgbase}
 
   git describe --long --tags | sed 's/v//;s/\([^-]*-g\)/r\1/;s/-/./g'
-}
-
-prepare() {
-  cd ${_pkgbase}
-
-  # add firmware compression support - patch taken from Fedora
-  patch -Np1 -i ../0001-Add-support-for-compressing-firmware-in-copy-firmwar.patch
 }
 
 build() {
@@ -74,11 +65,12 @@ package_linux-firmware-git() {
 
   cd ${_pkgbase}
 
-  make DESTDIR="${pkgdir}" FIRMWAREDIR=/usr/lib/firmware installcompress
+  make DESTDIR="${pkgdir}" FIRMWAREDIR=/usr/lib/firmware install-xz
 
+  # useless (FS#46591)
   # Trigger a microcode reload for configurations not using early updates
-  echo 'w /sys/devices/system/cpu/microcode/reload - - - - 1' |
-    install -Dm644 /dev/stdin "${pkgdir}/usr/lib/tmpfiles.d/${pkgname}.conf"
+  # echo 'w /sys/devices/system/cpu/microcode/reload - - - - 1' |
+  #  install -Dm644 /dev/stdin "${pkgdir}/usr/lib/tmpfiles.d/${pkgname}.conf"
 
   install -Dt "${pkgdir}/usr/share/licenses/${pkgname}" -m644 LICEN*
 
