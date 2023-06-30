@@ -9,7 +9,7 @@ pkgname=(linux-firmware-whence-git linux-firmware-git amd-ucode-git
          linux-firmware-{nfp,mellanox,marvell,qcom,liquidio,qlogic,bnx2x}-git
 )
 pkgver=20230625.r0.gee91452d
-pkgrel=1
+pkgrel=3
 pkgdesc="Firmware files for Linux"
 url="http://git.kernel.org/?p=linux/kernel/git/firmware/linux-firmware.git;a=summary"
 license=('GPL2' 'GPL3' 'custom')
@@ -65,7 +65,7 @@ package_linux-firmware-git() {
 
   cd ${_pkgbase}
 
-  make DESTDIR="${pkgdir}" FIRMWAREDIR=/usr/lib/firmware install-xz
+  ZSTD_CLEVEL=19 make DESTDIR="${pkgdir}" FIRMWAREDIR=/usr/lib/firmware install-zst
 
   # useless (FS#46591)
   # Trigger a microcode reload for configurations not using early updates
@@ -134,7 +134,7 @@ package_linux-firmware-marvell-git() {
 
   mv -v linux-firmware-marvell/* "${pkgdir}"
   # remove arm64 firmware #76583
-  rm "${pkgdir}"/usr/lib/firmware/mrvl/prestera/mvsw_prestera_fw_arm64-v4.1.img.xz
+  rm "${pkgdir}"/usr/lib/firmware/mrvl/prestera/mvsw_prestera_fw_arm64-v4.1.img.zst
 }
 
 package_linux-firmware-qcom-git() {
