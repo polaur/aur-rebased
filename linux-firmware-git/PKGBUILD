@@ -9,7 +9,7 @@ pkgname=(linux-firmware-whence-git linux-firmware-git amd-ucode-git
          linux-firmware-{nfp,mellanox,marvell,qcom,liquidio,qlogic,bnx2x}-git
 )
 pkgver=20230625.r0.gee91452d
-pkgrel=3
+pkgrel=4
 pkgdesc="Firmware files for Linux"
 url="http://git.kernel.org/?p=linux/kernel/git/firmware/linux-firmware.git;a=summary"
 license=('GPL2' 'GPL3' 'custom')
@@ -67,16 +67,21 @@ package_linux-firmware-git() {
 
   ZSTD_CLEVEL=19 make DESTDIR="${pkgdir}" FIRMWAREDIR=/usr/lib/firmware install-zst
 
-  # useless (FS#46591)
-  # Trigger a microcode reload for configurations not using early updates
+  # useless without CONFIG_MICROCODE_LATE_LOADING
+  # https://bugs.archlinux.org/task/46591
+  #
+  # # Trigger a microcode reload for configurations not using early updates
   # echo 'w /sys/devices/system/cpu/microcode/reload - - - - 1' |
-  #  install -Dm644 /dev/stdin "${pkgdir}/usr/lib/tmpfiles.d/${pkgname}.conf"
+  #   install -Dm644 /dev/stdin "${pkgdir}/usr/lib/tmpfiles.d/${pkgname}.conf"
 
   install -Dt "${pkgdir}/usr/share/licenses/${pkgname}" -m644 LICEN*
 
-  # split
   cd "${pkgdir}"
 
+  # remove arm64 firmware https://bugs.archlinux.org/task/76583
+  rm usr/lib/firmware/mrvl/prestera/mvsw_prestera_fw_arm64-v4.1.img.zst
+
+  # split
   _pick linux-firmware-nfp usr/lib/firmware/netronome
   _pick linux-firmware-nfp usr/share/licenses/${pkgname}/LICENCE.Netronome
 
@@ -133,8 +138,6 @@ package_linux-firmware-marvell-git() {
   conflicts=("linux-firmware-marvell")
 
   mv -v linux-firmware-marvell/* "${pkgdir}"
-  # remove arm64 firmware #76583
-  rm "${pkgdir}"/usr/lib/firmware/mrvl/prestera/mvsw_prestera_fw_arm64-v4.1.img.zst
 }
 
 package_linux-firmware-qcom-git() {
