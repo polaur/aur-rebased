@@ -2,7 +2,7 @@
 # Contributor: nontlikeuname
 
 pkgname=meson-git
-pkgver=1.2.0.17.g7824ff80d
+pkgver=1.2.0.26.g1d8498907
 tagver=1.2.0
 pkgrel=1
 pkgdesc="SCons-like build system that use python as a front-end language and Ninja as a building backend"
@@ -81,7 +81,7 @@ source=('git+https://github.com/mesonbuild/meson'
 md5sums=('SKIP'
          '2ed38cd70413f6cf9bb21087dfeedbc4'
          'cdcfa56cbda9eaf3aa2406ef2436408b'
-         'b85d62ecca0729f0c5168f759a2ff37d')
+         '7e3f2ea6849fb6cdcc66b09fbc960f64')
 
 pkgver() {
   cd meson
