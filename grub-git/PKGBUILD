@@ -19,7 +19,7 @@ _GRUB_EMU_BUILD="0"
 pkgname='grub-git'
 _pkgname='grub'
 pkgdesc='GNU GRand Unified Bootloader (2)'
-pkgver=2.06.591.g6425c12cd
+pkgver=2.12.rc1.0.g7a994c87f
 _pkgver=2.06
 pkgrel=1
 epoch=2
@@ -98,7 +98,7 @@ _configure_options=(
 
 pkgver() {
 	cd "${srcdir}/grub/"
-	echo "$(git describe --tags)" | sed -e 's|grub.||g' -e 's|-|\.|g'
+	echo "$(git describe --tags --long)" | sed -e 's|grub.||g' -e 's|-|\.|g'
 }
 
 prepare() {
