@@ -1,0 +1,40 @@
+From c9bef5a35af160256e3bc351a1d516151d66d505 Mon Sep 17 00:00:00 2001
+From: Christian Hesse <mail@eworm.de>
+Date: Mon, 21 Aug 2023 22:01:31 +0200
+Subject: [PATCH 1/1] t6300: fix match with insecure memory
+
+Running the tests in a build environment makes gnupg print a warning:
+
+gpg: Warning: using insecure memory!
+
+This warning breaks the match, as `head` misses one line. Let's strip
+the line, make `head` return what is expected and fix the match.
+
+Signed-off-by: Christian Hesse <mail@eworm.de>
+---
+ t/t6300-for-each-ref.sh | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/t/t6300-for-each-ref.sh b/t/t6300-for-each-ref.sh
+index 5b434ab451..0f9981798e 100755
+--- a/t/t6300-for-each-ref.sh
++++ b/t/t6300-for-each-ref.sh
+@@ -1764,12 +1764,13 @@ test_expect_success GPGSSH 'setup for signature atom using ssh' '
+ 
+ test_expect_success GPG2 'bare signature atom' '
+ 	git verify-commit first-signed 2>out.raw &&
+-	grep -Ev "checking the trustdb|PGP trust model" out.raw >out &&
++	grep -Ev "checking the trustdb|PGP trust model|using insecure memory" out.raw >out &&
+ 	head -3 out >expect &&
+ 	tail -1 out >>expect &&
+ 	echo  >>expect &&
+ 	git for-each-ref refs/tags/first-signed \
+-		--format="%(signature)" >actual &&
++		--format="%(signature)" >out.raw &&
++	grep -Ev "using insecure memory" out.raw >actual &&
+ 	test_cmp expect actual
+ '
+ 
+-- 
+2.41.0
+

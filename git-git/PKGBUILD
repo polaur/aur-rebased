@@ -2,7 +2,7 @@
 # Contributor: Kamran Mackey <kamranm1200@gmail.com>
 
 pkgname=git-git
-pkgver=2.42.0.rc0.25.ga82fb66fed
+pkgver=2.42.0.0.g43c8a30d15
 pkgrel=1
 pkgdesc="A fast distributed version control system"
 arch=('x86_64')
@@ -11,7 +11,9 @@ license=('GPL2')
 depends=('curl' 'expat' 'perl' 'perl-error' 'perl-mailtools'
          'openssl' 'pcre2' 'grep' 'shadow' 'zlib')
 makedepends=('python' 'xmlto' 'asciidoc' 'git')
+checkdepends=('openssh')
 optdepends=('tk: gitk and git gui'
+            'openssh: ssh transport and crypto'
             'perl-libwww: git svn'
             'perl-term-readkey: git svn and interactive.singlekey setting'
             'perl-io-socket-ssl: git send-email TLS support'
@@ -31,11 +33,13 @@ source=("git+https://github.com/git/git.git#branch=master"
         #"git://git.kernel.org/pub/scm/git/git.git#branch=master"
         'git-daemon@.service'
         'git-daemon.socket'
-        'git-sysusers.conf')
+        'git-sysusers.conf'
+        '0001-t6300-fix-match-with-insecure-memory.patch')
 sha512sums=('SKIP'
             '1cfed9796391a5339db75e6a2ca4c83760da3445d52cc5b3dcf0ccf1fe33bddf7ab7e74f49011b9543bce330517200513bd442c59767e5de65d37bc9d4a686d0'
             'bd4aff421e547044a2a91b8a77c86ce14f05321008aa2e28aab35154b297803ca716ccba3e0fca3805033d4adb455adb41086ceeca98200b8006582c13f2c7d3'
-            '4d4b434c2c317388ed6d3bdd87b1e8acb6c845b58be7bd1466e73a210cc824d53185fad302c5fffc1328f0c25300050843f343f37d36700a981e3c11322ea0cc')
+            '4d4b434c2c317388ed6d3bdd87b1e8acb6c845b58be7bd1466e73a210cc824d53185fad302c5fffc1328f0c25300050843f343f37d36700a981e3c11322ea0cc'
+            '5631def18fc201f35aad65937ac9a858ed7f68bf3437d229d4a51f80d8fa6eacb0c0fdb271660d93da18b00391badfd4d16fdeac203ab310b1552ec086523397')
 _gitname=git
 
 pkgver() {
@@ -58,6 +62,12 @@ _make() {
   )
 
   make "${make_options[@]}" "$@"
+}
+
+prepare() {
+  cd "$_gitname"
+
+  patch -Np1 < ../0001-t6300-fix-match-with-insecure-memory.patch
 }
 
 build() {
