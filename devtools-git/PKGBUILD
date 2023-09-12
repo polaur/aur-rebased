@@ -3,7 +3,7 @@
 
 pkgname=devtools-git
 _pkgname=devtools
-pkgver=1.0.3.4.g5f4fd52
+pkgver=1.0.3.8.g5479616
 pkgrel=1
 epoch=1
 pkgdesc='Tools for Arch Linux package maintainers'
@@ -13,7 +13,7 @@ url='http://projects.archlinux.org/devtools.git/'
 depends=( 'arch-install-scripts' 'awk' 'bash' 'binutils'
 	  'coreutils' 'diffutils' 'findutils' 'grep' 'fakeroot'
           'jq' 'openssh' 'parallel' 'rsync' 'sed' 'util-linux'
-	  'bzr' 'git' 'mercurial' 'subversion')
+	  'breezy' 'git' 'mercurial' 'subversion')
 makedepends=('asciidoc' 'git' 'shellcheck')
 optdepends=('btrfs-progs: btrfs support')
 provides=("devtools=$pkgver")
