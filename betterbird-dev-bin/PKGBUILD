@@ -6,14 +6,14 @@ _pkgname=betterbird
 _pkgver=115.2.3
 _build=bb12
 pkgver=$_pkgver.$_build
-pkgrel=1.1
+pkgrel=1.2
 pkgdesc="Betterbird is a fine-tuned version of Mozilla Thunderbird, Thunderbird on steroids, if you will."
 arch=('x86_64')
 url="https://www.betterbird.eu/index.html"
 license=('MPL2')
 depends=('dbus-glib')
 provides=('betterbird')
-conflicts=()
+conflicts=('betterbird-bin')
 source=(
     "https://www.betterbird.eu/downloads/115-Preview/${_pkgname}-${_pkgver//_/-}-${_build}.en-US.linux-x86_64.tar.bz2"
     "betterbird.desktop"
