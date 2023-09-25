@@ -5,8 +5,9 @@ pkgname=betterbird-dev-bin
 _pkgname=betterbird
 _pkgver=115.2.3
 _build=bb12
+_directory=${_pkgver%%.*}-Preview
 pkgver=$_pkgver.$_build
-pkgrel=1.2
+pkgrel=1.3
 pkgdesc="Betterbird is a fine-tuned version of Mozilla Thunderbird, Thunderbird on steroids, if you will."
 arch=('x86_64')
 url="https://www.betterbird.eu/index.html"
@@ -15,7 +16,7 @@ depends=('dbus-glib')
 provides=('betterbird')
 conflicts=('betterbird-bin')
 source=(
-    "https://www.betterbird.eu/downloads/115-Preview/${_pkgname}-${_pkgver//_/-}-${_build}.en-US.linux-x86_64.tar.bz2"
+    "https://www.betterbird.eu/downloads/${_directory}/${_pkgname}-${_pkgver//_/-}-${_build}.en-US.linux-x86_64.tar.bz2"
     "betterbird.desktop"
 )
 
