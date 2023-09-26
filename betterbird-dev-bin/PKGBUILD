@@ -3,11 +3,11 @@
 
 pkgname=betterbird-dev-bin
 _pkgname=betterbird
-_pkgver=115.2.3
-_build=bb12
-_directory=${_pkgver%%.*}-Preview
+_pkgver=115.3.0
+_build=bb13
+_directory=LinuxArchive
 pkgver=$_pkgver.$_build
-pkgrel=1.3
+pkgrel=1.1
 pkgdesc="Betterbird is a fine-tuned version of Mozilla Thunderbird, Thunderbird on steroids, if you will."
 arch=('x86_64')
 url="https://www.betterbird.eu/index.html"
@@ -36,5 +36,5 @@ package() {
             "$pkgdir"/usr/share/icons/hicolor/${i}x${i}/apps/$_pkgname.png
     done
 }
-sha256sums=('6491e795f6b7112e38391af566dee4250b1765852dd70ae84fb4a9d9e731091a'
+sha256sums=('c44c66a441c1baa002c4e2040ee8c7ff14f36666ca6a1a3113f13d487f819261'
             '816a97383c4eba202d9993736d14d3f728064d1bea7301adc93ed1248a096ca8')
