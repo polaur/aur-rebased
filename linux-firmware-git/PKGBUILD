@@ -8,13 +8,13 @@ _pkgbase=linux-firmware
 pkgname=(linux-firmware-whence-git linux-firmware-git amd-ucode-git
          linux-firmware-{nfp,mellanox,marvell,qcom,liquidio,qlogic,bnx2x}-git
 )
-pkgver=20230625.r17.gd3f66064
+pkgver=20231111.r36.g9552083a
 pkgrel=1
 pkgdesc="Firmware files for Linux"
 url="http://git.kernel.org/?p=linux/kernel/git/firmware/linux-firmware.git;a=summary"
 license=('GPL2' 'GPL3' 'custom')
 arch=('any')
-makedepends=('git')
+makedepends=('git' 'rdfind')
 options=(!strip)
 source=("git+https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git")
 md5sums=('SKIP')
