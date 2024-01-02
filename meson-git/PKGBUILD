@@ -2,8 +2,8 @@
 # Contributor: nontlikeuname
 
 pkgname=meson-git
-pkgver=1.2.0.26.g1d8498907
-tagver=1.2.0
+pkgver=1.3.0.88.ge110faed2
+tagver=1.3.1
 pkgrel=1
 pkgdesc="SCons-like build system that use python as a front-end language and Ninja as a building backend"
 arch=(any)
@@ -77,11 +77,15 @@ source=('git+https://github.com/mesonbuild/meson'
         "meson-reference-$tagver.3::https://github.com/mesonbuild/meson/releases/download/$tagver/meson-reference.3"
         "meson-reference-$tagver.json::https://github.com/mesonbuild/meson/releases/download/$tagver/reference_manual.json"
         'arch-meson'
+        'cross-lib32'
+        'native-clang'
 )
 md5sums=('SKIP'
-         '2ed38cd70413f6cf9bb21087dfeedbc4'
-         'cdcfa56cbda9eaf3aa2406ef2436408b'
-         '7e3f2ea6849fb6cdcc66b09fbc960f64')
+         '452e6d80308b53225c747be1d678e5c8'
+         '30d1a418f06de7deb6b8fe5e63a25d28'
+         '7e3f2ea6849fb6cdcc66b09fbc960f64'
+         '8e1d245db195d0d221a5ff083d12f6aa'
+         'c941b0388c5d01e26147480a04317871')
 
 pkgver() {
   cd meson
@@ -113,4 +117,7 @@ package() {
   install -Dm644 ../meson-reference-$tagver.json "$pkgdir/usr/share/doc/$pkgname/reference_manual.json"
 
   install -D ../arch-meson -t "$pkgdir/usr/bin"
+
+  install -Dm644 ../cross-lib32 "$pkgdir/usr/share/meson/cross/lib32"
+  install -Dm644 ../native-clang "$pkgdir/usr/share/meson/native/clang"
 }
