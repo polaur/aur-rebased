@@ -1,4 +1,4 @@
-From 025633a1dc1f6566787a49ed260bc1aebfd96771 Mon Sep 17 00:00:00 2001
+From 11c904b7dd0545b45b221ae8b98d6522f1b70bfa Mon Sep 17 00:00:00 2001
 From: Vladislav Nepogodin <nepogodin.vlad@gmail.com>
 Date: Sat, 22 Oct 2022 18:07:53 +0400
 Subject: [PATCH] add information about origin db
@@ -14,7 +14,7 @@ Subject: [PATCH] add information about origin db
  7 files changed, 51 insertions(+)
 
 diff --git a/lib/libalpm/add.c b/lib/libalpm/add.c
-index 774087fa..2a70f86a 100644
+index 26cec996..c6518aef 100644
 --- a/lib/libalpm/add.c
 +++ b/lib/libalpm/add.c
 @@ -69,6 +69,13 @@ int SYMEXPORT alpm_add_pkg(alpm_handle_t *handle, alpm_pkg_t *pkg)
@@ -32,10 +32,10 @@ index 774087fa..2a70f86a 100644
  	if((dup = alpm_pkg_find(trans->add, pkgname))) {
  		if(dup == pkg) {
 diff --git a/lib/libalpm/alpm.h b/lib/libalpm/alpm.h
-index 3304ae77..5cf66790 100644
+index 7e52526e..9dd15119 100644
 --- a/lib/libalpm/alpm.h
 +++ b/lib/libalpm/alpm.h
-@@ -2436,6 +2436,11 @@ const char *alpm_pkg_get_version(alpm_pkg_t *pkg);
+@@ -2461,6 +2461,11 @@ const char *alpm_pkg_get_version(alpm_pkg_t *pkg);
   */
  alpm_pkgfrom_t alpm_pkg_get_origin(alpm_pkg_t *pkg);
  
@@ -48,7 +48,7 @@ index 3304ae77..5cf66790 100644
   * @param pkg a pointer to package
   * @return a reference to an internal string
 diff --git a/lib/libalpm/be_local.c b/lib/libalpm/be_local.c
-index e117b69d..bb3afa59 100644
+index 478b54ec..f8392758 100644
 --- a/lib/libalpm/be_local.c
 +++ b/lib/libalpm/be_local.c
 @@ -201,6 +201,12 @@ static alpm_list_t *_cache_get_xdata(alpm_pkg_t *pkg)
@@ -64,7 +64,7 @@ index e117b69d..bb3afa59 100644
  /**
   * Open a package changelog for reading. Similar to fopen in functionality,
   * except that the returned 'file stream' is from the database.
-@@ -343,6 +349,7 @@ static const struct pkg_operations local_pkg_ops = {
+@@ -342,6 +348,7 @@ static const struct pkg_operations local_pkg_ops = {
  	.get_isize = _cache_get_isize,
  	.get_reason = _cache_get_reason,
  	.get_validation = _cache_get_validation,
@@ -72,7 +72,7 @@ index e117b69d..bb3afa59 100644
  	.has_scriptlet = _cache_has_scriptlet,
  	.get_licenses = _cache_get_licenses,
  	.get_groups = _cache_get_groups,
-@@ -763,6 +770,8 @@ static int local_db_read(alpm_pkg_t *info, int inforeq)
+@@ -777,6 +784,8 @@ static int local_db_read(alpm_pkg_t *info, int inforeq)
  				READ_AND_STORE_ALL(info->licenses);
  			} else if(strcmp(line, "%ARCH%") == 0) {
  				READ_AND_STORE(info->arch);
@@ -81,7 +81,7 @@ index e117b69d..bb3afa59 100644
  			} else if(strcmp(line, "%BUILDDATE%") == 0) {
  				READ_NEXT();
  				info->builddate = _alpm_parsedate(line);
-@@ -999,6 +1008,10 @@ int _alpm_local_db_write(alpm_db_t *db, alpm_pkg_t *info, int inforeq)
+@@ -1018,6 +1027,10 @@ int _alpm_local_db_write(alpm_db_t *db, alpm_pkg_t *info, int inforeq)
  			fprintf(fp, "%%ARCH%%\n"
  							"%s\n\n", info->arch);
  		}
@@ -93,10 +93,10 @@ index e117b69d..bb3afa59 100644
  			fprintf(fp, "%%BUILDDATE%%\n"
  							"%jd\n\n", (intmax_t)info->builddate);
 diff --git a/lib/libalpm/package.c b/lib/libalpm/package.c
-index 8c95dab3..58a92bd0 100644
+index 50bbe591..99612c17 100644
 --- a/lib/libalpm/package.c
 +++ b/lib/libalpm/package.c
-@@ -86,6 +86,7 @@ static off_t _pkg_get_isize(alpm_pkg_t *pkg)             { return pkg->isize; }
+@@ -87,6 +87,7 @@ static off_t _pkg_get_isize(alpm_pkg_t *pkg)             { return pkg->isize; }
  static alpm_pkgreason_t _pkg_get_reason(alpm_pkg_t *pkg) { return pkg->reason; }
  static int _pkg_get_validation(alpm_pkg_t *pkg) { return pkg->validation; }
  static int _pkg_has_scriptlet(alpm_pkg_t *pkg)           { return pkg->scriptlet; }
@@ -104,7 +104,7 @@ index 8c95dab3..58a92bd0 100644
  
  static alpm_list_t *_pkg_get_licenses(alpm_pkg_t *pkg)   { return pkg->licenses; }
  static alpm_list_t *_pkg_get_groups(alpm_pkg_t *pkg)     { return pkg->groups; }
-@@ -151,6 +152,7 @@ const struct pkg_operations default_pkg_ops = {
+@@ -152,6 +153,7 @@ const struct pkg_operations default_pkg_ops = {
  	.get_reason      = _pkg_get_reason,
  	.get_validation  = _pkg_get_validation,
  	.has_scriptlet   = _pkg_has_scriptlet,
@@ -112,7 +112,7 @@ index 8c95dab3..58a92bd0 100644
  
  	.get_licenses    = _pkg_get_licenses,
  	.get_groups      = _pkg_get_groups,
-@@ -220,6 +222,13 @@ alpm_pkgfrom_t SYMEXPORT alpm_pkg_get_origin(alpm_pkg_t *pkg)
+@@ -221,6 +223,13 @@ alpm_pkgfrom_t SYMEXPORT alpm_pkg_get_origin(alpm_pkg_t *pkg)
  	return pkg->origin;
  }
  
@@ -126,7 +126,7 @@ index 8c95dab3..58a92bd0 100644
  const char SYMEXPORT *alpm_pkg_get_desc(alpm_pkg_t *pkg)
  {
  	ASSERT(pkg != NULL, return NULL);
-@@ -624,6 +633,7 @@ int _alpm_pkg_dup(alpm_pkg_t *pkg, alpm_pkg_t **new_ptr)
+@@ -625,6 +634,7 @@ int _alpm_pkg_dup(alpm_pkg_t *pkg, alpm_pkg_t **new_ptr)
  	STRDUP(newpkg->name, pkg->name, goto cleanup);
  	STRDUP(newpkg->version, pkg->version, goto cleanup);
  	STRDUP(newpkg->desc, pkg->desc, goto cleanup);
@@ -134,7 +134,7 @@ index 8c95dab3..58a92bd0 100644
  	STRDUP(newpkg->url, pkg->url, goto cleanup);
  	newpkg->builddate = pkg->builddate;
  	newpkg->installdate = pkg->installdate;
-@@ -721,6 +731,7 @@ void _alpm_pkg_free(alpm_pkg_t *pkg)
+@@ -722,6 +732,7 @@ void _alpm_pkg_free(alpm_pkg_t *pkg)
  	FREE(pkg->name);
  	FREE(pkg->version);
  	FREE(pkg->desc);
@@ -143,7 +143,7 @@ index 8c95dab3..58a92bd0 100644
  	FREE(pkg->packager);
  	FREE(pkg->md5sum);
 diff --git a/lib/libalpm/package.h b/lib/libalpm/package.h
-index 5ebe6bd1..b8e22451 100644
+index c2313d35..cc16dcf3 100644
 --- a/lib/libalpm/package.h
 +++ b/lib/libalpm/package.h
 @@ -54,6 +54,7 @@ struct pkg_operations {
@@ -163,7 +163,7 @@ index 5ebe6bd1..b8e22451 100644
  	alpm_time_t builddate;
  	alpm_time_t installdate;
 diff --git a/lib/libalpm/sync.c b/lib/libalpm/sync.c
-index 49bde401..62c3d001 100644
+index 98878736..dc75bc3f 100644
 --- a/lib/libalpm/sync.c
 +++ b/lib/libalpm/sync.c
 @@ -240,6 +240,12 @@ int SYMEXPORT alpm_sync_sysupgrade(alpm_handle_t *handle, int enable_downgrade)
@@ -179,14 +179,14 @@ index 49bde401..62c3d001 100644
  						trans->add = alpm_list_add(trans->add, spkg);
  					}
  					/* jump to next local package */
-@@ -1092,6 +1098,7 @@ static int load_packages(alpm_handle_t *handle, alpm_list_t **data,
- 			_alpm_log(handle, ALPM_LOG_DEBUG, "failed to load pkgfile internal\n");
- 			error = 1;
- 		} else {
-+			pkgfile->installed_db = (spkg->installed_db) ? strdup(spkg->installed_db) : NULL;
- 			if(strcmp(spkg->name, pkgfile->name) != 0) {
- 				_alpm_log(handle, ALPM_LOG_DEBUG,
- 						"internal package name mismatch, expected: '%s', actual: '%s'\n",
+@@ -1105,6 +1111,7 @@ static int check_pkg_matches_db(alpm_pkg_t *spkg, alpm_pkg_t *pkgfile)
+ 	} \
+ } while(0)
+ 
++	pkgfile->installed_db = (spkg->installed_db) ? strdup(spkg->installed_db) : NULL;
+ 	if(strcmp(spkg->name, pkgfile->name) != 0) {
+ 		_alpm_log(handle, ALPM_LOG_DEBUG,
+ 				"internal package name mismatch, expected: '%s', actual: '%s'\n",
 diff --git a/src/pacman/package.c b/src/pacman/package.c
 index 4fcc11f2..361b96a6 100644
 --- a/src/pacman/package.c
@@ -219,5 +219,5 @@ index 4fcc11f2..361b96a6 100644
  	string_display(titles[T_VERSION], alpm_pkg_get_version(pkg), cols);
  	string_display(titles[T_DESCRIPTION], alpm_pkg_get_desc(pkg), cols);
 -- 
-2.38.1
+2.43.0.232.ge79552d197
 
