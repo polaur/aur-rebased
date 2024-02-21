@@ -4,8 +4,8 @@
 
 pkgname=dracut-git
 _pkgname=dracut
-pkgver=059.214.g4980bad3
-pkgrel=2
+pkgver=060.r6794.g4980bad3
+pkgrel=1
 pkgdesc="An event driven initramfs infrastructure"
 arch=('x86_64')
 url="https://dracut.wiki.kernel.org"
@@ -70,7 +70,9 @@ _reverts=(
 
 pkgver() {   
   cd "$srcdir/${_pkgname}"
-  git describe --long --tag | sed 's/^v//;s/-/./g'
+  #git describe --long --tag | sed 's/^v//;s/-/./g'
+  _ver="$(cat dracut-version.sh | grep -m1 'DRACUT_VERSION' | grep -o "[[:digit:]]*" | paste -sd'.')"
+  echo "${_ver}.r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
 }
 
 prepare() {
