@@ -5,7 +5,7 @@
 # Contributor: Andres Perera <aepd87@gmail.com>
 
 pkgname=pacman-git
-pkgver=6.0.1.233.g4a115b4d
+pkgver=6.0.1.224.gc8afb0aa
 pkgrel=1
 pkgdesc="A library-based package manager with dependency support. git version."
 arch=('x86_64')
@@ -31,7 +31,7 @@ source=(git+https://gitlab.archlinux.org/pacman/pacman
         0001-add-update-message-notice.patch)
 sha1sums=('SKIP'
           '018d5d700fcfe7c2ffe60f60a687432283ab5934'
-          '2abcbab5fbad75c0cb56d3872abdcd6e9b296f41'
+          'becf9c6a0593798c1c3f5b087ac886ae3562e779'
           '161a97f915a7ff8545fcc45c54e371e1b7c3c5a6'
           '31eb4617cb124eb92fb4276a2c4be0c0b8a18fb8'
           'ba72d9b83ce29d8d0ba9ee24ee024b97e5df5750'
@@ -85,12 +85,4 @@ package() {
   install -dm755 "$pkgdir/etc"
   install -m644 "$srcdir/pacman.conf" "$pkgdir/etc"
   install -m644 "$srcdir/makepkg.conf" "$pkgdir/etc"
-
-  local wantsdir="$pkgdir/usr/lib/systemd/system/sockets.target.wants"
-  install -dm755 "$wantsdir"
-
-  local unit
-  for unit in dirmngr gpg-agent gpg-agent-{browser,extra,ssh} keyboxd; do
-    ln -s "../${unit}@.socket" "$wantsdir/${unit}@etc-pacman.d-gnupg.socket"
-  done
 }
