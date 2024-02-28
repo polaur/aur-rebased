@@ -2,7 +2,7 @@
 # Contributor: Gustavo Alvarez <sl1pkn07@gmail.com>
 
 pkgname=krusader-stable-git
-pkgver=2.8.1.dev.r6646.g0297882c
+pkgver=2.8.1.dev.r6712.g12d4bd18
 pkgrel=1
 pkgdesc="Advanced twin panel file manager for KDE. (GIT version)"
 arch=('x86_64')
@@ -26,7 +26,7 @@ optdepends=('xz: LZMA and XZ archive support'
             'kompare: file contents comparison'
             'kdiff3: file contents comparison'
             'krename: advanced rename tool'
-            'konsole: terminal'
+            'konsolepart5: terminal'
             'ktexteditor5: file editing support')
 provides=('krusader')
 conflicts=('krusader')
