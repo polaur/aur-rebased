@@ -5,8 +5,8 @@
 # Contributor: Andres Perera <aepd87@gmail.com>
 
 pkgname=pacman-git
-pkgver=6.0.1.233.g4a115b4d
-pkgrel=2
+pkgver=6.1.0.3.g95f148c2
+pkgrel=1
 pkgdesc="A library-based package manager with dependency support. git version."
 arch=('x86_64')
 url="http://www.archlinux.org/pacman/"
@@ -31,7 +31,7 @@ source=(git+https://gitlab.archlinux.org/pacman/pacman
         0001-add-update-message-notice.patch)
 sha1sums=('SKIP'
           '018d5d700fcfe7c2ffe60f60a687432283ab5934'
-          '3dd08e8afcf944d4f75b26e0f51d2cdb3c92ea91'
+          '1bae62a10e2dc456b1ffb902dfce8566d8d4deba'
           '161a97f915a7ff8545fcc45c54e371e1b7c3c5a6'
           '31eb4617cb124eb92fb4276a2c4be0c0b8a18fb8'
           'ba72d9b83ce29d8d0ba9ee24ee024b97e5df5750'
