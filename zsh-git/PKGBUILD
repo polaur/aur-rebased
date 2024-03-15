@@ -5,12 +5,12 @@
 _pkgbase=zsh
 pkgbase=zsh-git
 pkgname=('zsh-git' 'zsh-doc-git')
-pkgver=5.9.r141.g7e0c4406c
+pkgver=5.9.r422.g45b0a838a
 pkgrel=1
 arch=('x86_64')
 url='http://www.zsh.org/'
 license=('custom')
-makedepends=('pcre' 'libcap' 'gdbm' 'yodl' 'git' 'texlive-core')
+makedepends=('pcre2' 'libcap' 'gdbm' 'yodl' 'git')
 source=('zsh::git://git.code.sf.net/p/zsh/code'
         'zprofile')
 md5sums=('SKIP'
