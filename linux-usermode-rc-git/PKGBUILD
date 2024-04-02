@@ -6,8 +6,8 @@ pkgname=('linux-usermode-rc-git' 'linux-usermode-rc-git-modules')
 _major=6.8
 _kernelname=-usermodelinux-git
 _srcname=linux-stable-rc
-pkgver=6.8.1.r710.geed20d88c6a69
-pkgrel=2
+pkgver=6.8.2.r400.gbffeaccf18b54
+pkgrel=1
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
 license=('GPL2')
@@ -69,7 +69,7 @@ build() {
 }
 
 _package() {
-  conflicts=('linux-usermode-git' 'linux-usermode')
+  conflicts=('linux-usermode-git' 'linux-usermode' 'linux-usermode-rc')
 
   cd ${_srcname}
   mkdir -p "$pkgdir/usr/bin" "$pkgdir/usr/share/kernel-usermode"
@@ -78,7 +78,7 @@ _package() {
 }
 
 _package-modules() {
-  conflicts=('linux-usermode-git-modules' 'linux-usermode-modules')
+  conflicts=('linux-usermode-git-modules' 'linux-usermode-modules' 'linux-usermode-rc-modules')
   depends=('kmod')
 
   cd ${_srcname}

@@ -8,7 +8,7 @@ _major=6.8
 _minor=2
 pkgver=${_major}.${_minor}
 _srcname=linux-${pkgver}
-pkgrel=1
+pkgrel=2
 pkgdesc="User mode Linux kernel and modules"
 arch=('x86_64')
 license=('GPL2')
@@ -70,7 +70,7 @@ build() {
 }
 
 _package() {
-  conflicts=('linux-usermode-git' 'linux-usermode-rc-git')
+  conflicts=('linux-usermode-git' 'linux-usermode-rc-git' 'linux-usermode-rc')
 
   cd ${_srcname}
   mkdir -p "$pkgdir/usr/bin" "$pkgdir/usr/share/kernel-usermode"
@@ -79,7 +79,7 @@ _package() {
 }
 
 _package-modules() {
-  conflicts=('linux-usermode-git-modules' 'linux-usermode-rc-git-modules')
+  conflicts=('linux-usermode-git-modules' 'linux-usermode-rc-git-modules' 'linux-usermode-rc-modules')
   depends=('kmod')
 
   cd ${_srcname}
