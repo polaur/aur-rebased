@@ -3,9 +3,9 @@
 # Contributor: Pablo Lezaeta <prflr88@gmail.com_
 
 pkgname=dracut-git
-_pkgname=dracut-canary
-pkgver=060.r6867.g4e902fa1
-pkgrel=4
+_pkgname=dracut-ng
+pkgver=060.r6890.gaa0dee79
+pkgrel=1
 pkgdesc="An event driven initramfs infrastructure"
 arch=('x86_64')
 url="https://dracut.wiki.kernel.org"
@@ -73,7 +73,7 @@ optdepends=(
 provides=('initramfs' 'dracut')
 conflicts=('dracut')
 backup=('etc/dracut.conf' 'etc/dracut-cachyos.conf')
-source=("git+https://github.com/dracutdevs-extra/dracut-canary"
+source=("git+https://github.com/dracut-ng/dracut-ng"
         "dracut-rebuild"
         "dracut-install"
         "dracut-remove"
