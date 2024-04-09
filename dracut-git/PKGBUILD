@@ -4,11 +4,11 @@
 
 pkgname=dracut-git
 _pkgname=dracut-ng
-pkgver=060.r6890.gaa0dee79
+pkgver=101.r10.g54cd6479
 pkgrel=1
 pkgdesc="An event driven initramfs infrastructure"
 arch=('x86_64')
-url="https://dracut.wiki.kernel.org"
+url="https://github.com/dracut-ng/dracut-ng"
 license=('GPL-2.0-or-later')
 depends=(
   'bash'
@@ -73,7 +73,7 @@ optdepends=(
 provides=('initramfs' 'dracut')
 conflicts=('dracut')
 backup=('etc/dracut.conf' 'etc/dracut-cachyos.conf')
-source=("git+https://github.com/dracut-ng/dracut-ng"
+source=("${pkgname}::git+${url}"
         "dracut-rebuild"
         "dracut-install"
         "dracut-remove"
@@ -99,14 +99,14 @@ _reverts=(
 )
 
 pkgver() {   
-  cd "$srcdir/${_pkgname}"
-  #git describe --long --tag | sed 's/^v//;s/-/./g'
-  _ver="$(cat dracut-version.sh | grep -m1 'DRACUT_VERSION' | grep -o "[[:digit:]]*" | paste -sd'.')"
-  echo "${_ver}.r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
+  cd "${pkgname}"
+  git describe --tags --long | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+  #_ver="$(cat dracut-version.sh | grep -m1 'DRACUT_VERSION' | grep -o "[[:digit:]]*" | paste -sd'.')"
+  #echo "${_ver}.r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
 }
 
 prepare() {
-  cd "$srcdir/${_pkgname}"
+  cd "${pkgname}"
 
   local _c
 
@@ -134,7 +134,7 @@ prepare() {
 build() {
   local prefix=/usr sysconfdir=/etc
 
-  cd "$srcdir/${_pkgname}"
+  cd "${pkgname}"
 
   ./configure \
     --sysconfdir=${sysconfdir} \
@@ -146,7 +146,7 @@ build() {
 }
 
 package() {
-  cd "$srcdir/${_pkgname}"
+  cd "${pkgname}"
 
   DESTDIR="$pkgdir" make install
   install -Dm644 "${srcdir}/90-dracut-install.hook" "${pkgdir}/usr/share/libalpm/hooks/90-dracut-install.hook"
