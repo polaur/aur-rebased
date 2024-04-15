@@ -2,8 +2,8 @@
 # Contributor: nontlikeuname
 
 pkgname=meson-git
-pkgver=1.3.0.125.g6e381714c
-tagver=1.3.1
+pkgver=1.4.0.93.g1b9eb6f31
+tagver=1.4.0
 pkgrel=1
 pkgdesc="SCons-like build system that use python as a front-end language and Ninja as a building backend"
 arch=(any)
@@ -13,9 +13,10 @@ depends=('python-setuptools' 'ninja')
 pkgdesc="High productivity build system"
 url="https://mesonbuild.com/"
 arch=(any)
-license=(Apache)
+license=(Apache-2.0)
 depends=(
   ninja
+  python
   python-tqdm
   python-typing_extensions
 )
@@ -36,6 +37,7 @@ checkdepends=(
   gcc-fortran
   gcc-objc
   git
+  glibc-locales
   gmock
   gnustep-base
   gobject-introspection
@@ -81,8 +83,8 @@ source=('git+https://github.com/mesonbuild/meson'
         'native-clang'
 )
 md5sums=('SKIP'
-         '452e6d80308b53225c747be1d678e5c8'
-         '30d1a418f06de7deb6b8fe5e63a25d28'
+         'b046d3159d3d2df117b40c500eb6c8d3'
+         '9810836018bc9b95873e053423459e7c'
          '92cac4ebaa57de9656f48efc688b18b7'
          '8e1d245db195d0d221a5ff083d12f6aa'
          'c941b0388c5d01e26147480a04317871')
