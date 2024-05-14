@@ -3,13 +3,13 @@
 
 pkgname=betterbird-bin
 _pkgname=betterbird
-_pkgver=115.10.0
-_build=bb27
+_pkgver=115.11.0
+_build=bb28
 #_ver=build2
-_ver=hotfix
+#_ver=hotfix
 _directory=LinuxArchive
 pkgver=$_pkgver.$_build
-pkgrel=1.2
+pkgrel=1.1
 pkgdesc="Betterbird is a fine-tuned version of Mozilla Thunderbird, Thunderbird on steroids, if you will."
 arch=('x86_64')
 url="https://www.betterbird.eu/index.html"
@@ -17,8 +17,8 @@ license=('MPL2')
 depends=('dbus-glib')
 provides=('betterbird')
 source=(
-    #"https://www.betterbird.eu/downloads/${_directory}/${_pkgname}-${_pkgver//_/-}-${_build}.en-US.linux-x86_64.tar.bz2"
-    "https://www.betterbird.eu/downloads/${_directory}/${_pkgname}-${_pkgver//_/-}-${_build}-${_ver}.en-US.linux-x86_64.tar.bz2"
+    "https://www.betterbird.eu/downloads/${_directory}/${_pkgname}-${_pkgver//_/-}-${_build}.en-US.linux-x86_64.tar.bz2"
+    #"https://www.betterbird.eu/downloads/${_directory}/${_pkgname}-${_pkgver//_/-}-${_build}-${_ver}.en-US.linux-x86_64.tar.bz2"
     "betterbird.desktop"
 )
 
@@ -38,5 +38,5 @@ package() {
             "$pkgdir"/usr/share/icons/hicolor/${i}x${i}/apps/$_pkgname.png
     done
 }
-sha256sums=('209dc96e4aa52be60c4ac4ea2cae42ac8bb56a93308a2a9057edd7b51d933074'
+sha256sums=('ec32dba22f748ba3c633326b577cd1a473f9121d3666ae01ce41ece5d288d305'
             'b664d5453512ba1c8a58699d106fb1248991dbae0ee44464484be0886278945b')
