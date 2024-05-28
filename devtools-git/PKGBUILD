@@ -4,7 +4,7 @@
 pkgname=devtools-git
 _pkgname=devtools
 pkgver=1.2.0.6.g0e2b16b
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='Tools for Arch Linux package maintainers'
 arch=('any')
@@ -48,7 +48,7 @@ conflicts=('devtools')
 source=("git+https://github.com/archlinux/devtools.git"
         "0001-makechrootpkg-add-paccache-flag.patch")
 md5sums=('SKIP'
-         '073b850b7e97e98f15911c7737345e50')
+         '777c2abaa438e25696b4c8a3f5f7f262')
 
 pkgver() {
   cd $_pkgname
