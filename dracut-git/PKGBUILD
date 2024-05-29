@@ -3,7 +3,7 @@
 # Contributor: Pablo Lezaeta <prflr88@gmail.com_
 
 pkgname=dracut-git
-pkgver=101.r174.g607cb1eb
+pkgver=102.r0.g1a8ee6e0
 pkgrel=1
 pkgdesc="An event driven initramfs infrastructure"
 arch=('x86_64')
@@ -22,6 +22,7 @@ depends=(
   'procps-ng'
   'sed'
   'systemd'
+  'tpm2-tools'
   'util-linux'
 )
 makedepends=(
