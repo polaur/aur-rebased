@@ -3,8 +3,8 @@
 
 pkgname=betterbird-bin
 _pkgname=betterbird
-_pkgver=115.12.0
-_build=bb29
+_pkgver=115.13.0
+_build=bb30
 #_ver=build2
 #_ver=hotfix
 _directory=LinuxArchive
@@ -38,5 +38,5 @@ package() {
             "$pkgdir"/usr/share/icons/hicolor/${i}x${i}/apps/$_pkgname.png
     done
 }
-sha256sums=('9f0ecb1e57cf2a5c59ff6000fe9f4c715f092de2c030a15abf2ba6724615a684'
+sha256sums=('90b99c0112fd7ace5a670cff638fdaf6f838e7b05d7549bb386b83e86ba49759'
             'b664d5453512ba1c8a58699d106fb1248991dbae0ee44464484be0886278945b')
