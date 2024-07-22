@@ -3,7 +3,7 @@
 # Contributor: Pablo Lezaeta <prflr88@gmail.com_
 
 pkgname=dracut-git
-pkgver=102.r2.g5a3f3773
+pkgver=103.r26.g2815f021
 pkgrel=1
 pkgdesc="An event driven initramfs infrastructure"
 arch=('x86_64')
@@ -29,7 +29,7 @@ makedepends=(
   'asciidoc'
   'bash-completion'
   'git'
-  'cargo'
+  'rust'
 )
 optdepends=(
   'binutils: --uefi option support'
@@ -145,12 +145,12 @@ build() {
   cd "${pkgname}"
 
   ./configure \
-    --enable-dracut-cpio \
     --sysconfdir=${sysconfdir} \
     --prefix=${prefix} \
     --libdir=${prefix}/lib \
     --systemdsystemunitdir=${prefix}/lib/systemd/system \
-    --bashcompletiondir=$(pkg-config --variable=completionsdir bash-completion)
+    --bashcompletiondir=$(pkg-config --variable=completionsdir bash-completion) \
+    --enable-dracut-cpio
   make
 }
 
