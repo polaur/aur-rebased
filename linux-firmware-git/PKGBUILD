@@ -8,14 +8,14 @@ _pkgbase=linux-firmware
 pkgname=(linux-firmware-whence-git linux-firmware-git amd-ucode-git
          linux-firmware-{nfp,mellanox,marvell,qcom,liquidio,qlogic,bnx2x}-git
 )
-pkgver=20240410.r2.g53438f8a
+pkgver=20240811.r14.gb1de0237
 pkgrel=1
 pkgdesc="Firmware files for Linux"
 url="https://gitlab.com/kernel-firmware/linux-firmware"
 license=('GPL2' 'GPL3' 'custom')
 arch=('any')
 makedepends=('git' 'rdfind')
-options=(!strip)
+options=(!strip !debug)
 source=("git+$url.git")
 md5sums=('SKIP')
 
