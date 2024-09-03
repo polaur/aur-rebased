@@ -4,28 +4,28 @@
 # Contributor: Jacek Szafarkiewicz <szafar at linux dot pl>
 
 pkgbase=zlib-ng-git
-gitname=zlib-ng
+_gitname=zlib-ng
 pkgname=(zlib-ng-git zlib-ng-compat-git)
-pkgver=2.1.4.r2.gaf303eab
+pkgver=2.2.1.r8.ge4fb3803
 pkgrel=1
 pkgdesc='zlib replacement with optimizations for next generation systems'
 url='https://github.com/zlib-ng/zlib-ng'
 arch=('x86_64')
 license=('custom:zlib')
 depends=('glibc')
-makedepends=('cmake' 'ninja')
+makedepends=('cmake' 'ninja' 'git')
 source=("git+https://github.com/zlib-ng/zlib-ng")
 sha256sums=('SKIP')
 b2sums=('SKIP')
 
 pkgver() {
-  cd "$gitname"
+  cd "$_gitname"
 
   git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
 build() {
-  cd "$gitname"
+  cd "$_gitname"
 
 	# WITH_UNALIGNED - unaligned access invokes undefined behaviour,
 	#   see https://github.com/gentoo/gentoo/pull/17167 for more info.
@@ -52,7 +52,7 @@ build() {
 }
 
 check() {
-  cd "$gitname"
+  cd "$_gitname"
   msg2 "Checking zlib-ng"
   ctest --output-on-failure --test-dir build
   msg2 "Checking zlib-ng-compat"
@@ -62,7 +62,7 @@ check() {
 package_zlib-ng-git() {
   provides=('zlib-ng')
   conflicts=('zlib-ng')
-  cd "$gitname"
+  cd "$_gitname"
   DESTDIR="${pkgdir}" cmake --install build
   install -Dm 644 LICENSE.md -t "${pkgdir}/usr/share/licenses/${pkgname}"
   install -Dm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
@@ -73,7 +73,7 @@ package_zlib-ng-compat-git() {
   provides=('zlib')
   conflicts=('zlib')
 
-  cd "$gitname"
+  cd "$_gitname"
   DESTDIR="${pkgdir}" cmake --install build-compat
   install -Dm 644 LICENSE.md -t "${pkgdir}/usr/share/licenses/${pkgname}"
   install -Dm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
