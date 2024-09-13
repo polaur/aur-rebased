@@ -6,7 +6,7 @@
 pkgbase=zlib-ng-git
 _gitname=zlib-ng
 pkgname=(zlib-ng-git zlib-ng-compat-git)
-pkgver=2.2.1.r8.ge4fb3803
+pkgver=2.2.1.r12.g6b8efe78
 pkgrel=1
 pkgdesc='zlib replacement with optimizations for next generation systems'
 url='https://github.com/zlib-ng/zlib-ng'
@@ -70,8 +70,9 @@ package_zlib-ng-git() {
 
 package_zlib-ng-compat-git() {
   pkgdesc+=" (zlib compat)"
-  provides=('zlib')
-  conflicts=('zlib')
+  provides=('zlib' 'zlib-ng-compat')
+  conflicts=('zlib' 'zlib-ng-compat')
+  options=('staticlibs')
 
   cd "$_gitname"
   DESTDIR="${pkgdir}" cmake --install build-compat
