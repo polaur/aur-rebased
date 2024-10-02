@@ -3,9 +3,9 @@
 
 pkgname=betterbird-bin
 _pkgname=betterbird
-_pkgver=115.15.0
-_build=bb32
-_ver=build2
+_pkgver=115.16.0
+_build=bb33
+#_ver=build2
 #_ver=hotfix
 _directory=LinuxArchive
 pkgver=$_pkgver.$_build
@@ -17,8 +17,8 @@ license=('MPL2')
 depends=('dbus-glib')
 provides=('betterbird')
 source=(
-    #"https://www.betterbird.eu/downloads/${_directory}/${_pkgname}-${_pkgver//_/-}-${_build}.en-US.linux-x86_64.tar.bz2"
-    "https://www.betterbird.eu/downloads/${_directory}/${_pkgname}-${_pkgver//_/-}-${_build}-${_ver}.en-US.linux-x86_64.tar.bz2"
+    "https://www.betterbird.eu/downloads/${_directory}/${_pkgname}-${_pkgver//_/-}-${_build}.en-US.linux-x86_64.tar.bz2"
+    #"https://www.betterbird.eu/downloads/${_directory}/${_pkgname}-${_pkgver//_/-}-${_build}-${_ver}.en-US.linux-x86_64.tar.bz2"
     "betterbird.desktop"
 )
 
@@ -38,5 +38,5 @@ package() {
             "$pkgdir"/usr/share/icons/hicolor/${i}x${i}/apps/$_pkgname.png
     done
 }
-sha256sums=('7b14e33fa3b0b36871762f490a7cce799fe7d9db7fedb818464c940858a6f8ae'
+sha256sums=('86a13d91f31e38ca7f502dc97b5c3736414c2089553753ec764bce785f020bf8'
             'b664d5453512ba1c8a58699d106fb1248991dbae0ee44464484be0886278945b')
