@@ -5,11 +5,12 @@
 
 pkgbase=linux-firmware-git
 _pkgbase=linux-firmware
+_firmware=amd-ucode
 pkgname=(linux-firmware-whence-git linux-firmware-git amd-ucode-git
          linux-firmware-{nfp,mellanox,marvell,qcom,liquidio,qlogic,bnx2x}-git
 )
-pkgver=20240811.r14.gb1de0237
-pkgrel=1
+pkgver=20241017.r45.ge817e483
+pkgrel=2
 pkgdesc="Firmware files for Linux"
 url="https://gitlab.com/kernel-firmware/linux-firmware"
 license=('GPL2' 'GPL3' 'custom')
@@ -75,6 +76,8 @@ package_linux-firmware-git() {
   rm usr/lib/firmware/mrvl/prestera/mvsw_prestera_fw_arm64-v4.1.img.zst
 
   # split
+  _pick amd-ucode usr/lib/firmware/amd-ucode
+
   _pick linux-firmware-nfp usr/lib/firmware/netronome
   _pick linux-firmware-nfp usr/share/licenses/${pkgname}/LICENCE.Netronome
 
@@ -100,6 +103,8 @@ package_amd-ucode-git() {
   license=('custom')
   provides=("amd-ucode")
   conflicts=("amd-ucode")
+
+  mv -v $_firmware/* "$pkgdir"
 
   install -Dt "${pkgdir}/boot" -m644 amd-ucode.img
 
