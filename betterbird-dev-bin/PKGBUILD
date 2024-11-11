@@ -3,8 +3,8 @@
 
 pkgname=betterbird-dev-bin
 _pkgname=betterbird
-_pkgver=128.4.0esr
-_build=bb15
+_pkgver=128.4.3esr
+_build=bb17
 #_ver=build2
 #_ver=hotfix
 _directory=128-Preview
@@ -39,5 +39,5 @@ package() {
             "$pkgdir"/usr/share/icons/hicolor/${i}x${i}/apps/$_pkgname.png
     done
 }
-sha256sums=('055659e9cbe9beb5cb123d9b2a9d7639992903754a2fd9cc324042ed271a8b20'
+sha256sums=('ab09c8f8aeb02df72fce25184a5864d2e051d56d8188a490aef35e02293285e5'
             'b664d5453512ba1c8a58699d106fb1248991dbae0ee44464484be0886278945b')
