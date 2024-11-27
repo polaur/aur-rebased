@@ -9,7 +9,7 @@
 
 pkgname=pacman-git
 _pkgname=pacman
-pkgver=7.0.0.r13.gd87fa2c
+pkgver=7.0.0.r17.ge5f1532
 _sqlitever=$(curl -s 'https://archlinux.org/packages/search/json/?name=sqlite' | grep -oP '"pkgver":\s*"\K[^"]+' | head -n 1 | awk -F. '{
     printf "%d%02d%02d", $1, $2, $3;
     if (NF == 4) { printf "%02d", $4 }
@@ -63,7 +63,7 @@ backup=(etc/pacman.conf
 #options=('!lto') -- should we put no lto here??
 #validpgpkeys=('6645B0A8C7005E78DB1D7864F99FFE0FEAE999BD'  # Allan McRae <allan@archlinux.org>
 #              'B8151B117037781095514CA7BBDFFC92306B1121') # Andrew Gregory (pacman) <andrew@archlinux.org>
-source=("git+https://github.com/CachyOS/pacman.git#branch=staging/7.0.x"
+source=("git+https://github.com/CachyOS/pacman.git#branch=release/7.0.x"
         pacman.conf
         makepkg.conf
         alpm.sysusers
