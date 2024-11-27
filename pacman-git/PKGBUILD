@@ -1,53 +1,102 @@
-# Maintainer: Piotr Gorski <lucjan.lucjanov@gmail.com>
-# Contributor: Dave Reisner <d@falconindy.com>
-# Contributor: Thomas Dziedzic < gostrc at gmail >
-# Contributor: godane <slaxemulator@gmail.com.com>
-# Contributor: Andres Perera <aepd87@gmail.com>
+# vim: set ts=2 sw=2 et:
+### Arch Linux PKGBUILD maintainer:
+# Maintainer: Morten Linderud <foxboron@archlinux.org>
+### CachyOS PKGBUILD maintainers:
+# Maintainer: Vladislav Nepogodin (vnepogodin) <nepogodin.vlad@gmail.com>
+# Maintainer: Piotr Gorski <piotrgorski@cachyos.org>
+# Maintainer: Peter Jung ptr1337 <admin@ptr1337.dev>
+# Maintainer: SoulHarsh007 <admin@soulharsh007.dev>
 
 pkgname=pacman-git
-pkgver=6.1.0.7.gbae9594a
+_pkgname=pacman
+pkgver=7.0.0.r13.gd87fa2c
+_sqlitever=$(curl -s 'https://archlinux.org/packages/search/json/?name=sqlite' | grep -oP '"pkgver":\s*"\K[^"]+' | head -n 1 | awk -F. '{
+    printf "%d%02d%02d", $1, $2, $3;
+    if (NF == 4) { printf "%02d", $4 }
+    else { printf "00" }
+}')
 pkgrel=1
-pkgdesc="A library-based package manager with dependency support. git version."
-arch=('x86_64')
-url="http://www.archlinux.org/pacman/"
+pkgdesc="A library-based package manager with dependency support. CachyOS fork."
+arch=('x86_64' 'aarch64')
+url="https://www.archlinux.org/pacman/"
 license=('GPL-2.0-or-later')
-depends=('bash' 'glibc' 'libarchive' 'curl'
-         'gpgme' 'pacman-mirrorlist' 'archlinux-keyring')
-makedepends=('asciidoc' 'git' 'meson' 'doxygen')
-checkdepends=('python' 'fakechroot')
-optdepends=('perl-locale-gettext: translation support in makepkg-template')
-backup=(etc/pacman.conf
-        etc/makepkg.conf)
-provides=("pacman=$pkgver" 'libalpm.so')
+depends=(
+  bash
+  coreutils
+  curl
+  gawk
+  gettext
+  glibc
+  gnupg
+  gpgme
+  grep
+  libarchive
+  pacman-mirrorlist
+  systemd
+)
+makedepends=(
+  asciidoc
+  doxygen
+  git
+  meson
+
+  # our specific depends, due to building with llvm stack and static sqlite
+  tcl
+  cmake
+  cargo
+  clang
+  llvm
+)
+checkdepends=(
+  fakechroot
+  python
+)
+optdepends=(
+  'base-devel: required to use makepkg'
+  'perl-locale-gettext: translation support in makepkg-template'
+)
+provides=('libalpm.so' 'pacman')
 conflicts=('pacman')
-options=('strip' 'debug')
-source=(git+https://gitlab.archlinux.org/pacman/pacman
+backup=(etc/pacman.conf
+        etc/makepkg.conf
+        etc/makepkg.conf.d/rust.conf)
+#options=('!lto') -- should we put no lto here??
+#validpgpkeys=('6645B0A8C7005E78DB1D7864F99FFE0FEAE999BD'  # Allan McRae <allan@archlinux.org>
+#              'B8151B117037781095514CA7BBDFFC92306B1121') # Andrew Gregory (pacman) <andrew@archlinux.org>
+source=("git+https://github.com/CachyOS/pacman.git#branch=staging/7.0.x"
         pacman.conf
         makepkg.conf
-        0001-add-support-for-x86_64_v-2-3-4-autodetection.patch
-        0001-add-information-about-origin-db.patch
-        0001-Add-new-variable-to-declare-package-architecture.patch
-        0001-Fix-package-signing.patch
-        0001-add-update-message-notice.patch
-        0001-fix-update-message-notice.patch)
-sha1sums=('SKIP'
-          '018d5d700fcfe7c2ffe60f60a687432283ab5934'
-          '1bae62a10e2dc456b1ffb902dfce8566d8d4deba'
-          '161a97f915a7ff8545fcc45c54e371e1b7c3c5a6'
-          '31eb4617cb124eb92fb4276a2c4be0c0b8a18fb8'
-          'ba72d9b83ce29d8d0ba9ee24ee024b97e5df5750'
-          '071c38e7b107fd52f054f5c5fe09749d46886227'
-          '7e03c6fe15e5de96d202de25f72e29ee9125c501'
-          'a8fa6c429dd36d28e66f89bee4d81502d0ab7596')
+        alpm.sysusers
+        rust.conf
+        static_sqlite.patch
+        "https://www.sqlite.org/2024/sqlite-src-${_sqlitever}.zip"
+        disable-always-stale.patch
+        78cd453.patch # PrettyProgressBar
+        )
+source_aarch64=(fix-alpm-crate-for-aarch64.patch)
+sha256sums=('SKIP'
+            '7ba46605de8dcb1ffa2a580e386c471a370955f0e62530ddfaf29168551047e1'
+            'ce794bf0d8a9b1cb2637188516ce39e3559b2b027c47e94ea388991d33461d89'
+            'c8760d7ebb6c9817d508c691c67084be251cd9c8811ee1ccf92c1278bad74c1c'
+            'b31dc7a2789d7fb99a56cc5a9d915c3d57e01233bf258731392afe44b1bf8e40'
+            'bdd8fb13c1cd8606f41347bc1897e261031ac80b33c772d310f417064332f646'
+            'def3fc292eb9ecc444f6c1950e5c79d8462ed5e7b3d605fd6152d145e1d5abb4'
+            '11e0078c5ac7cdafa625957a9da982989efe19719e4973cd77f28dc5780dccd9'
+            '843ad07d4a996ad165f20544c5df5b6deec4496ec30daa38b874bf3fa28afa54')
+sha256sums_aarch64=('98af0b680561b4430c0290d461d28a03b7178cce6b62880c7d0803473bfa543c')
+validpgpkeys=(
+  'B1B70BB1CD56047DEF31DE2EB62C3D10C54D5DA9'  # Vladislav Nepogodin <nepogodin.vlad@gmail.com>
+)
 
 pkgver() {
-  cd pacman
-  git describe --long | sed 's/^v//;s/-/./g'
+  cd "$_pkgname"
+  git describe --abbrev=7 --tags --match 'v*' | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
 prepare() {
-  cd pacman
-  ### Patching sources
+  cd "${_pkgname}"
+  # we backport way too often in pacman
+  # lets at least make it more convenient
   local src
   for src in "${source[@]}"; do
     src="${src%%::*}"
@@ -59,7 +108,60 @@ prepare() {
 }
 
 build() {
-  cd pacman
+  export AR=llvm-ar
+  export CC=clang
+  export CXX=clang++
+  export NM=llvm-nm
+  export RANLIB=llvm-ranlib
+
+  local _saved_cflags="${CFLAGS}"
+  local _saved_cppflags="${CPPFLAGS}"
+  local _saved_cxxflags="${CXXFLAGS}"
+
+  # this uses malloc_usable_size, which is incompatible with fortification level 3
+  export CFLAGS="${CFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
+  export CXXFLAGS="${CXXFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
+
+  export CPPFLAGS="$CPPFLAGS \
+        -DSQLITE_ENABLE_COLUMN_METADATA=1 \
+        -DSQLITE_ENABLE_UNLOCK_NOTIFY \
+        -DSQLITE_ENABLE_DBSTAT_VTAB=1 \
+        -DSQLITE_ENABLE_FTS3_TOKENIZER=1 \
+        -DSQLITE_ENABLE_FTS3_PARENTHESIS \
+        -DSQLITE_SECURE_DELETE \
+        -DSQLITE_ENABLE_STMTVTAB \
+        -DSQLITE_ENABLE_STAT4 \
+        -DSQLITE_MAX_VARIABLE_NUMBER=250000 \
+        -DSQLITE_MAX_EXPR_DEPTH=10000 \
+        -DSQLITE_ENABLE_MATH_FUNCTIONS"
+
+  cd "sqlite-src-${_sqlitever}"
+  ./configure --prefix="${srcdir}/${_pkgname}"/tmp_sqlite  \
+        --disable-shared \
+        --enable-fts3 \
+        --enable-fts4 \
+        --enable-fts5 \
+        --enable-rtree \
+        --disable-tcl \
+        --with-pic \
+        --enable-fast-install
+
+  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+  make
+  make install
+
+  export CFLAGS="${_saved_cflags}"
+  export CPPFLAGS="${_saved_cppflags}"
+  export CXXFLAGS="${_saved_cxxflags}"
+
+  export CFLAGS+=" -fno-semantic-interposition -flto=thin"
+  export CXXFLAGS+=" -fno-semantic-interposition -flto=thin"
+  export RUSTFLAGS+=" -Cembed-bitcode -Clinker-plugin-lto -Clinker=clang -C link-arg=-flto=thin"
+  export LDFLAGS+=" -lm"
+
+  cd ..
+
+  cd "${_pkgname}"
 
   meson --prefix=/usr \
         --buildtype=plain \
@@ -73,13 +175,36 @@ build() {
 }
 
 check() {
-  cd pacman
+  cd "${_pkgname}"
+
+  export AR=llvm-ar
+  export CC=clang
+  export CXX=clang++
+  export NM=llvm-nm
+  export RANLIB=llvm-ranlib
+
+  export CFLAGS+=" -fno-semantic-interposition -flto=thin"
+  export CXXFLAGS+=" -fno-semantic-interposition -flto=thin"
+  export RUSTFLAGS+=" -Cembed-bitcode -Clinker-plugin-lto -Clinker=clang -C link-arg=-flto=thin"
 
   meson test -C build
+
+  cd build
+  ninja scripts/repo-add/src/repo-add-test
 }
 
 package() {
-  cd pacman
+  cd "${_pkgname}"
+
+  export AR=llvm-ar
+  export CC=clang
+  export CXX=clang++
+  export NM=llvm-nm
+  export RANLIB=llvm-ranlib
+
+  export CFLAGS+=" -fno-semantic-interposition -flto=thin"
+  export CXXFLAGS+=" -fno-semantic-interposition -flto=thin"
+  export RUSTFLAGS+=" -Cembed-bitcode -Clinker-plugin-lto -Clinker=clang -C link-arg=-flto=thin"
 
   DESTDIR="$pkgdir" meson install -C build
 
@@ -87,6 +212,8 @@ package() {
   install -dm755 "$pkgdir/etc"
   install -m644 "$srcdir/pacman.conf" "$pkgdir/etc"
   install -m644 "$srcdir/makepkg.conf" "$pkgdir/etc"
+  install -D -m644 "$srcdir/alpm.sysusers" "${pkgdir}"/usr/lib/sysusers.d/alpm.conf
+  install -m644 "$srcdir/rust.conf" "$pkgdir/etc/makepkg.conf.d"
 
   local wantsdir="$pkgdir/usr/lib/systemd/system/sockets.target.wants"
   install -dm755 "$wantsdir"
