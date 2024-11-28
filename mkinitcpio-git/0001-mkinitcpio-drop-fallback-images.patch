@@ -1,0 +1,33 @@
+From 7f917d14dcadf4b0b2db33900889d02f843dc537 Mon Sep 17 00:00:00 2001
+From: Piotr Gorski <lucjan.lucjanov@gmail.com>
+Date: Tue, 29 Oct 2024 13:11:09 +0100
+Subject: [PATCH] mkinitcpio: drop fallback images
+
+Signed-off-by: Piotr Gorski <lucjan.lucjanov@gmail.com>
+---
+ mkinitcpio.d/hook.preset | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
+
+diff --git a/mkinitcpio.d/hook.preset b/mkinitcpio.d/hook.preset
+index 1bb9aa4..becd315 100644
+--- a/mkinitcpio.d/hook.preset
++++ b/mkinitcpio.d/hook.preset
+@@ -3,14 +3,9 @@
+ #ALL_config="/etc/mkinitcpio.conf"
+ ALL_kver="/boot/vmlinuz-%PKGBASE%"
+ 
+-PRESETS=('default' 'fallback')
++PRESETS=('default')
+ 
+ #default_config="/etc/mkinitcpio.conf"
+ default_image="/boot/initramfs-%PKGBASE%.img"
+ #default_uki="/efi/EFI/Linux/arch-%PKGBASE%.efi"
+ #default_options="--splash /usr/share/systemd/bootctl/splash-arch.bmp"
+-
+-#fallback_config="/etc/mkinitcpio.conf"
+-fallback_image="/boot/initramfs-%PKGBASE%-fallback.img"
+-#fallback_uki="/efi/EFI/Linux/arch-%PKGBASE%-fallback.efi"
+-fallback_options="-S autodetect"
+-- 
+2.47.0
+
