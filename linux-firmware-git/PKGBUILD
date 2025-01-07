@@ -9,13 +9,13 @@ _firmware=amd-ucode
 pkgname=(linux-firmware-whence-git linux-firmware-git amd-ucode-git
          linux-firmware-{nfp,mellanox,marvell,qcom,liquidio,qlogic,bnx2x}-git
 )
-pkgver=20241210.r32.g1b7d065a
+pkgver=20241210.r34.gc0f414a6
 pkgrel=1
 pkgdesc="Firmware files for Linux"
 url="https://gitlab.com/kernel-firmware/linux-firmware"
 license=('GPL2' 'GPL3' 'custom')
 arch=('any')
-makedepends=('git' 'rdfind')
+makedepends=('git' 'rdfind' 'parallel')
 options=(!strip !debug)
 source=("git+$url.git")
 md5sums=('SKIP')
@@ -24,7 +24,6 @@ _backports=(
 )
 
 _reverts=(
-e40adff76676aae714c9b3e23b03c540ece57aa4 # Add support to install files/symlinks in parallel
 )
 
 pkgver() {
