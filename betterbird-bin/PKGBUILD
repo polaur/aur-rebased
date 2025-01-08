@@ -9,7 +9,7 @@ _build=bb20
 #_ver=hotfix
 _directory=LinuxArchive
 pkgver=$_pkgver.$_build
-pkgrel=1.3
+pkgrel=1.4
 pkgdesc="Betterbird is a fine-tuned version of Mozilla Thunderbird, Thunderbird on steroids, if you will."
 arch=('x86_64')
 url="https://www.betterbird.eu/index.html"
@@ -19,7 +19,8 @@ provides=('betterbird')
 source=(
     "https://www.betterbird.eu/downloads/${_directory}/${_pkgname}-${_pkgver//_/-}-${_build}.en-US.linux-x86_64.tar.bz2"
     #"https://www.betterbird.eu/downloads/${_directory}/${_pkgname}-${_pkgver//_/-}-${_build}-${_ver}.en-US.linux-x86_64.tar.bz2"
-    "betterbird.desktop"
+    "eu.betterbird.Betterbird.desktop"
+    "vendor-prefs.js"
 )
 
 package() {
@@ -28,8 +29,10 @@ package() {
     install -d "${pkgdir}/usr/share/applications"
 
     cp -r "${srcdir}/${_pkgname}/" "${pkgdir}/opt/${_pkgname}"
-    install -m644 "${srcdir}/${_pkgname}.desktop" "${pkgdir}/usr/share/applications/${_pkgname}.desktop"
+    install -m644 "${srcdir}/eu.${_pkgname}.Betterbird.desktop" "${pkgdir}/usr/share/applications/eu.${_pkgname}.Betterbird.desktop"
+    install -m644 "${srcdir}/vendor-prefs.js" -t "${pkgdir}/opt/${_pkgname}/defaults/pref"
     ln -s /opt/$_pkgname/betterbird "$pkgdir"/usr/bin/$_pkgname
+    ln -s /usr/share/hunspell "${pkgdir}/opt/${_pkgname}/dictionaries"
 
     #icons
     for i in 16 22 24 32 48 64 128 256; do
@@ -38,5 +41,7 @@ package() {
             "$pkgdir"/usr/share/icons/hicolor/${i}x${i}/apps/$_pkgname.png
     done
 }
+
 sha256sums=('6264335acce360f4ee969e48aecfd867497c7bdc2a17e2111adc15a99d5687d9'
-            'b664d5453512ba1c8a58699d106fb1248991dbae0ee44464484be0886278945b')
+            'dde5f71088162b89c7ea56508c06441e6e1e717206f781c00657cb71d96d44cd'
+            'b11745416d2b2f8bac1ccd3dcb99411c7239b067adf9eb973903c448f8747d09')
