@@ -1,8 +1,9 @@
 # Maintainer: Piotr Górski <lucjan.lucjanov@gmail.com>
 # Contributor: Kamran Mackey <kamranm1200@gmail.com>
 
-pkgname=git-main-git
-pkgver=2.41.0.2.gfb7d80edca
+pkgbase=git-main-git
+pkgname=(git-main-git git-main-zsh-completion-git)
+pkgver=2.48.1.0.gf93ff170b9
 pkgrel=1
 pkgdesc="A fast distributed version control system"
 arch=('x86_64')
@@ -11,7 +12,11 @@ license=('GPL2')
 depends=('curl' 'expat' 'perl' 'perl-error' 'perl-mailtools'
          'openssl' 'pcre2' 'grep' 'shadow' 'zlib')
 makedepends=('python' 'xmlto' 'asciidoc' 'git')
-optdepends=('tk: gitk and git gui'
+checkdepends=('openssh')
+optdepends=('git-zsh-completion: upstream zsh completion'
+            'tk: gitk and git gui'
+            'openssh: ssh transport and crypto'
+            'man: show help with `git command --help`'
             'perl-libwww: git svn'
             'perl-term-readkey: git svn and interactive.singlekey setting'
             'perl-io-socket-ssl: git send-email TLS support'
@@ -90,7 +95,7 @@ build() {
 #}
 
 
-package() {
+package_git-main-git() {
   cd "$_gitname"
 
   _make \
@@ -119,6 +124,14 @@ package() {
   install -D -m 0644 "$srcdir"/git-daemon@.service "$pkgdir"/usr/lib/systemd/system/git-daemon@.service
   install -D -m 0644 "$srcdir"/git-daemon.socket "$pkgdir"/usr/lib/systemd/system/git-daemon.socket
 
-  # sysusers file
   install -D -m 0644 "$srcdir"/git-sysusers.conf "$pkgdir"/usr/lib/sysusers.d/git.conf
+
+}
+
+package_git-main-zsh-completion-git() {
+  description='the fast distributed version control system - upstream zsh completion'
+  depends=('git' 'zsh')
+
+  install -d "$pkgdir"/usr/share/zsh/site-functions/
+  ln -s ../../git/completion/git-completion.zsh "$pkgdir"/usr/share/zsh/site-functions/_git
 }
