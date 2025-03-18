@@ -9,7 +9,7 @@ _firmware=amd-ucode
 pkgname=(linux-firmware-whence-git linux-firmware-git amd-ucode-git
          linux-firmware-{nfp,mellanox,marvell,qcom,liquidio,qlogic,bnx2x}-git
 )
-pkgver=20241210.r34.gc0f414a6
+pkgver=20250311.r21.g58850506
 pkgrel=1
 pkgdesc="Firmware files for Linux"
 url="https://gitlab.com/kernel-firmware/linux-firmware"
@@ -98,6 +98,7 @@ package_linux-firmware-git() {
   cd ${_pkgbase}
 
   ZSTD_CLEVEL=19 make DESTDIR="${pkgdir}" FIRMWAREDIR=/usr/lib/firmware install-zst
+  make DESTDIR="${pkgdir}" FIRMWAREDIR=/usr/lib/firmware dedup
 
   install -Dt "${pkgdir}/usr/share/licenses/${pkgname}" -m644 LICEN*
 
