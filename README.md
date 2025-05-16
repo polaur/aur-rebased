@@ -32,7 +32,5 @@ makepkg -srci
 
 If you ever are in doubt about how something goes... you ask us.
 
-[OUR SUPPORT](https://forum.archlinux.org.pl/viewtopic.php?id=614)
-
 
 
