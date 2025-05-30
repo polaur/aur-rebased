@@ -3,14 +3,14 @@
 
 pkgbase=git-main-git
 pkgname=(git-main-git git-main-zsh-completion-git)
-pkgver=2.48.1.0.gf93ff170b9
-pkgrel=2
+pkgver=2.49.0.9.gd50a5e8939
+pkgrel=1
 pkgdesc="A fast distributed version control system"
 arch=('x86_64')
 url='http://git-scm.com/'
 license=('GPL2')
 depends=('curl' 'expat' 'perl' 'perl-error' 'perl-mailtools'
-         'openssl' 'pcre2' 'grep' 'shadow' 'zlib')
+         'openssl' 'pcre2' 'grep' 'shadow' 'zlib-ng')
 makedepends=('python' 'xmlto' 'asciidoc' 'git')
 checkdepends=('openssh')
 conflicts=('git' 'git-dev-git' 'git-test-git' 'git-git')
@@ -44,6 +44,7 @@ _make() {
     MAN_BOLD_LITERAL=1
     NO_PERL_CPAN_FALLBACKS=1
     USE_LIBPCRE2=1
+    ZLIB_NG=1
   )
 
   make "${make_options[@]}" "$@"
