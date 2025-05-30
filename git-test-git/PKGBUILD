@@ -3,14 +3,14 @@
 
 pkgbase=git-test-git
 pkgname=(git-test-git git-test-zsh-completion-git)
-pkgver=2.48.1.559.gff0e58f3ee
+pkgver=2.50.0.rc0.225.gbfa90786bc
 pkgrel=1
 pkgdesc="A fast distributed version control system"
 arch=('x86_64')
 url='http://git-scm.com/'
 license=('GPL2')
 depends=('curl' 'expat' 'perl' 'perl-error' 'perl-mailtools'
-         'openssl' 'pcre2' 'grep' 'shadow' 'zlib')
+         'openssl' 'pcre2' 'grep' 'shadow' 'zlib-ng')
 makedepends=('python' 'xmlto' 'asciidoc' 'git')
 checkdepends=('openssh')
 conflicts=('git' 'git-dev-git' 'git-main-git' 'git-git')
@@ -44,6 +44,7 @@ _make() {
     MAN_BOLD_LITERAL=1
     NO_PERL_CPAN_FALLBACKS=1
     USE_LIBPCRE2=1
+    ZLIB_NG=1
   )
 
   make "${make_options[@]}" "$@"
@@ -56,7 +57,6 @@ build() {
 
   _make -C contrib/credential/libsecret
   _make -C contrib/subtree all man
-  _make -C contrib/mw-to-git all
   _make -C contrib/diff-highlight
 }
 
@@ -115,8 +115,6 @@ package_git-test-git() {
   _make -C contrib/credential/libsecret clean
   # subtree installation
   _make -C contrib/subtree DESTDIR="$pkgdir" install install-man
-  # mediawiki installation
-  _make -C contrib/mw-to-git DESTDIR="$pkgdir" install
   # the rest of the contrib stuff
   find contrib/ -name '.gitignore' -delete
   cp -a ./contrib/* "$pkgdir"/usr/share/git/
