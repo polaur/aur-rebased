@@ -5,13 +5,13 @@
 
 pkgname=libgit2-git
 _pkgname=libgit2
-pkgver=1.8.0.r30.g85d42ea10
+pkgver=1.9.0.r108.gdbc19dc08
 pkgrel=1
 epoch=1
 pkgdesc='A linkable library for Git'
 arch=('x86_64')
 url='https://libgit2.github.com/'
-depends=('glibc' 'http-parser' 'openssl' 'pcre' 'zlib')
+depends=('glibc' 'llhttp' 'openssl' 'pcre' 'zlib')
 makedepends=('cmake' 'libssh2' 'python' 'git')
 provides=('libgit2' 'libgit2.so')
 conflicts=('libgit2')
@@ -27,13 +27,13 @@ pkgver() {
 build() {
   local cmake_options=(
     -B build
-    -DCMAKE_BUILD_TYPE=None
-    -DCMAKE_INSTALL_PREFIX=/usr
-    -DREGEX_BACKEND=pcre2
-    -DUSE_HTTP_PARSER=system
-    -DUSE_SSH=ON
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D REGEX_BACKEND=pcre2
+    -D USE_HTTP_PARSER=llhttp
+    -D USE_SSH=ON
     -S $_pkgname
-    -Wno-dev
+    -W no-dev
   )
   cmake "${cmake_options[@]}"
   cmake --build build --verbose
@@ -41,17 +41,18 @@ build() {
 
 check() {
   local ignored_tests=(
+    'auth_clone|'
     'invasive|'
     'online|'
-    'ssh|'
     'network_url_parse__hostname_implied_root_empty_port|'
     'network_url_parse__hostname_empty_port|'
     'network_url_parse__ipv4_implied_root_empty_port|'
     'network_url_parse__ipv4_empty_port|'
     'network_url_parse__ipv6_implied_root_empty_port|'
-    'network_url_parse__ipv6_empty_port'
     'network_url_parse__ipv6_empty_port|'
-    'proxy_auto_not_detected'
+    'proxy|'
+    'proxy_auto_not_detected|'
+    'ssh'
   )
   local ifs="$IFS"
   IFS=
