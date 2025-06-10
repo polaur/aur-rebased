@@ -4,8 +4,8 @@
 pkgbase=linux-usermode-rc
 pkgname=('linux-usermode-rc' 'linux-usermode-rc-modules')
 _kernelname=-usermodelinux-rc
-_major=6.14
-_minor=10
+_major=6.15
+_minor=1
 _minorc=$((_minor+1))
 _rcver=rc1
 pkgver=${_major}.${_minorc}
@@ -42,11 +42,11 @@ source=("https://www.kernel.org/pub/linux/kernel/v6.x/linux-${_stable}.tar.xz"
         'config'
         '70-uml.hook')
 
-sha256sums=('de8b97cfeae74c22f832ee4ca2333c157cc978d98baa122f0ee9c01796a2fe43'
+sha256sums=('44f1bb84fe512e7bafe0e6dc85d38ec1c6c8fcbe97ccb51d8c19930b799f0d64'
             'SKIP'
-            '33567f61877a3fddc70c7f0731175fd88ff73b2e517a5ad8a863a17c53543b56'
+            'f55ab639e1551e5289b93b28ecedef4dccc97bb4826b765af12fe7f977e7a9c7'
             'SKIP'
-            'c675fbb53f5c030693b4e72533c86ef97b04153633e3130e71767bf4f3e1f78a'
+            '2fadeec7b37aa71c96fda5280ffd94ccdbfd5fd2f26dcc5f1ff6d15e55810a40'
             '05ea4e00d1e99bf8140a21c94e3c42acf17b9debad9c6f5decbe1dd1fe04332c')
 
 validpgpkeys=(
