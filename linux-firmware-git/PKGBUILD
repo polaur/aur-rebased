@@ -31,8 +31,8 @@ pkgname=(
   linux-firmware-realtek-git
 )
 
-pkgver=20250613.r73.g49c833a1
-pkgrel=2
+pkgver=20250613.r75.gb4e2acf3
+pkgrel=1
 
 _get_dir_name() {
   local _d="${pkgname%-git}"
@@ -128,6 +128,7 @@ package_linux-firmware-git() {
     linux-firmware-amdgpu
     linux-firmware-atheros
     linux-firmware-broadcom
+    linux-firmware-cirrus
     linux-firmware-intel
     linux-firmware-mediatek
     linux-firmware-nvidia
@@ -136,7 +137,6 @@ package_linux-firmware-git() {
     linux-firmware-realtek
   )
   optdepends=(
-    'linux-firmware-cirrus: Firmware for Cirrus Logic audio devices'
     'linux-firmware-liquidio: Firmware for Cavium LiquidIO server adapters'
     'linux-firmware-marvell: Firmware for Marvell devices'
     'linux-firmware-mellanox: Firmware for Mellanox Spectrum switches'
