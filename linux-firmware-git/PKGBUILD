@@ -31,7 +31,7 @@ pkgname=(
   linux-firmware-realtek-git
 )
 
-pkgver=20250613.r6.g1d98972a
+pkgver=20250613.r73.g49c833a1
 pkgrel=2
 
 _get_dir_name() {
@@ -196,6 +196,9 @@ package_linux-firmware-other-git() {
   _pick radeon "${fwdir}"/radeon
 
   _pick realtek "${fwdir}"/{realtek,rtlwifi,rtw8*,rtl_*}
+
+  # dedup after splitting
+  make -C ${_pkgbase} FIRMWAREDIR="${pkgdir}/usr/lib/firmware" dedup
 }
 
 package_amd-ucode-git() {
