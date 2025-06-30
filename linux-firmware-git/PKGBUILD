@@ -31,7 +31,7 @@ pkgname=(
   linux-firmware-realtek-git
 )
 
-pkgver=20250613.r75.gb4e2acf3
+pkgver=20250627.r0.gf40eafe2
 pkgrel=1
 
 _get_dir_name() {
@@ -199,6 +199,9 @@ package_linux-firmware-other-git() {
 
   # dedup after splitting
   make -C ${_pkgbase} FIRMWAREDIR="${pkgdir}/usr/lib/firmware" dedup
+
+  install -Dm644 ${_pkgbase}/LICEN[CS]E* \
+    -t "${pkgdir}/usr/share/licenses/${pkgname}"
 }
 
 package_amd-ucode-git() {
@@ -217,7 +220,10 @@ package_amd-ucode-git() {
 
 package_linux-firmware-amdgpu-git() {
   pkgdesc+=" - Firmware for AMD Radeon GPUs"
-  license+=(LicenseRef-amdgpu)
+  license+=(
+    LicenseRef-amdgpu
+    MIT
+  )
   depends=(linux-firmware-whence)
   conflicts=('linux-firmware-amdgpu')
   provides=("linux-firmware-amdgpu")
@@ -262,7 +268,7 @@ package_linux-firmware-broadcom-git() {
   mv -v "$(_get_dir_name)"/* "${pkgdir}"
   make -C ${_pkgbase} FIRMWAREDIR="${pkgdir}/usr/lib/firmware" dedup
 
-  install -Dm644 ${_pkgbase}/LICENCE.{broadcom_*,cypress} \
+  install -Dm644 ${_pkgbase}/LICENCE.{bnx2*,broadcom_*,cypress,tigon} \
     -t "${pkgdir}/usr/share/licenses/${pkgname}"
 }
 
