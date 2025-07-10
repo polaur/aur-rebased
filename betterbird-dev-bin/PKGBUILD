@@ -3,9 +3,9 @@
 
 pkgname=betterbird-dev-bin
 _pkgname=betterbird
-_pkgver=140.0esr
-_build=bb5
-_ver=build2
+_pkgver=140.0.1esr
+_build=bb6
+#_ver=build2
 #_ver=hotfix
 _directory=140-Preview
 pkgver=$_pkgver.$_build
@@ -18,8 +18,8 @@ depends=('dbus-glib')
 provides=('betterbird')
 conflicts=('betterbird-bin')
 source=(
-    #"https://www.betterbird.eu/downloads/${_directory}/${_pkgname}-${_pkgver//_/-}-${_build}.en-US.linux-x86_64.tar.xz"
-    "https://www.betterbird.eu/downloads/${_directory}/${_pkgname}-${_pkgver//_/-}-${_build}-${_ver}.en-US.linux-x86_64.tar.xz"
+    "https://www.betterbird.eu/downloads/${_directory}/${_pkgname}-${_pkgver//_/-}-${_build}.en-US.linux-x86_64.tar.xz"
+    #"https://www.betterbird.eu/downloads/${_directory}/${_pkgname}-${_pkgver//_/-}-${_build}-${_ver}.en-US.linux-x86_64.tar.xz"
     "eu.betterbird.Betterbird.desktop"
     "vendor-prefs.js"
 )
@@ -43,6 +43,6 @@ package() {
     done
 }
 
-sha256sums=('11b6df03d33872dea025b29e8479121cfcd2ec185611d99a1110a0f8a5b1ee7e'
+sha256sums=('3e3897192b98763c3d859c7c23192bade2f0614ce575d0fa57de74144ca95117'
             'dde5f71088162b89c7ea56508c06441e6e1e717206f781c00657cb71d96d44cd'
             'b11745416d2b2f8bac1ccd3dcb99411c7239b067adf9eb973903c448f8747d09')
