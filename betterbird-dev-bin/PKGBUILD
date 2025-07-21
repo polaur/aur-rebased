@@ -3,8 +3,8 @@
 
 pkgname=betterbird-dev-bin
 _pkgname=betterbird
-_pkgver=140.0.1esr
-_build=bb6
+_pkgver=140.1.0esr
+_build=bb7
 #_ver=build2
 #_ver=hotfix
 _directory=140-Preview
@@ -43,6 +43,6 @@ package() {
     done
 }
 
-sha256sums=('3e3897192b98763c3d859c7c23192bade2f0614ce575d0fa57de74144ca95117'
+sha256sums=('311a13dd0ca0161472519590af7ba3136b99e333d88ff5afb34316d4a84932cf'
             'dde5f71088162b89c7ea56508c06441e6e1e717206f781c00657cb71d96d44cd'
             'b11745416d2b2f8bac1ccd3dcb99411c7239b067adf9eb973903c448f8747d09')
