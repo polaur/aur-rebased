@@ -3,7 +3,7 @@
 
 pkgbase=git-main-git
 pkgname=(git-main-git git-main-zsh-completion-git)
-pkgver=2.49.0.9.gd50a5e8939
+pkgver=2.50.1.11.gf368df439b
 pkgrel=1
 pkgdesc="A fast distributed version control system"
 arch=('x86_64')
@@ -96,7 +96,9 @@ package_git-main-git() {
               'python: git svn & git p4'
               'subversion: git svn'
               'org.freedesktop.secrets: keyring credential helper'
-              'libsecret: libsecret credential helper')
+              'libsecret: libsecret credential helper'
+              'less: the default pager for git'
+)
 
   cd "$_gitname"
 

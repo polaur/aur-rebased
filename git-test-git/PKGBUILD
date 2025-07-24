@@ -3,7 +3,7 @@
 
 pkgbase=git-test-git
 pkgname=(git-test-git git-test-zsh-completion-git)
-pkgver=2.50.0.rc0.225.gbfa90786bc
+pkgver=2.50.1.636.gb06616a2d9
 pkgrel=1
 pkgdesc="A fast distributed version control system"
 arch=('x86_64')
@@ -95,7 +95,9 @@ package_git-test-git() {
               'python: git svn & git p4'
               'subversion: git svn'
               'org.freedesktop.secrets: keyring credential helper'
-              'libsecret: libsecret credential helper')
+              'libsecret: libsecret credential helper'
+              'less: the default pager for git'
+)
 
   cd "$_gitname"
 
