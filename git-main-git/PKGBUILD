@@ -3,7 +3,7 @@
 
 pkgbase=git-main-git
 pkgname=(git-main-git git-main-zsh-completion-git)
-pkgver=2.50.1.11.gf368df439b
+pkgver=2.51.0.0.gc44beea485
 pkgrel=1
 pkgdesc="A fast distributed version control system"
 arch=('x86_64')
@@ -57,7 +57,6 @@ build() {
 
   _make -C contrib/credential/libsecret
   _make -C contrib/subtree all man
-  _make -C contrib/mw-to-git all
   _make -C contrib/diff-highlight
 }
 
@@ -118,8 +117,6 @@ package_git-main-git() {
   _make -C contrib/credential/libsecret clean
   # subtree installation
   _make -C contrib/subtree DESTDIR="$pkgdir" install install-man
-  # mediawiki installation
-  _make -C contrib/mw-to-git DESTDIR="$pkgdir" install
   # the rest of the contrib stuff
   find contrib/ -name '.gitignore' -delete
   cp -a ./contrib/* "$pkgdir"/usr/share/git/
