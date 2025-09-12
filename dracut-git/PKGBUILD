@@ -3,8 +3,8 @@
 # Contributor: Pablo Lezaeta <prflr88@gmail.com_
 
 pkgname=dracut-git
-pkgver=108.r69.g86cc122e
-pkgrel=2
+pkgver=108.r116.gf879b04d
+pkgrel=1
 pkgdesc="An event driven initramfs infrastructure"
 arch=('x86_64')
 url="https://github.com/dracut-ng/dracut-ng"
@@ -33,7 +33,6 @@ makedepends=(
 )
 optdepends=(
   'binutils: --uefi option support'
-  'biosdevname: BIOS network device renaming'
   'bluez: bluetooth (keyboard)'
   'btrfs-progs: scan for Btrfs on block devices'
   'busybox: allows use of busybox (on your own risk)'
@@ -42,25 +41,19 @@ optdepends=(
   'connman: support for connman networking'
   'cryptsetup: support for encrypted with LUKS filesystems'
   'dash: allows use of dash (on your own risk)'
-  'dbus: dbus-daemon dracut module'
-  'dbus-broker: dbus-broker dracut module'
   'dhclient: legacy networking support'
   'dmraid: dmraid dracut module support'
   'e2fsprogs: ext2/3/4 filesystem support'
   'elfutils: strip binaries to reduce initramfs size'
-  'erofs-utils: support for building an erofs initramfs'
   'f2fs-tools: fsfs filesystem support'
   'fuse3: live on NTFS (dmsquash-live-ntfs module)'
-  'gnupg: gpg for crypto operations and smartcards'
   'gzip: gzip compression'
   'iproute2: legacy networking support'
   'iputils: networking support'
-  'jq: NVMe-oF support (nvmf module)'
   'lvm2: support Logical Volume Manager'
   'lzop: lzop compression'
   'mdadm: support MD devices, also known as software RAID devices'
-  'memstrack: memstrack module support'
-  'multipath-tools: multipath dracut module support'
+  'multipath-tools: dmraid dracut module support'
   'nbd: support network block devices'
   'ndctl: NVDIMM support'
   'networkmanager: networkmanager support'
@@ -71,11 +64,8 @@ optdepends=(
   'openssh: install ssh and scp along with config files and specified keys (ssh-client module)'
   'pigz: faster gzip compression'
   'plymouth: plymouth boot splash'
-  'qrencode: systemd-bsod'
   'rng-tools: enable rngd service to help generating entropy early during boot'
-  'rsyslog: enable logging with rsyslog'
   'sbsigntools: uefi_secureboot_cert/key configuration option support'
-  'systemd-ukify: Unified Kernel Image'
   'squashfs-tools: support for building a squashed initramfs'
   'tar: live tar image'
   'tpm2-tools: tpm2 support for e.g. LUKS'
@@ -140,20 +130,26 @@ prepare() {
     patch -Np1 < "../$src"
   done
 
-  # remove dracut modules not meant for arch x86_64
-  for f in 45ifcfg 80cms 81cio_ignore 90ppcmac 91zipl \
-    95dasd 95dasd_mod 95dasd_rules 95dcssblk 95fcoe* \
-    95qeth_rules 95zfcp 95zfcp_rules 95znet; do
-    rm -rf modules.d/$f
+ # remove dracut modules not meant for arch x86_64
+  for f in cms cio_ignore ppcmac zipl \
+    dasd dasd_mod dasd_rules dcssblk fcoe* \
+    qeth_rules zfcp zfcp_rules znet; do
+    rm -rf "modules.d/[0-9][0-9]$f"
   done
 }
 
 build() {
+  local prefix=/usr sysconfdir=/etc
+
   cd "${pkgname}"
 
-  ./configure  \
-    --sysconfdir=/etc
-
+  ./configure \
+    --sysconfdir=${sysconfdir} \
+    --prefix=${prefix} \
+    --libdir=${prefix}/lib \
+    --systemdsystemunitdir=${prefix}/lib/systemd/system \
+    --bashcompletiondir=$(pkg-config --variable=completionsdir bash-completion) \
+    --enable-dracut-cpio
   make
 }
 
