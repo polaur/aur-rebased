@@ -4,7 +4,7 @@
 # Contributor: Thomas Bächler <thomas@archlinux.org> ([core] package)
 
 pkgname=mkinitcpio-git
-pkgver=39.1.r56.g815fb37
+pkgver=39.1.r92.g0f0e3f4
 pkgrel=1
 pkgdesc='Modular initramfs image creation utility - git checkout'
 arch=('any')
@@ -23,8 +23,10 @@ optdepends=('xz: Use lzma or xz compression for the initramfs image'
 provides=('mkinitcpio' 'initramfs')
 conflicts=('mkinitcpio')
 backup=('etc/mkinitcpio.conf')
-source=('git+https://gitlab.archlinux.org/archlinux/mkinitcpio/mkinitcpio')
-sha256sums=('SKIP')
+source=('git+https://gitlab.archlinux.org/archlinux/mkinitcpio/mkinitcpio'
+        'disable-fallback.patch')
+sha256sums=('SKIP'
+            '5f6a28aaa7baad2bdc062ed8213914870c0831fd8e9174af2d8cde80f04e792d')
 
 _backports=(
 )
