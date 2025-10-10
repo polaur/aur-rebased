@@ -7,6 +7,7 @@ _kernelname=-usermodelinux
 _major=6.17
 _minor=1
 pkgver=${_major}.${_minor}
+#pkgver=${_major}
 _srcname=linux-${pkgver}
 pkgrel=1
 pkgdesc="User mode Linux kernel and modules"
