@@ -3,7 +3,7 @@
 
 pkgbase=git-test-git
 pkgname=(git-test-git git-test-zsh-completion-git)
-pkgver=2.51.1.683.g3aa8f9e72b
+pkgver=2.51.2.794.g507d964a00
 pkgrel=1
 pkgdesc="A fast distributed version control system"
 arch=('x86_64')
@@ -63,9 +63,6 @@ build() {
 #check() {
 #  cd "$_gitname"
 
-# place the socket in /tmp to make the test succeed
-#  sed -i '/eval/s|ssh-agent|ssh-agent -T|' t/t7528-signed-commit-ssh.sh
-
 #local jobs
 #  jobs=$(expr "$MAKEFLAGS" : '.*\(-j[0-9]*\).*') || true
 #  mkdir -p /dev/shm/git-test
@@ -79,12 +76,7 @@ build() {
 #    GIT_PROVE_OPTS="$jobs -Q" \
 #    GIT_TEST_OPTS="--root=/dev/shm/git-test" \
 #    test
-
-# undo changes to source dir to no have .dirty in version
-#  git restore -- .
-
 #}
-
 
 package_git-test-git() {
   optdepends=('git-zsh-completion: upstream zsh completion'
