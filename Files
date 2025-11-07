@@ -197,16 +197,6 @@
 │   └── PKGBUILD
 ├── otter-browser-git
 │   └── PKGBUILD
-├── pacman-git
-│   ├── 78cd453.patch
-│   ├── alpm.sysusers
-│   ├── disable-always-stale.patch
-│   ├── fix-alpm-crate-for-aarch64.patch
-│   ├── makepkg.conf
-│   ├── pacman.conf
-│   ├── PKGBUILD
-│   ├── rust.conf
-│   └── static_sqlite.patch
 ├── photivo-git
 │   └── PKGBUILD
 ├── pkgbuild-introspection-lucjan-git
@@ -261,4 +251,4 @@
 └── zstd-git
     └── PKGBUILD
 
-91 directories, 171 files
+90 directories, 162 files
