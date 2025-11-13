@@ -3,8 +3,9 @@
 # Contributor: Pablo Lezaeta <prflr88@gmail.com_
 
 pkgname=dracut-git
-pkgver=108.r116.gf879b04d
+pkgver=109.r13.gc80025d6
 pkgrel=1
+epoch=1
 pkgdesc="An event driven initramfs infrastructure"
 arch=('x86_64')
 url="https://github.com/dracut-ng/dracut-ng"
@@ -143,13 +144,9 @@ build() {
 
   cd "${pkgname}"
 
-  ./configure \
-    --sysconfdir=${sysconfdir} \
-    --prefix=${prefix} \
-    --libdir=${prefix}/lib \
-    --systemdsystemunitdir=${prefix}/lib/systemd/system \
-    --bashcompletiondir=$(pkg-config --variable=completionsdir bash-completion) \
-    --enable-dracut-cpio
+  ./configure  \
+    --sysconfdir=/etc
+
   make
 }
 
