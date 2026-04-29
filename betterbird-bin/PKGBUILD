@@ -3,8 +3,8 @@
 
 pkgname=betterbird-bin
 _pkgname=betterbird
-_pkgver=140.9.0esr
-_build=bb20
+_pkgver=140.10.0esr
+_build=bb21
 _ver=build2
 #_ver=hotfix
 _directory=LinuxArchive
@@ -42,6 +42,6 @@ package() {
     done
 }
 
-sha256sums=('62d040cb5bf3e7d35ece4d26700f9324f3e17367648421e5e177c7d19a393024'
+sha256sums=('521e79c569ff723a08bad5f6c5d33f8d45b0f5cd80b3c3f87de7cae4a42d6d0a'
             'dde5f71088162b89c7ea56508c06441e6e1e717206f781c00657cb71d96d44cd'
             'b11745416d2b2f8bac1ccd3dcb99411c7239b067adf9eb973903c448f8747d09')
