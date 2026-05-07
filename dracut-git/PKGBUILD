@@ -3,12 +3,12 @@
 # Contributor: Pablo Lezaeta <prflr88@gmail.com_
 
 pkgname=dracut-git
-pkgver=109.r13.gc80025d6
+pkgver=111.r1.gec420d9b
 pkgrel=1
 epoch=1
 pkgdesc="An event driven initramfs infrastructure"
 arch=('x86_64')
-url="https://github.com/dracut-ng/dracut-ng"
+url="https://github.com/dracut-ng/dracut"
 license=('GPL-2.0-or-later')
 depends=(
   'bash'
