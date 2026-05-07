@@ -7,13 +7,13 @@
 
 pkgname=jujutsu-git
 _gitname=jj
-pkgver=0.34.0.r72.gba4831723
+pkgver=0.41.0.r4.g227a135b9
 pkgrel=1
 pkgdesc='Git-compatible VCS that is both simple and powerful'
 arch=(x86_64)
 url="https://github.com/jj-vcs/$_gitname"
 license=(Apache-2.0)
-depends=(gcc-libs # libgcc_s.so ld-linux-x86-64.so
+depends=(libgcc # libgcc_s.so ld-linux-x86-64.so
          git
          glibc # libc.so libm.so
          zstd)
@@ -37,8 +37,7 @@ pkgver() {
 prepare() {
 	cd "$pkgname"
 	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
-	mkdir -p completions
-	mkdir -p manpages
+	mkdir -p completions manpages
 }
 
 build() {
