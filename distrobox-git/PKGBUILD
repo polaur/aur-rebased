@@ -1,0 +1,32 @@
+# Maintainer: Piotr Górski <lucjan.lucjanov@gmail.com>
+# Contributor: robertfoster
+
+pkgname=distrobox-git
+pkgver=2.0.0.r4.g4bb853d
+pkgrel=1
+pkgdesc="Use any linux distribution inside your terminal."
+arch=('x86_64')
+url="https://github.com/89luca89/distrobox"
+license=('GPL3')
+provides=("${pkgname%-git}")
+conflicts=("${pkgname%-git}")
+makedepends=('git')
+optdepends=(
+  'docker: enable docker usage'
+  'podman: enable podman usage'
+)
+source=("${pkgname%-git}::git+${url}")
+sha256sums=('SKIP')
+
+pkgver() {
+  cd "$srcdir/${pkgname%-git}"
+  git describe --long --tags | sed 's/v//; s/-rc\.[0-9]\+//; s/\([^-]*-g\)/r\1/; s/-/./g'
+}
+
+package() {
+  cd "${srcdir}/${pkgname%-git}"
+  ./install -P "${pkgdir}/usr"
+
+  find docs -name "*.md" \
+    -exec install -Dm 644 -t "${pkgdir}/usr/share/doc/${pkgname%-git}" {} +
+}
