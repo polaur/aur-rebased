@@ -3,8 +3,8 @@
 
 pkgname=betterbird-bin
 _pkgname=betterbird
-_pkgver=140.13.0esr
-_build=bb25
+_pkgver=153.2.0esr
+_build=bb8
 _ver=build2
 #_ver=hotfix
 _directory=LinuxArchive
@@ -17,7 +17,8 @@ license=('MPL2')
 depends=('dbus-glib')
 provides=('betterbird')
 source=(
-    "https://www.betterbird.eu/downloads/${_directory}/${_pkgname}-${_pkgver//_/-}-${_build}.en-US.linux-x86_64.tar.xz"
+    "https://www.betterbird.eu/downloads/${_directory}/${_pkgname}-${_pkgver//_/-}-${_build}-latest-build.en-US.linux-x86_64.tar.xz"
+    #"https://www.betterbird.eu/downloads/${_directory}/${_pkgname}-${_pkgver//_/-}-${_build}.en-US.linux-x86_64.tar.xz"
     #"https://www.betterbird.eu/downloads/${_directory}/${_pkgname}-${_pkgver//_/-}-${_build}-${_ver}.en-US.linux-x86_64.tar.xz"
     "eu.betterbird.Betterbird.desktop"
     "vendor-prefs.js"
@@ -42,6 +43,6 @@ package() {
     done
 }
 
-sha256sums=('d346c0c6c4f8dcde204f97f2d780d685530b9163d864bccd5c149456394ba1c0'
+sha256sums=('90243765d82766bfcebf38d6da80b2f5daee40c925a521e91a8e35315ea41928'
             'dde5f71088162b89c7ea56508c06441e6e1e717206f781c00657cb71d96d44cd'
             'b11745416d2b2f8bac1ccd3dcb99411c7239b067adf9eb973903c448f8747d09')
