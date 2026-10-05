@@ -3,7 +3,35 @@
 all=0
 lines=()
 # Read the optional config file for automation
-[[ -f /etc/dracut-cachyos.conf ]] && source /etc/dracut-cachyos.conf
+if [[ -f /etc/devario-dracut.conf ]]; then
+	source /etc/devario-dracut.conf
+elif [[ -f /etc/dracut-cachyos.conf ]]; then
+	# Compatibility with the pre-rename configuration path
+	source /etc/dracut-cachyos.conf
+fi
+
+nvidia_modules="nvidia nvidia_modeset nvidia_uvm nvidia_drm"
+amd_modules="amdgpu"
+intel_modules="i915 xe"
+
+# Add every module from the given list that exists for ${kver}.
+# Usage: add_early_kms <label> <module>...
+add_early_kms() {
+	local label=$1 module
+	local found=()
+	shift
+	for module in "$@"; do
+		if modinfo -k "${kver}" "${module}" &> /dev/null; then
+			found+=("${module}")
+		fi
+	done
+	if (( ${#found[@]} )); then
+		echo ":: Including ${label} modules (${found[*]}) for ${pkgbase} (${kver})"
+		extra_args+=(--add-drivers " ${found[*]} ")
+	else
+		echo ":: ${label} modules not found for ${kver}, skipping early KMS"
+	fi
+}
 
 while read -r line; do
 	if [[ "${line}" != */vmlinuz ]]; then
@@ -33,16 +61,32 @@ for line in "${lines[@]}"; do
 	pkgbase="$(<"${line}/pkgbase")"
 	kver="${line##*/}"
 
+	extra_args=()
+	if [[ ${NVIDIA_EARLY_KMS} == "true" ]]; then
+		if modinfo -k "${kver}" nvidia &> /dev/null; then
+			echo ":: Including NVIDIA modules for ${pkgbase} (${kver})"
+			extra_args+=(--add-drivers " ${nvidia_modules} ")
+		else
+			echo ":: NVIDIA modules not found for ${kver}, skipping early KMS"
+		fi
+	fi
+	if [[ ${AMD_EARLY_KMS} == "true" ]]; then
+		add_early_kms AMD ${amd_modules}
+	fi
+	if [[ ${INTEL_EARLY_KMS} == "true" ]]; then
+		add_early_kms Intel ${intel_modules}
+	fi
+
 	echo ":: Building initramfs for ${pkgbase} (${kver})"
-	dracut --force --hostonly --no-hostonly-cmdline${DRACUT_EXTRA_PARAMS} /boot/initramfs-${pkgbase}.img "${kver}"
+	dracut --force --hostonly --no-hostonly-cmdline${DRACUT_EXTRA_PARAMS} "${extra_args[@]}" /boot/initramfs-${pkgbase}.img "${kver}"
 
 	if [[ ${NO_DRACUT_FALLBACK} != "true" ]]; then
 		echo ":: Building fallback initramfs for ${pkgbase} (${kver})"
-		dracut --force --no-hostonly${DRACUT_EXTRA_PARAMS} "/boot/initramfs-${pkgbase}-fallback.img" "${kver}"
+		dracut --force --no-hostonly${DRACUT_EXTRA_PARAMS} "${extra_args[@]}" "/boot/initramfs-${pkgbase}-fallback.img" "${kver}"
 	fi
 
 	if [[ ${BUILD_UKI} == "true" ]]; then
 		echo ":: Building UKI for ${pkgbase} (${kver})"
-		dracut --hostonly --uefi${DRACUT_EXTRA_PARAMS} "/boot/EFI/Linux/${pkgbase}.efi" --kver "$kver" --force
+		dracut --hostonly --uefi${DRACUT_EXTRA_PARAMS} "${extra_args[@]}" "/boot/EFI/Linux/${pkgbase}.efi" --kver "$kver" --force
 	fi
 done
