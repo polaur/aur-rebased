@@ -4,8 +4,8 @@
 # Contributor: Thomas Bächler <thomas@archlinux.org> ([core] package)
 
 pkgname=mkinitcpio-git
-gitname=mkinitcpio
-pkgver=41.1.r12.gf76a893
+_pkgname=mkinitcpio
+pkgver=42.2.r3.g3b614da
 pkgrel=1
 pkgdesc='Modular initramfs image creation utility - git checkout'
 arch=('any')
@@ -63,16 +63,16 @@ prepare() {
   done
 }
 
+
 build(){
-  arch-meson -Dsystemd_hooks=true "$gitname" build
-  meson compile -C build
+	arch-meson -Dsystemd_hooks=true "$_pkgname" build
+	meson compile -C build
 }
 
 check() {
-  meson test -C build
+	meson test -C build
 }
 
 package() {
-  meson install -C build --destdir "$pkgdir"
+	meson install -C build --destdir "$pkgdir"
 }
-
